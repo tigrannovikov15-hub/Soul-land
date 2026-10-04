@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<title>Боевой Континент: Путь Души</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --bg:#0b0d1c; --bg2:#141a35; --gold:#f7c948; --blue:#4a7cff;
+    --purple:#a06bff; --red:#ff4d5e; --green:#3ddc84; --text:#eaf0ff;
+    --panel:rgba(20,26,53,.92); --border:rgba(247,201,72,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(circle at 50% 0%,#1a2350 0%,var(--bg) 60%);
+    color:var(--text);font-family:-apple-system,'Segoe UI',Roboto,sans-serif;
+    overflow:hidden;user-select:none;
+  }
+  #app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;position:relative}
+  header{
+    padding:10px 12px;display:flex;gap:8px;align-items:center;
+    background:rgba(11,13,28,.85);border-bottom:1px solid var(--border);
+    backdrop-filter:blur(8px);z-index:10;
+  }
+  header .stat{flex:1;text-align:center;font-size:11px}
+  header .stat b{display:block;font-size:14px;color:var(--gold)}
+  main{flex:1;overflow-y:auto;padding:14px;position:relative}
+  .screen{display:none;animation:fade .3s ease}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+  h1{font-size:22px;color:var(--gold);margin-bottom:4px;text-align:center;letter-spacing:1px}
+  h2{font-size:18px;color:var(--gold);margin-bottom:10px}
+  .sub{font-size:12px;color:#9aa6c8;text-align:center;margin-bottom:14px}
+  .card{
+    background:var(--panel);border:1px solid var(--border);border-radius:14px;
+    padding:12px;margin-bottom:10px;
+  }
+  .btn{
+    width:100%;padding:13px;border:none;border-radius:12px;font-size:15px;font-weight:700;
+    cursor:pointer;background:linear-gradient(135deg,#f7c948,#e09b1b);color:#1a1400;
+    transition:transform .1s,box-shadow .2s;box-shadow:0 4px 14px rgba(247,201,72,.25);
+  }
+  .btn:active{transform:scale(.97)}
+  .btn.sec{background:linear-gradient(135deg,#3a4488,#242a55);color:#eaf0ff;box-shadow:0 4px 14px rgba(74,124,255,.2)}
+  .btn.danger{background:linear-gradient(135deg,#ff5566,#b62030);color:#fff}
+  .btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+  .row{display:flex;gap:8px}
+  .row .btn{flex:1}
+  .rarity-common{border-color:#6a7ab0}
+  .rarity-epic{border-color:#a06bff;box-shadow:0 0 14px rgba(160,107,255,.4)}
+  .rarity-legendary{border-color:#f7c948;box-shadow:0 0 18px rgba(247,201,72,.5)}
+  .soul-card{
+    background:linear-gradient(160deg,#1c2450,#0e1330);
+    border:2px solid var(--border);border-radius:14px;padding:12px;margin-bottom:8px;
+  }
+  .soul-card .name{font-size:15px;font-weight:700;color:var(--gold)}
+  .soul-card .meta{font-size:11px;color:#9aa6c8;margin:2px 0 6px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:11px}
+  .stats div{background:rgba(255,255,255,.05);padding:4px;border-radius:6px;text-align:center}
+  .stats b{color:var(--gold);display:block;font-size:13px}
+
+  .fighter{display:flex;justify-content:space-between;gap:8px;margin-bottom:12px}
+  .fighter .unit{flex:1;text-align:center}
+  .fighter .unit .avatar{
+    width:64px;height:64px;border-radius:50%;margin:0 auto 6px;
+    display:flex;align-items:center;justify-content:center;font-size:30px;
+    border:2px solid var(--border);background:#0e1330;
+  }
+  .fighter .unit .avatar.enemy{border-color:var(--red)}
+  .fighter .unit .avatar.player{border-color:var(--gold)}
+  .hpbar{height:10px;background:#2a2f4d;border-radius:6px;overflow:hidden;margin-top:4px}
+  .hpbar>div{height:100%;background:linear-gradient(90deg,#3ddc84,#22a05a);transition:width .3s}
+  .hpbar.enemy>div{background:linear-gradient(90deg,#ff4d5e,#a01828)}
+  .hp-text{font-size:10px;color:#9aa6c8;margin-top:2px}
+  .logbox{
+    background:#080b1c;border:1px solid var(--border);border-radius:10px;
+    padding:8px;height:140px;overflow-y:auto;font-size:12px;margin-bottom:10px;
+  }
+  .logbox .l{padding:2px 0;border-bottom:1px dashed rgba(255,255,255,.05)}
+  .logbox .l.dmg{color:#ff8d96}
+  .logbox .l.heal{color:#7cffb0}
+  .logbox .l.sys{color:var(--gold);font-weight:600}
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+  .absorb-zone{position:relative;height:56px;background:#080b1c;border-radius:10px;
+    border:1px solid var(--border);overflow:hidden;margin:14px 0}
+  .absorb-zone .target{position:absolute;left:50%;top:0;height:100%;width:22%;
+    transform:translateX(-50%);background:linear-gradient(180deg,rgba(61,220,132,.2),rgba(61,220,132,.5));
+    border-left:2px solid var(--green);border-right:2px solid var(--green)}
+  .absorb-zone .cursor{position:absolute;left:0;top:0;height:100%;width:4px;background:var(--gold);
+    box-shadow:0 0 12px var(--gold)}
+
+  .float-dmg{position:absolute;font-weight:800;font-size:20px;color:#ff5566;
+    pointer-events:none;animation:floatUp 1s ease-out forwards}
+  @keyframes floatUp{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-40px)}}
+
+  .badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:700}
+  .badge.legendary{background:var(--gold);color:#1a1400}
+  .badge.epic{background:var(--purple);color:#fff}
+  .badge.common{background:#3a4488;color:#c8d2ff}
+  .ring{display:inline-block;width:14px;height:14px;border-radius:50%;margin:0 2px;vertical-align:middle}
+  .ring.yellow{background:radial-gradient(circle,#ffe680,#c9a417)}
+  .ring.purple{background:radial-gradient(circle,#d3a5ff,#7a3ee0)}
+  .ring.black{background:radial-gradient(circle,#6a6a7a,#141418);border:1px solid #7c7c8c}
+  .ring.red{background:radial-gradient(circle,#ff7a85,#a01020)}
+  footer{font-size:10px;text-align:center;color:#5a6384;padding:6px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="stat">Ур.<b id="hud-level">1</b></div>
+    <div class="stat">Ранг<b id="hud-rank">Ученик</b></div>
+    <div class="stat">Золото<b id="hud-gold">0</b></div>
+    <div class="stat">Энергия<b id="hud-energy">50</b></div>
+  </header>
+  <main id="main">
+    <section class="screen active" id="screen-awaken">
+      <h1>Пробуждение Души</h1>
+      <p class="sub">Тебе шесть лет. Пора узнать, какая Боевая Душа дремлет в твоей крови.</p>
+      <div class="card" style="text-align:center;font-size:14px">
+        🗿 Алтарь Святого Духа готов.<br>Нажми, чтобы пробудить свою душу.
+      </div>
+      <button class="btn" id="btn-awaken">ПРОБУДИТЬ</button>
+    </section>
+
+    <section class="screen" id="screen-menu">
+      <h1>Академия Шрека</h1>
+      <p class="sub">Ты — Мастер Души. Стань сильнее.</p>
+
+      <div class="card soul-card" id="my-soul-card"></div>
+
+      <div class="card">
+        <h2>Действия</h2>
+        <button class="btn" id="btn-hunt" style="margin-bottom:8px">🌲 Охота на духовного зверя</button>
+        <button class="btn sec" id="btn-arena" style="margin-bottom:8px">⚔️ Арена (боевой дух)</button>
+        <button class="btn sec" id="btn-collection">📜 Моя коллекция</button>
+      </div>
+
+      <div class="card">
+        <h2>Тренировка</h2>
+        <button class="btn sec" id="btn-train" style="margin-bottom:8px">🧘 Медитация (+опыт, -10 энергии)</button>
+        <button class="btn sec" id="btn-rest">💤 Отдохнуть (+30 энергии)</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-battle">
+      <div class="fighter" id="fighter">
+        <div class="unit">
+          <div class="avatar player" id="p-avatar">🧑</div>
+          <div id="p-name" style="font-size:12px;font-weight:700">Игрок</div>
+          <div class="hpbar"><div id="p-hpbar" style="width:100%"></div></div>
+          <div class="hp-text" id="p-hp">100/100</div>
+        </div>
+        <div class="unit">
+          <div class="avatar enemy" id="e-avatar">👹</div>
+          <div id="e-name" style="font-size:12px;font-weight:700">Враг</div>
+          <div class="hpbar enemy"><div id="e-hpbar" style="width:100%"></div></div>
+          <div class="hp-text" id="e-hp">100/100</div>
+        </div>
+      </div>
+      <div class="logbox" id="log"></div>
+      <div class="actions" id="actions"></div>
+    </section>
+
+    <section class="screen" id="screen-absorb">
+      <h1>Поглощение Кольца</h1>
+      <p class="sub">Сядь в позу лотоса. Сконцентрируйся. Попади в зелёную зону.</p>
+      <div class="card">
+        <div id="ring-info" style="text-align:center;margin-bottom:10px"></div>
+        <div class="absorb-zone" id="absorb-zone">
+          <div class="target"></div>
+          <div class="cursor" id="absorb-cursor"></div>
+        </div>
+        <p class="sub" style="margin:4px 0">Попыток: <b id="absorb-tries">1</b></p>
+        <button class="btn" id="btn-absorb-tap">ПОГЛОТИТЬ</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-collection">
+      <h1>Коллекция Душ</h1>
+      <p class="sub">Все пробуждённые Боевые Души</p>
+      <div id="collection-list"></div>
+      <button class="btn sec" id="btn-back-from-collection">← Назад</button>
+    </section>
+  </main>
+  <footer>Боевой Континент · Telegram Mini App · MVP v1.0</footer>
+</div>
+
+<script>
+const SOULS = [
+  { code:'blue_silver_dragon', name:'Синий Серебряный Дракон', emoji:'🐉',
+    type:'beast', rarity:'legendary', str:7,def:6,spd:5,spr:8,
+    skills:[
+      {name:'Драконье Дыхание', type:'damage_aoe', mult:1.4, freeze:0.3, desc:'Урон всем + 30% шанс заморозки'},
+      {name:'Ледяная Хватка', type:'debuff', mult:1.0, slow:0.4, desc:'Замедляет врага (-40% SPD)'}
+    ], passive:'+15% сопротивления контролю', weight:10 },
+  { code:'blue_tiger', name:'Голубой Светящийся Тигр', emoji:'🐯',
+    type:'beast', rarity:'epic', str:9,def:5,spd:7,spr:3,
+    skills:[
+      {name:'Тигриный Удар', type:'damage', mult:1.8, crit:0.25, desc:'Мощный удар +25% крит'},
+      {name:'Белая Тигриная Ярость', type:'buff', mult:0, atkBuff:0.5, defDebuff:-0.2, desc:'+50% ATK, -20% DEF на 3 хода'}
+    ], passive:'При HP<30% — ATK +30%', weight:20 },
+  { code:'seven_color_mushroom', name:'Семицветный Гриб', emoji:'🍄',
+    type:'support', rarity:'epic', str:3,def:6,spd:5,spr:10,
+    skills:[
+      {name:'Целебная Пыльца', type:'heal', heal:0.3, desc:'Восстанавливает 30% HP'},
+      {name:'Семь Цветов', type:'buff', mult:0, allBuff:0.2, desc:'+20% ко всем статам на 3 хода'}
+    ], passive:'+5% HP регенерация каждый ход', weight:20 },
+  { code:'clear_sky_hammer', name:'Молот Чистого Неба', emoji:'🔨',
+    type:'weapon', rarity:'epic', str:8,def:7,spd:4,spr:5,
+    skills:[
+      {name:'Небесный Удар', type:'damage', mult:1.6, pierce:0.2, desc:'Игнорирует 20% защиты'},
+      {name:'Землетрясение', type:'damage', mult:1.2, stun:0.5, desc:'50% шанс оглушения'}
+    ], passive:'+10% урона по врагам с полным HP', weight:20 },
+  { code:'ice_phoenix', name:'Глаз Ледяного Феникса', emoji:'🦅',
+    type:'beast', rarity:'legendary', str:8,def:4,spd:8,spr:9,
+    skills:[
+      {name:'Ледяное Перо', type:'damage', mult:1.5, freeze:0.4, desc:'Урон + заморозка'},
+      {name:'Фениксовый Рёв', type:'damage_aoe', mult:1.3, cleanse:true, desc:'Урон всем + снятие дебаффов'}
+    ], passive:'Возрождение с 30% HP (1 раз за бой)', weight:10 },
+  { code:'blood_bear', name:'Кровавый Демон-Медведь', emoji:'🐻',
+    type:'beast', rarity:'common', str:7,def:10,spd:3,spr:4,
+    skills:[
+      {name:'Медвежий Рык', type:'taunt', mult:0, taunt:2, desc:'Провокация на 2 хода (DEF +50%)'},
+      {name:'Кровавый Панцирь', type:'shield', mult:0, shield:0.3, desc:'Щит на 30% макс.HP'}
+    ], passive:'Восстанавливает 15% нанесённого урона как HP', weight:20 }
+];
+
+const BEASTS = [
+  {name:'Древесный Волк', emoji:'🐺', age:10, ring:'yellow', hp:80, atk:12, def:6, spd:5, exp:30, gold:40},
+  {name:'Каменный Скорпион', emoji:'🦂', age:100, ring:'yellow', hp:140, atk:18, def:12, spd:7, exp:60, gold:80},
+  {name:'Пламенный Лис', emoji:'🦊', age:500, ring:'purple', hp:220, atk:26, def:16, spd:11, exp:120, gold:160},
+  {name:'Ледяной Скорпион', emoji:'🦂', age:1000, ring:'purple', hp:340, atk:34, def:24, spd:10, exp:220, gold:280, boss:true},
+  {name:'Красный Дракон', emoji:'🐲', age:10000, ring:'black', hp:520, atk:52, def:34, spd:14, exp:400, gold:520, boss:true},
+  {name:'Императорский Феникс', emoji:'🔥', age:100000, ring:'red', hp:800, atk:78, def:48, spd:18, exp:800, gold:1200, boss:true}
+];
+
+const RANKS = [
+  {min:1,  name:'Ученик'},
+  {min:10, name:'Мастер Души'},
+  {min:20, name:'Мастер Души II'},
+  {min:30, name:'Мастер Души III'},
+  {min:40, name:'Доуло'},
+  {min:50, name:'Доуло II'},
+  {min:60, name:'Титулованный Доуло'},
+  {min:70, name:'Бог Души'}
+];
+
+const RING_COLORS = {yellow:'#f7d24d', purple:'#a06bff', black:'#5a5a6a', red:'#ff4d5e'};
+
+const SAVE_KEY = 'soul_land_save_v1';
+let state = loadState();
+
+function defaultState(){
+  return {
+    level:1, exp:0, expNext:100, gold:200, energy:50, maxEnergy:50,
+    souls:[], activeSoul:null, awakened:false, tutorialDone:false, battlesWon:0
+  };
+}
+function saveState(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(state)); }catch(e){} }
+function loadState(){
+  try{ const raw = localStorage.getItem(SAVE_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return defaultState();
+}
+function resetGame(){
+  if(confirm('Начать заново?')){ state = defaultState(); saveState(); location.reload(); }
+}
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+function rankOf(level){
+  let r = RANKS[0].name;
+  for(const x of RANKS) if(level >= x.min) r = x.name;
+  return r;
+}
+
+function updateHUD(){
+  $('#hud-level').textContent = state.level;
+  $('#hud-rank').textContent = rankOf(state.level);
+  $('#hud-gold').textContent = state.gold;
+  $('#hud-energy').textContent = state.energy;
+}
+
+function show(id){
+  $$('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) el.classList.add('active');
+  $('#main').scrollTop = 0;
+}
+
+function weightedRandomSoul(){
+  const total = SOULS.reduce((s,x)=>s+x.weight,0);
+  let r = Math.random()*total;
+  for(const s of SOULS){ r -= s.weight; if(r<=0) return s; }
+  return SOULS[0];
+}
+
+function computeStats(soul, level, rings){
+  const ringsBonus = rings.reduce((acc,r)=>{
+    acc.str += r.strBonus||0; acc.def += r.defBonus||0;
+    acc.spd += r.spdBonus||0; acc.spr += r.sprBonus||0;
+    return acc;
+  }, {str:0,def:0,spd:0,spr:0});
+  const lvlMul = 1 + (level-1)*0.08;
+  return {
+    str: Math.round((soul.str + ringsBonus.str) * lvlMul),
+    def: Math.round((soul.def + ringsBonus.def) * lvlMul),
+    spd: Math.round((soul.spd + ringsBonus.spd) * lvlMul),
+    spr: Math.round((soul.spr + ringsBonus.spr) * lvlMul),
+    maxHp: Math.round(60 + (soul.def + soul.str)*6 * lvlMul),
+    atk: Math.round(8 + (soul.str + soul.spr)*2 * lvlMul)
+  };
+}
+
+function awaken(){
+  const tmpl = weightedRandomSoul();
+  const newSoul = { code: tmpl.code, level:1, rings:[], awakenedAt: Date.now() };
+  state.souls.push(newSoul);
+  state.activeSoul = state.souls.length - 1;
+  state.awakened = true;
+  saveState();
+  showAwakenResult(tmpl);
+}
+
+function showAwakenResult(tmpl){
+  const main = $('#main');
+  $('#screen-awaken').classList.remove('active');
+  const html = `
+    <h1>Пробуждение!</h1>
+    <p class="sub">Из твоей крови поднялась Боевая Душа:</p>
+    <div class="card soul-card rarity-${tmpl.rarity}" style="text-align:center">
+      <div style="font-size:64px;margin:8px 0">${tmpl.emoji}</div>
+      <div class="name" style="font-size:18px">${tmpl.name}</div>
+      <div class="meta">${tmpl.type==='beast'?'Звериная':tmpl.type==='weapon'?'Оружие':'Вспомогательная'} · ${tmpl.rarity.toUpperCase()}</div>
+      <div class="stats" style="margin-top:8px">
+        <div>Сила<b>${tmpl.str}</b></div>
+        <div>Защита<b>${tmpl.def}</b></div>
+        <div>Скорость<b>${tmpl.spd}</b></div>
+        <div>Дух<b>${tmpl.spr}</b></div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:#9aa6c8">
+        <b style="color:var(--gold)">Навык 1:</b> ${tmpl.skills[0].name}<br>
+        <span style="font-size:11px">${tmpl.skills[0].desc}</span>
+      </div>
+      <div style="margin-top:6px;font-size:11px;color:#7c8bbf">Пассив: ${tmpl.passive}</div>
+    </div>
+    <button class="btn" id="btn-awaken-done">В АКАДЕМИЮ →</button>
+  `;
+  const section = document.createElement('section');
+  section.className = 'screen active';
+  section.id = 'screen-awaken-result';
+  section.innerHTML = html;
+  main.appendChild(section);
+  $('#screen-awaken').style.display = 'none';
+  $('#btn-awaken-done').onclick = () => {
+    section.remove();
+    state.tutorialDone = true;
+    saveState();
+    goMenu();
+  };
+  section.style.animation = 'fade .5s ease';
+}
+
+function goMenu(){
+  updateHUD();
+  const soul = state.souls[state.activeSoul];
+  if(!soul){ show('screen-awaken'); return; }
+  const tmpl = SOULS.find(s => s.code === soul.code);
+  const stats = computeStats(tmpl, soul.level, soul.rings);
+  const ringsHtml = soul.rings.map(r=>`<span class="ring ${r.color}" title="${r.ageYears} лет"></span>`).join('') || '<span style="color:#5a6384;font-size:11px">нет колец</span>';
+
+  $('#my-soul-card').className = `card soul-card rarity-${tmpl.rarity}`;
+  $('#my-soul-card').innerHTML = `
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="font-size:44px">${tmpl.emoji}</div>
+      <div style="flex:1">
+        <div class="name">${tmpl.name}</div>
+        <div class="meta">Уровень души ${soul.level} · ${tmpl.rarity}</div>
+        <div style="margin-top:4px">Кольца: ${ringsHtml}</div>
+      </div>
+    </div>
+    <div class="stats" style="margin-top:10px">
+      <div>Сила<b>${stats.str}</b></div>
+      <div>Защита<b>${stats.def}</b></div>
+      <div>Скорость<b>${stats.spd}</b></div>
+      <div>Дух<b>${stats.spr}</b></div>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:#9aa6c8">
+      HP: <b style="color:var(--gold)">${stats.maxHp}</b> · ATK: <b style="color:var(--gold)">${stats.atk}</b>
+      · До следующего уровня: <b>${state.exp}/${state.expNext}</b>
+    </div>
+  `;
+  show('screen-menu');
+}
+
+let battle = null;
+
+function startBattle(beast, mode='pve'){
+  const soul = state.souls[state.activeSoul];
+  const tmpl = SOULS.find(s=>s.code===soul.code);
+  const st = computeStats(tmpl, soul.level, soul.rings);
+
+  battle = {
+    mode, beast,
+    p: { name: tmpl.name, emoji: tmpl.emoji, hp: st.maxHp, maxHp: st.maxHp,
+         atk: st.atk, def: st.def, spd: st.spd, spr: st.spr,
+         skills: tmpl.skills, passive: tmpl.passive,
+         buffs: {atk:1, def:1, spd:1, turns:0},
+         shield: 0, freezes: 0, stun: 0 },
+    e: { name: beast.name, emoji: beast.emoji, hp: beast.hp, maxHp: beast.hp,
+         atk: beast.atk, def: beast.def, spd: beast.spd, spr: 3,
+         buffs: {atk:1, def:1, spd:1, turns:0}, shield: 0, freezes: 0, stun: 0 },
+    turn: 0, over: false, reviveUsed: false, log: []
+  };
+
+  renderBattle();
+  show('screen-battle');
+  logMsg('⚔️ Начало боя: ' + tmpl.name + ' против ' + beast.name, 'sys');
+  setTimeout(nextTurn, 400);
+}
+
+function renderBattle(){
+  if(!battle) return;
+  const {p,e} = battle;
+  $('#p-avatar').textContent = p.emoji;
+  $('#p-name').textContent = p.name;
+  $('#p-hpbar').style.width = Math.max(0, p.hp/p.maxHp*100) + '%';
+  $('#p-hp').textContent = `${Math.max(0,Math.round(p.hp))}/${p.maxHp}`;
+
+  $('#e-avatar').textContent = e.emoji;
+  $('#e-name').textContent = e.name;
+  $('#e-hpbar').style.width = Math.max(0, e.hp/e.maxHp*100) + '%';
+  $('#e-hp').textContent = `${Math.max(0,Math.round(e.hp))}/${e.maxHp}`;
+}
+
+function logMsg(text, cls=''){
+  const box = $('#log');
+  const div = document.createElement('div');
+  div.className = 'l ' + cls;
+  div.textContent = text;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function floatDmg(side, val, color='#ff5566'){
+  const main = $('#main');
+  const el = document.createElement('div');
+  el.className = 'float-dmg';
+  el.style.color = color;
+  el.textContent = (val>0?'-':'+') + Math.abs(Math.round(val));
+  el.style.left = (side==='p' ? '25%' : '70%');
+  el.style.top = '110px';
+  main.appendChild(el);
+  setTimeout(()=>el.remove(), 1000);
+}
+
+function nextTurn(){
+  if(battle.over) return;
+  battle.turn++;
+  if(battle.turn > 40){ endBattle('draw'); return; }
+  showActions();
+}
+
+function showActions(){
+  const box = $('#actions');
+  box.innerHTML = '';
+  const p = battle.p;
+
+  addAction('👊 Атака', () => playerAction('attack'));
+  p.skills.forEach((sk, i) => {
+    addAction(`✨ ${sk.name}`, () => playerAction('skill'+i), sk.desc);
+  });
+  addAction('🛡 Защита', () => playerAction('defend'));
+}
+
+function addAction(label, fn, hint=''){
+  const btn = document.createElement('button');
+  btn.className = 'btn sec';
+  btn.style.fontSize = '13px';
+  btn.style.padding = '10px';
+  btn.textContent = label;
+  if(hint) btn.title = hint;
+  btn.onclick = () => { btn.disabled = true; fn(); };
+  $('#actions').appendChild(btn);
+}
+
+function playerAction(action){
+  const p = battle.p, e = battle.e;
+  if(battle.over) return;
+
+  if(p.stun > 0){
+    p.stun--;
+    logMsg(`${p.name} оглушён, пропускает ход`, 'sys');
+    setTimeout(enemyTurn, 500);
+    return;
+  }
+
+  if(action === 'attack'){
+    const crit = Math.random() < 0.1;
+    const dmg = calcDamage(p.atk * (crit?1.8:1), e.def);
+    applyDamageToEnemy(dmg);
+    logMsg(`${p.name} атакует${crit?' КРИТ!':''}: ${dmg} урона`, 'dmg');
+    floatDmg('e', dmg, crit?'#ffb84d':'#ff5566');
+  }
+  else if(action === 'defend'){
+    p.buffs.def *= 1.8; p.buffs.turns = 1;
+    logMsg(`${p.name} защищается (+80% DEF на 1 ход)`, 'sys');
+  }
+  else if(action.startsWith('skill')){
+    const idx = parseInt(action.replace('skill',''));
+    const sk = p.skills[idx];
+    if(!sk) return;
+    applySkill(p, e, sk);
+  }
+
+  renderBattle();
+  if(e.hp <= 0){ endBattle('win'); return; }
+  setTimeout(enemyTurn, 600);
+}
+
+function applySkill(user, target, sk){
+  switch(sk.type){
+    case 'damage': {
+      let dmg = calcDamage(user.atk * sk.mult, target.def, sk.pierce||0);
+      if(sk.crit && Math.random()<sk.crit) dmg = Math.round(dmg*1.5);
+      applyDamageToEnemy(dmg);
+      logMsg(`${user.name} использует «${sk.name}»: ${dmg} урона`, 'dmg');
+      floatDmg('e', dmg, '#ffb84d');
+      if(sk.freeze && Math.random()<sk.freeze){ target.freezes = 1; logMsg(`🧊 ${target.name} заморожен!`, 'sys'); }
+      if(sk.stun && Math.random()<sk.stun){ target.stun = 1; logMsg(`💫 ${target.name} оглушён!`, 'sys'); }
+      break;
+    }
+    case 'damage_aoe': {
+      const dmg = calcDamage(user.atk * sk.mult, target.def);
+      applyDamageToEnemy(dmg);
+      logMsg(`${user.name} применяет «${sk.name}»: ${dmg} урона всем`, 'dmg');
+      floatDmg('e', dmg, '#ffb84d');
+      if(sk.cleanse){ user.buffs.atk=1; user.buffs.def=1; user.buffs.spd=1; logMsg('✨ Дебаффы сняты', 'sys'); }
+      if(sk.freeze && Math.random()<sk.freeze){ target.freezes = 1; logMsg(`🧊 ${target.name} заморожен!`, 'sys'); }
+      break;
+    }
+    case 'heal': {
+      const heal = Math.round(user.maxHp * sk.heal);
+      user.hp = Math.min(user.maxHp, user.hp + heal);
+      logMsg(`${user.name} исцеляется на ${heal} HP`, 'heal');
+      floatDmg('p', -heal, '#7cffb0');
+      break;
+    }
+    case 'buff': {
+      if(sk.atkBuff) user.buffs.atk *= (1 + sk.atkBuff);
+      if(sk.defDebuff) user.buffs.def *= (1 + sk.defDebuff);
+      if(sk.allBuff){
+        user.buffs.atk *= (1 + sk.allBuff);
+        user.buffs.def *= (1 + sk.allBuff);
+        user.buffs.spd *= (1 + sk.allBuff);
+      }
+      user.buffs.turns = 3;
+      logMsg(`${user.name} усиливается: ${sk.name}`, 'sys');
+      break;
+    }
+    case 'debuff': {
+      target.buffs.spd *= (1 - (sk.slow||0.3));
+      logMsg(`${target.name} замедлен на ${Math.round((sk.slow||0.3)*100)}%`, 'sys');
+      break;
+    }
+    case 'taunt': {
+      user.buffs.def *= 1.5;
+      user.buffs.turns = sk.taunt || 2;
+      logMsg(`${user.name} принимает стойку: DEF +50% на ${sk.taunt} хода`, 'sys');
+      break;
+    }
+    case 'shield': {
+      user.shield = Math.round(user.maxHp * sk.shield);
+      logMsg(`🛡 ${user.name} получает щит ${user.shield}`, 'sys');
+      break;
+    }
+  }
+}
+
+function calcDamage(rawAtk, def, pierce=0){
+  const effDef = def * (1 - pierce);
+  const base = Math.max(1, rawAtk - effDef*0.5);
+  const variance = 0.85 + Math.random()*0.3;
+  return Math.round(base * variance);
+}
+
+function applyDamageToEnemy(dmg){
+  const e = battle.e;
+  let left = dmg;
+  if(e.shield > 0){
+    const absorbed = Math.min(e.shield, left);
+    e.shield -= absorbed; left -= absorbed;
+  }
+  e.hp -= left;
+}
+
+function enemyTurn(){
+  if(battle.over) return;
+  const e = battle.e, p = battle.p;
+
+  if(e.stun > 0){
+    e.stun--;
+    logMsg(`${e.name} оглушён, пропускает ход`, 'sys');
+    setTimeout(nextTurn, 500);
+    return;
+  }
+  if(e.freezes > 0){
+    e.freezes--;
+    logMsg(`${e.name} заморожен, пропускает ход`, 'sys');
+    setTimeout(nextTurn, 500);
+    return;
+  }
+
+  const heavy = Math.random() < 0.3;
+  const mult = heavy ? 1.6 : 1;
+  let dmg = calcDamage(e.atk * mult * e.buffs.atk, p.def * p.buffs.def);
+
+  if(p.shield > 0){
+    const absorbed = Math.min(p.shield, dmg);
+    p.shield -= absorbed; dmg -= absorbed;
+    if(absorbed>0) logMsg(`🛡 Щит поглотил ${Math.round(absorbed)} урона`, 'sys');
+  }
+  p.hp -= dmg;
+  logMsg(`${e.name}${heavy?' ЯРОСТНО':''} атакует: ${dmg} урона`, 'dmg');
+  floatDmg('p', dmg, '#ff5566');
+
+  const soul = state.souls[state.activeSoul];
+  const tmpl = SOULS.find(s=>s.code===soul.code);
+  if(tmpl.code === 'blood_bear' && dmg > 0){
+    const vamp = Math.round(dmg * 0.15);
+    p.hp = Math.min(p.maxHp, p.hp + vamp);
+    if(vamp>0) logMsg(`🩸 Вампиризм: +${vamp} HP`, 'heal');
+  }
+  if(tmpl.code === 'seven_color_mushroom'){
+    const reg = Math.round(p.maxHp * 0.05);
+    p.hp = Math.min(p.maxHp, p.hp + reg);
+  }
+
+  if(p.buffs.turns > 0){ p.buffs.turns--; if(p.buffs.turns===0){ p.buffs.atk=1; p.buffs.def=1; p.buffs.spd=1; } }
+
+  renderBattle();
+
+  if(p.hp <= 0){
+    if(tmpl.code === 'ice_phoenix' && !battle.reviveUsed){
+      battle.reviveUsed = true;
+      p.hp = Math.round(p.maxHp * 0.3);
+      logMsg('🔥 ФЕНИКС ВОЗРОЖДАЕТСЯ!', 'sys');
+      renderBattle();
+      setTimeout(nextTurn, 700);
+      return;
+    }
+    endBattle('lose');
+    return;
+  }
+  setTimeout(nextTurn, 400);
+}
+
+function endBattle(result){
+  battle.over = true;
+  $('#actions').innerHTML = '';
+
+  if(result === 'win'){
+    logMsg(`🏆 Победа над ${battle.e.name}!`, 'sys');
+    const beast = battle.beast;
+    state.gold += beast.gold;
+    state.battlesWon++;
+    gainExp(beast.exp);
+    saveState();
+    updateHUD();
+    setTimeout(() => { showRewardAndRing(beast); }, 600);
+  }
+  else if(result === 'lose'){
+    logMsg('💀 Поражение...', 'sys');
+    setTimeout(() => {
+      alert('Ты проиграл. Возвращайся сильнее.');
+      goMenu();
+    }, 600);
+  }
+  else {
+    logMsg('⏱ Ничья', 'sys');
+    setTimeout(()=>goMenu(), 800);
+  }
+}
+
+function gainExp(amount){
+  state.exp += amount;
+  while(state.exp >= state.expNext){
+    state.exp -= state.expNext;
+    state.level++;
+    state.expNext = Math.round(state.expNext * 1.4);
+  }
+  const soul = state.souls[state.activeSoul];
+  if(soul) soul.level = Math.max(soul.level, Math.ceil(state.level/2));
+}
+
+function showRewardAndRing(beast){
+  const soul = state.souls[state.activeSoul];
+  const tmpl = SOULS.find(s=>s.code===soul.code);
+  const maxRings = Math.min(9, Math.floor(state.level / 5) + 1);
+
+  if(soul.rings.length >= maxRings){
+    logMsg(`Нет свободных слотов для кольца (макс ${maxRings}). Повышай уровень!`, 'sys');
+    setTimeout(() => {
+      alert(`Победа! +${beast.gold} золота, +${beast.exp} опыта.\nНо нет свободных слотов для кольца. Прокачай уровень.`);
+      goMenu();
+    }, 500);
+    return;
+  }
+
+  showAbsorbScreen(beast, soul, tmpl);
+}
+
+let absorbState = null;
+
+function showAbsorbScreen(beast, soul, tmpl){
+  show('screen-absorb');
+  $('#ring-info').innerHTML = `
+    <div style="font-size:36px">💫</div>
+    <div style="margin-top:6px;font-size:14px">
+      Кольцо души <b style="color:${RING_COLORS[beast.ring]}">${ringName(beast.ring)}</b><br>
+      <span style="font-size:12px;color:#9aa6c8">Возраст: ${beast.age} лет</span>
+    </div>
+  `;
+
+  absorbState = {
+    beast, soul, tmpl,
+    pos: 0, dir: 1,
+    speed: 0.9 + Math.random()*0.8 + beast.age/50000,
+    tries: 1, running: true, raf: null, lastT: performance.now()
+  };
+  $('#absorb-tries').textContent = absorbState.tries;
+  $('#btn-absorb-tap').disabled = false;
+  $('#btn-absorb-tap').textContent = 'ПОГЛОТИТЬ';
+
+  const cursor = $('#absorb-cursor');
+  function loop(t){
+    if(!absorbState || !absorbState.running) return;
+    const dt = (t - absorbState.lastT) / 1000;
+    absorbState.lastT = t;
+    absorbState.pos += absorbState.dir * absorbState.speed * dt;
+    if(absorbState.pos >= 1){ absorbState.pos = 1; absorbState.dir = -1; }
+    if(absorbState.pos <= 0){ absorbState.pos = 0; absorbState.dir = 1; }
+    cursor.style.left = (absorbState.pos * 100) + '%';
+    absorbState.raf = requestAnimationFrame(loop);
+  }
+  absorbState.raf = requestAnimationFrame(loop);
+
+  $('#btn-absorb-tap').onclick = tryAbsorb;
+}
+
+function ringName(c){ return {yellow:'Жёлтое', purple:'Фиолетовое', black:'Чёрное', red:'Красное'}[c] || c; }
+
+function tryAbsorb(){
+  if(!absorbState || !absorbState.running) return;
+  const pos = absorbState.pos;
+  const inTarget = pos >= 0.39 && pos <= 0.61;
+  const accuracy = 1 - Math.abs(pos - 0.5) / 0.5;
+
+  if(inTarget){
+    absorbState.running = false;
+    cancelAnimationFrame(absorbState.raf);
+    absorbSuccess(accuracy);
+  } else {
+    absorbState.running = false;
+    cancelAnimationFrame(absorbState.raf);
+    absorbFail();
+  }
+}
+
+function absorbSuccess(accuracy){
+  const { beast, soul, tmpl } = absorbState;
+  const slot = soul.rings.length + 1;
+  const skillPool = tmpl.skills;
+  const chosen = skillPool[Math.floor(Math.random()*skillPool.length)];
+  const bonusPerAge = beast.age / 1000;
+  const ring = {
+    slot, ageYears: beast.age, color: beast.ring,
+    skillName: chosen.name, skillDesc: chosen.desc,
+    strBonus: Math.round(bonusPerAge * (0.8 + Math.random()*0.4) * 10)/10,
+    defBonus: Math.round(bonusPerAge * (0.6 + Math.random()*0.4) * 10)/10,
+    spdBonus: Math.round(bonusPerAge * (0.5 + Math.random()*0.4) * 10)/10,
+    sprBonus: Math.round(bonusPerAge * (0.7 + Math.random()*0.5) * 10)/10
+  };
+  soul.rings.push(ring);
+  saveState();
+  showAbsorbResult(true, ring, beast);
+}
+
+function absorbFail(){
+  const { beast } = absorbState;
+  showAbsorbResult(false, null, beast);
+}
+
+function showAbsorbResult(success, ring, beast){
+  const main = $('#main');
+  const section = document.createElement('section');
+  section.className = 'screen active';
+  section.style.animation = 'fade .4s ease';
+
+  if(success){
+    section.innerHTML = `
+      <h1>Кольцо поглощено!</h1>
+      <div class="card soul-card rarity-epic" style="text-align:center">
+        <div style="font-size:44px">💫</div>
+        <div class="name" style="font-size:16px">${ringName(ring.color)} кольцо (${ring.ageYears} лет)</div>
+        <div class="meta">Слот ${ring.slot}</div>
+        <div style="margin-top:8px;font-size:12px">
+          <b style="color:var(--gold)">Новый навык:</b> ${ring.skillName}<br>
+          <span style="color:#9aa6c8;font-size:11px">${ring.skillDesc}</span>
+        </div>
+        <div class="stats" style="margin-top:10px">
+          <div>СИЛ<b>+${ring.strBonus}</b></div>
+          <div>ЗАЩ<b>+${ring.defBonus}</b></div>
+          <div>СКОР<b>+${ring.spdBonus}</b></div>
+          <div>ДУХ<b>+${ring.sprBonus}</b></div>
+        </div>
+      </div>
+      <button class="btn" id="btn-after-absorb">В академию →</button>
+    `;
+  } else {
+    section.innerHTML = `
+      <h1>Провал...</h1>
+      <p class="sub">Кольцо потеряло свою энергию. Зверь возродится.</p>
+      <div class="card" style="text-align:center">
+        <div style="font-size:44px">💨</div>
+        <div style="color:#9aa6c8;margin-top:8px">
+          Ты не смог удержать концентрацию.<br>
+          +${beast.gold} золота · +${beast.exp} опыта всё равно получены.
+        </div>
+      </div>
+      <button class="btn" id="btn-after-absorb">В академию →</button>
+    `;
+  }
+  main.appendChild(section);
+  $('#screen-absorb').classList.remove('active');
+  $('#screen-absorb').style.display = 'none';
+
+  $('#btn-after-absorb').onclick = () => {
+    section.remove();
+    $('#screen-absorb').style.display = '';
+    goMenu();
+  };
+}
+
+function hunt(){
+  if(state.energy < 5){ alert('Мало энергии! Отдохни.'); return; }
+  state.energy -= 5; saveState(); updateHUD();
+
+  const tier = Math.min(BEASTS.length-1, Math.floor(state.level / 4));
+  const pool = BEASTS.slice(0, tier+1);
+  const beast = pool[Math.floor(Math.random()*pool.length)];
+  startBattle(beast, 'pve');
+}
+
+function arena(){
+  if(state.energy < 8){ alert('Мало энергии! Отдохни.'); return; }
+  state.energy -= 8; saveState(); updateHUD();
+
+  const soul = state.souls[state.activeSoul];
+  const tmpl = SOULS.find(s=>s.code===soul.code);
+  const st = computeStats(tmpl, soul.level, soul.rings);
+  const enemy = {
+    name: 'Тень ' + tmpl.name.split(' ')[0],
+    emoji: '👤', age: 0, ring:'yellow',
+    hp: Math.round(st.maxHp * 1.05),
+    atk: Math.round(st.atk * 1.02),
+    def: Math.round(st.def * 0.98),
+    spd: Math.round(st.spd * 1.0),
+    exp: Math.round(30 + state.level*8),
+    gold: Math.round(40 + state.level*10)
+  };
+  startBattle(enemy, 'arena');
+}
+
+function train(){
+  if(state.energy < 10){ alert('Мало энергии!'); return; }
+  state.energy -= 10;
+  gainExp(30 + state.level*5);
+  saveState(); updateHUD(); goMenu();
+  alert('Медитация завершена! +опыт');
+}
+
+function rest(){
+  state.energy = Math.min(state.maxEnergy, state.energy + 30);
+  saveState(); updateHUD(); goMenu();
+  alert('Ты отдохнул. +30 энергии');
+}
+
+function showCollection(){
+  const list = $('#collection-list');
+  list.innerHTML = '';
+  state.souls.forEach((s, i) => {
+    const t = SOULS.find(x => x.code === s.code);
+    const st = computeStats(t, s.level, s.rings);
+    const ringsHtml = s.rings.map(r=>`<span class="ring ${r.color}"></span>`).join('') || '<span style="font-size:11px;color:#5a6384">нет колец</span>';
+    const div = document.createElement('div');
+    div.className = `card soul-card rarity-${t.rarity}`;
+    div.style.cursor = 'pointer';
+    if(i === state.activeSoul) div.style.borderColor = 'var(--green)';
+    div.innerHTML = `
+      <div style="display:flex;gap:10px;align-items:center">
+        <div style="font-size:36px">${t.emoji}</div>
+        <div style="flex:1">
+          <div class="name">${t.name}</div>
+          <div class="meta">Ур.${s.level} · ${t.rarity}${i===state.activeSoul?' · АКТИВНА':''}</div>
+          <div style="margin-top:4px">${ringsHtml}</div>
+        </div>
+      </div>
+    `;
+    div.onclick = () => {
+      state.activeSoul = i;
+      saveState();
+      alert(`${t.name} теперь активна.`);
+      goMenu();
+    };
+    list.appendChild(div);
+  });
+  show('screen-collection');
+}
+
+function init(){
+  updateHUD();
+
+  if(window.Telegram && Telegram.WebApp){
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+    Telegram.WebApp.setHeaderColor('#0b0d1c');
+    try{ Telegram.WebApp.enableClosingConfirmation(); }catch(e){}
+  }
+
+  $('#btn-awaken').onclick = awaken;
+  $('#btn-hunt').onclick = hunt;
+  $('#btn-arena').onclick = arena;
+  $('#btn-train').onclick = train;
+  $('#btn-rest').onclick = rest;
+  $('#btn-collection').onclick = showCollection;
+  $('#btn-back-from-collection').onclick = goMenu;
+
+  if(state.awakened && state.tutorialDone){
+    goMenu();
+  } else if(state.awakened){
+    state.tutorialDone = true;
+    saveState();
+    goMenu();
+  } else {
+    show('screen-awaken');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+  let pressTimer;
+  $('header').addEventListener('touchstart', () => {
+    pressTimer = setTimeout(resetGame, 2000);
+  });
+  $('header').addEventListener('touchend', () => clearTimeout(pressTimer));
+});
+</script>
+</body>
+</html>
