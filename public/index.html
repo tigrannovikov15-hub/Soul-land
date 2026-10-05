@@ -11,16 +11,34 @@
 html,body{height:100%;overflow:hidden}
 body{background:#070914;color:var(--text);font-family:-apple-system,'Segoe UI',Roboto,sans-serif;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
 input,textarea{-webkit-user-select:text!important;user-select:text!important}
-button,.btn,.tabs button{touch-action:manipulation}
+button,.btn,.tabs button,.map-node,.hero-pick,.school-pick{touch-action:manipulation}
+/* SPLASH */
+#splash{position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;background:radial-gradient(circle at 50% 50%,#1a2350,#070914);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
+#splash.hide{opacity:0;pointer-events:none}
+#splash .logo{font-size:72px;animation:splashPulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 30px var(--theme))}
+#splash h1{font-size:24px;margin:16px 0 4px;background:linear-gradient(135deg,#ffe9a8,var(--theme),#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
+#splash .sub{font-size:12px;color:var(--dim);margin-bottom:24px;letter-spacing:2px;text-transform:uppercase}
+#splash .bar{width:240px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:10px}
+#splash .bar>div{height:100%;width:0%;background:linear-gradient(90deg,var(--theme),#a06bff);transition:width .3s}
+#splash .status{font-size:11px;color:var(--dim);font-family:monospace;height:16px}
+@keyframes splashPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.15)}}
+@keyframes float{0%{transform:translateY(100vh);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(-10vh) translateX(40px);opacity:0}}
+@keyframes nodeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes twinkle{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes flash{0%{opacity:1}100%{opacity:0}}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,0) scale(.5)}20%{opacity:1;transform:translate(-50%,-10px) scale(1.2)}100%{opacity:0;transform:translate(-50%,-70px) scale(1)}}
+@keyframes ringPulse{0%,100%{opacity:.6;filter:blur(0)}50%{opacity:1;filter:blur(1px)}}
 #bgfx{position:fixed;top:0;right:0;bottom:0;left:0;z-index:0;pointer-events:none;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:drift 18s ease-in-out infinite}
 .orb.a{width:280px;height:280px;background:var(--theme);left:-80px;top:-60px;opacity:.15}
 .orb.b{width:320px;height:320px;background:#7a2aff;right:-100px;top:30%;opacity:.4}
 .orb.c{width:240px;height:240px;background:#00b4a8;left:20%;bottom:-80px;opacity:.35}
-@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.15)}}
 #particles{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1;pointer-events:none}
 .particle{position:absolute;width:3px;height:3px;border-radius:50%;background:radial-gradient(circle,#ffe9a8,transparent);animation:float linear infinite;opacity:.7}
-@keyframes float{0%{transform:translateY(100vh);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(-10vh) translateX(40px);opacity:0}}
 #app{position:relative;z-index:2;max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column}
 header{padding:10px 12px 8px;display:flex;gap:5px;align-items:center;background:rgba(7,9,20,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:10;position:relative}
 header .stat{flex:1;text-align:center;font-size:9px;color:var(--dim);letter-spacing:.3px;text-transform:uppercase}
@@ -29,67 +47,45 @@ header .stat b{display:block;font-size:13px;color:var(--theme);margin-top:1px}
 main{flex:1;overflow-y:auto;padding:14px 14px 84px;position:relative;-webkit-overflow-scrolling:touch}
 .screen{display:none}
 .screen.active{display:block;animation:fadeUp .35s cubic-bezier(.22,.8,.3,1)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 h1{font-size:21px;margin-bottom:4px;text-align:center;font-weight:800;background:linear-gradient(135deg,#ffe9a8,var(--theme) 40%,#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent}
 h2{font-size:15px;color:var(--theme);margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:6px}
-h3{font-size:14px;color:var(--theme);font-weight:800;margin-bottom:8px}
 .sub{font-size:12px;color:var(--dim);text-align:center;margin-bottom:12px}
 .card{background:linear-gradient(160deg,rgba(28,36,72,.88),rgba(14,19,48,.88));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;margin-bottom:10px;backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
-.btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;transition:all .15s;box-shadow:0 4px 18px var(--border);touch-action:manipulation;-webkit-appearance:none;font-family:inherit}
+.btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;transition:all .15s;box-shadow:0 4px 18px var(--border);font-family:inherit}
 .btn:active{transform:scale(.97)}
 .btn.sec{background:linear-gradient(135deg,#3a4488,#242a55);color:#eaf0ff;box-shadow:none}
 .btn.danger{background:linear-gradient(135deg,#ff5566,#b62030);color:#fff}
 .btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
 .row{display:flex;gap:8px}
 .row .btn{flex:1}
-input[type=text]{width:100%;padding:13px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:rgba(0,0,0,.35);color:#fff;font-size:16px;font-weight:700;font-family:inherit;outline:none;text-align:center;-webkit-appearance:none;touch-action:manipulation}
+input[type=text]{width:100%;padding:13px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:rgba(0,0,0,.35);color:#fff;font-size:16px;font-weight:700;font-family:inherit;outline:none;text-align:center;-webkit-appearance:none}
 input[type=text]:focus{border-color:var(--theme)}
-input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:8px;border-radius:4px;background:rgba(255,255,255,.1);outline:none;touch-action:manipulation}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#ffd75e,var(--theme));cursor:pointer;border:none}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:10px}
 .stats div{background:rgba(255,255,255,.04);padding:6px 4px;border-radius:8px;text-align:center;color:var(--dim);text-transform:uppercase;border:1px solid rgba(255,255,255,.04)}
 .stats b{color:var(--theme);display:block;font-size:14px;margin-top:2px}
 .aura{position:absolute;top:-6px;right:-6px;bottom:-6px;left:-6px;border-radius:50%;background:radial-gradient(circle,var(--aura-color,rgba(247,201,72,.4)) 0%,transparent 65%);animation:pulse 2.5s ease-in-out infinite;pointer-events:none}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
-.world-map{position:relative;width:100%;height:480px;background:radial-gradient(ellipse at center,#1a2350,#070914);border-radius:20px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
-.map-node{position:absolute;width:64px;height:64px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;background:radial-gradient(circle,rgba(28,36,72,.95),rgba(14,19,48,.95));border:2px solid var(--border);cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(0,0,0,.5);touch-action:manipulation}
+/* MAP */
+.world-map{position:relative;width:100%;height:520px;background:radial-gradient(ellipse at center,#1a2350,#070914);border-radius:20px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
+.map-fog{position:absolute;top:0;right:0;bottom:0;left:0;background:radial-gradient(circle at 50% 50%,transparent 30%,rgba(7,9,20,.7) 70%,rgba(7,9,20,.95) 100%);pointer-events:none;z-index:5}
+.map-region{position:absolute;border-radius:50%;pointer-events:none;animation:ringPulse 4s infinite}
+.map-node{position:absolute;width:68px;height:68px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:26px;background:radial-gradient(circle,rgba(28,36,72,.95),rgba(14,19,48,.95));border:2px solid var(--border);cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(0,0,0,.5);z-index:3}
 .map-node:active{transform:scale(.92)}
 .map-node.discovered{border-color:var(--theme);box-shadow:0 0 20px var(--border)}
 .map-node.current{background:radial-gradient(circle,#ffd75e,#e09b1b);border-color:#fff;animation:nodeBob 1.5s ease-in-out infinite}
-.map-node.locked{opacity:.35;filter:grayscale(1)}
+.map-node.locked{opacity:.45;filter:grayscale(.7)}
 .map-node.secret{border-color:#a06bff;box-shadow:0 0 20px rgba(160,107,255,.6)}
-@keyframes nodeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.map-node .lbl{font-size:8px;font-weight:800;color:#fff;margin-top:2px;text-shadow:0 1px 3px rgba(0,0,0,.9);max-width:62px;text-align:center;line-height:1}
+.map-node .lbl{font-size:8px;font-weight:800;color:#fff;margin-top:2px;text-shadow:0 1px 3px rgba(0,0,0,.9);max-width:66px;text-align:center;line-height:1}
 .map-node.current .lbl{color:#1a1400;text-shadow:none}
+.map-path{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2}
 .loc-header{display:flex;gap:12px;align-items:center;margin-bottom:14px;padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border:1px solid var(--border)}
 .loc-header .em{font-size:52px}
 .loc-header .info{flex:1}
 .loc-header .name{font-size:17px;font-weight:900;color:var(--theme)}
 .loc-header .desc{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.4}
-.clan-card{display:flex;gap:12px;align-items:center;padding:12px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border-radius:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.06)}
-.clan-card .em{font-size:36px}
-.clan-card .info{flex:1;font-size:12px}
-.clan-card .info b{color:var(--theme);font-size:14px;display:block;margin-bottom:2px}
-.rep-bar{height:6px;background:#0a0e20;border-radius:3px;overflow:hidden;margin-top:4px;position:relative}
-.rep-bar>div{height:100%;transition:width .3s}
-.rep-bar .center{position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,255,255,.2)}
-.sect-card{padding:16px;border-radius:18px;background:linear-gradient(135deg,rgba(247,201,72,.15),rgba(28,36,72,.95));border:2px solid var(--theme);text-align:center;margin-bottom:12px;box-shadow:0 0 30px var(--border)}
-.sect-card .em{font-size:64px;margin-bottom:8px}
-.sect-card h2{justify-content:center;font-size:20px}
-.disciple-row{display:flex;gap:8px;align-items:center;padding:10px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,.05);font-size:12px}
-.treasure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.treasure-slot{aspect-ratio:1;background:linear-gradient(160deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.06);font-size:11px;text-align:center;padding:6px;touch-action:manipulation}
-.treasure-slot.opened{opacity:.4}
-.treasure-slot.ready{border-color:var(--theme);box-shadow:0 0 16px var(--border);animation:pulse 2s infinite}
-.treasure-slot .em{font-size:32px;margin-bottom:4px}
-.story-card{padding:16px;border-radius:16px;background:linear-gradient(135deg,rgba(122,63,224,.2),rgba(28,36,72,.95));border:1px solid rgba(160,107,255,.4);margin-bottom:12px}
-.story-card .chap{font-size:10px;color:var(--purple);text-transform:uppercase;letter-spacing:1.5px;font-weight:900;margin-bottom:6px}
-.story-card h3{color:#d8b8ff;font-size:16px;margin-bottom:8px}
-.story-card .text{font-size:12px;color:#c8d2ff;line-height:1.6;margin-bottom:12px}
-.battle-scene{position:relative;min-height:300px;margin-bottom:14px;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#0a1230 0%,#1a2050 40%,#050810 100%);border:1px solid rgba(255,255,255,.06)}
+/* BATTLE */
+.battle-scene{position:relative;min-height:320px;margin-bottom:14px;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#0a1230 0%,#1a2050 40%,#050810 100%);border:1px solid rgba(255,255,255,.06)}
 .battle-scene .stars{position:absolute;top:0;right:0;bottom:0;left:0;opacity:.6}
 .battle-scene .stars span{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
-@keyframes twinkle{0%,100%{opacity:.3}50%{opacity:1}}
 .battle-scene .moon{position:absolute;top:18px;right:26px;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fff6d8,#c8a860);box-shadow:0 0 50px rgba(255,240,200,.7);opacity:.85}
 .battle-scene .mountains{position:absolute;bottom:0;left:0;right:0;width:100%;height:70%;opacity:.7}
 .battle-scene .ground{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,rgba(15,20,50,.95) 0%,rgba(5,8,20,1) 100%)}
@@ -98,7 +94,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 .fighter .unit .platform{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80%;height:16px;border-radius:50%;background:radial-gradient(ellipse,rgba(74,124,255,.6),transparent 70%);filter:blur(3px)}
 .fighter .unit .name{font-size:12px;font-weight:800;margin-top:8px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.8)}
 .fighter .unit.hit{animation:shake .3s}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .fighter .unit .statuses{display:flex;justify-content:center;gap:3px;margin-top:4px;min-height:16px;flex-wrap:wrap}
 .status-ico{font-size:11px;background:rgba(0,0,0,.6);border-radius:6px;padding:1px 4px;border:1px solid rgba(255,255,255,.15)}
 .hpbar{height:12px;background:#0a0e20;border-radius:8px;overflow:hidden;margin-top:6px;border:1px solid rgba(255,255,255,.15)}
@@ -113,12 +108,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 .actions .btn.skill{background:linear-gradient(135deg,#7a3ee0,#4a1e9e);color:#e0c4ff}
 .actions .btn.ultimate{background:linear-gradient(135deg,var(--theme),#e09b1b);color:#1a1400;font-weight:900}
 .float-dmg{position:absolute;font-weight:900;font-size:26px;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.9);animation:floatUp 1.2s cubic-bezier(.2,.7,.3,1) forwards;z-index:20;left:50%;top:20%}
-@keyframes floatUp{0%{opacity:0;transform:translate(-50%,0) scale(.5)}20%{opacity:1;transform:translate(-50%,-10px) scale(1.2)}100%{opacity:0;transform:translate(-50%,-70px) scale(1)}}
 .projectile{position:absolute;width:24px;height:24px;pointer-events:none;z-index:15;filter:drop-shadow(0 0 8px currentColor)}
 .hit-flash{position:fixed;top:0;right:0;bottom:0;left:0;pointer-events:none;z-index:30;animation:flash .3s ease-out;opacity:0;background:radial-gradient(circle at 50% 50%,rgba(255,80,80,.5),transparent 60%)}
-@keyframes flash{0%{opacity:1}100%{opacity:0}}
 nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;gap:1px;background:rgba(7,9,20,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:50}
-nav button{flex:1;background:transparent;border:none;color:var(--dim);padding:6px 2px;font-size:8px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;touch-action:manipulation}
+nav button{flex:1;background:transparent;border:none;color:var(--dim);padding:6px 2px;font-size:8px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px}
 nav button .ico{font-size:18px}
 nav button.on{color:var(--theme)}
 nav.hidden{display:none}
@@ -129,18 +122,16 @@ nav.hidden{display:none}
 .toast.red{border-color:rgba(255,85,102,.5)}
 .toast.purple{border-color:rgba(160,107,255,.5)}
 .tabs{display:flex;gap:4px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.tabs button{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--dim);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;touch-action:manipulation}
+.tabs button{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--dim);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
 .tabs button.on{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;border-color:transparent}
-.school-pick{padding:14px;border-radius:14px;margin-bottom:10px;border:2px solid rgba(255,255,255,.08);touch-action:manipulation}
+.school-pick{padding:14px;border-radius:14px;margin-bottom:10px;border:2px solid rgba(255,255,255,.08)}
 .school-pick.selected{border-color:var(--school-color);box-shadow:0 0 25px var(--school-color)}
 .school-pick .name{font-size:15px;font-weight:900;color:var(--school-color)}
-.hero-pick{display:flex;gap:12px;padding:12px;border-radius:14px;margin-bottom:8px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border:2px solid rgba(255,255,255,.08);touch-action:manipulation}
+.hero-pick{display:flex;gap:12px;padding:12px;border-radius:14px;margin-bottom:8px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border:2px solid rgba(255,255,255,.08)}
 .hero-pick.selected{border-color:var(--theme)}
 .hero-pick .art{font-size:40px;width:52px;text-align:center;flex-shrink:0}
 .hero-pick .info{flex:1;min-width:0;font-size:11px}
 .hero-pick .info b{color:var(--theme);font-size:13px;display:block}
-.prologue-act{padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin-bottom:8px;display:flex;gap:12px;align-items:center;touch-action:manipulation}
-.prologue-act.done{opacity:.5;border-color:rgba(61,220,132,.5)}
 main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .modal-overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:150;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px}
 .modal-content{background:linear-gradient(160deg,rgba(28,36,72,.98),rgba(14,19,48,.98));border:1px solid var(--border);border-radius:20px;padding:20px;max-width:400px;width:100%;max-height:85vh;overflow-y:auto;text-align:center}
@@ -158,7 +149,7 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .dungeon-card .info span{color:var(--dim);font-size:11px;display:block;margin-bottom:6px}
 .dungeon-card .info .progress{height:5px;background:#0a0e20;border-radius:3px;overflow:hidden}
 .dungeon-card .info .progress>div{height:100%;background:linear-gradient(90deg,#ffd75e,var(--theme))}
-.dungeon-card .play{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px;touch-action:manipulation}
+.dungeon-card .play{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px}
 .dungeon-card .play:disabled{opacity:.4;background:#3a4488}
 .quest{display:flex;gap:10px;align-items:center;padding:10px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,.05)}
 .quest .ico{font-size:22px}
@@ -166,7 +157,7 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .quest .txt b{color:#fff;display:block;margin-bottom:2px}
 .quest .bar{height:4px;background:#0a0e20;border-radius:2px;overflow:hidden;margin-top:4px}
 .quest .bar>div{height:100%;background:linear-gradient(90deg,#3ddc84,#22a05a)}
-.quest .claim{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation}
+.quest .claim{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px}
 .quest .claim:disabled{opacity:.4;background:#3a4488}
 .resource-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
 .resource-bar .res{background:rgba(255,255,255,.04);padding:8px 4px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,.06)}
@@ -178,10 +169,10 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .recipe .info{flex:1;font-size:12px}
 .recipe .info b{color:#fff;display:block;margin-bottom:2px}
 .recipe .info .cost{color:var(--dim);font-size:10px;margin-top:3px}
-.recipe .craft{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px;touch-action:manipulation}
+.recipe .craft{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px}
 .recipe .craft:disabled{opacity:.4;background:#3a4488}
 .inv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.inv-slot{aspect-ratio:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;position:relative;padding:4px;text-align:center;touch-action:manipulation}
+.inv-slot{aspect-ratio:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;position:relative;padding:4px;text-align:center}
 .inv-slot .emoji{font-size:24px;margin-bottom:2px}
 .inv-slot .nm{font-size:9px;color:var(--dim);line-height:1.1}
 .inv-slot .count{position:absolute;top:2px;right:4px;font-size:10px;color:var(--theme);font-weight:800}
@@ -192,7 +183,7 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .equip-row .info{flex:1;font-size:12px}
 .equip-row .info b{color:#fff;display:block;margin-bottom:2px}
 .equip-row .info span{color:var(--dim);font-size:10px}
-.equip-row .action{background:linear-gradient(135deg,var(--theme),#e09b1b);color:#1a1400;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation}
+.equip-row .action{background:linear-gradient(135deg,var(--theme),#e09b1b);color:#1a1400;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px}
 .ach-card{display:flex;gap:10px;align-items:center;padding:12px;background:rgba(255,255,255,.03);border-radius:12px;margin-bottom:8px;border:1px solid rgba(255,255,255,.05)}
 .ach-card.done{background:linear-gradient(135deg,rgba(247,201,72,.15),transparent);border-color:rgba(247,201,72,.4)}
 .ach-card .ico{font-size:28px;width:44px;text-align:center}
@@ -212,7 +203,7 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .auction-row .info{flex:1}
 .auction-row .info b{color:#fff;display:block}
 .auction-row .info span{color:var(--dim);font-size:10px}
-.auction-row .price{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;border:none;padding:6px 12px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation}
+.auction-row .price{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;border:none;padding:6px 12px;border-radius:8px;font-weight:800;font-size:11px}
 .npc-row{display:flex;gap:10px;align-items:center;padding:12px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,.05);font-size:12px}
 .npc-row .em{font-size:36px}
 .npc-row .info{flex:1}
@@ -222,17 +213,40 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .daily-boss-card{padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,30,40,.5),rgba(40,10,20,.9));border:1px solid rgba(255,80,80,.4);margin-bottom:10px}
 .daily-boss-card h3{color:#ff9aa2;margin-bottom:6px}
 .daily-boss-card .desc{font-size:11px;color:#ffd0d6;margin-bottom:10px}
-.daily-boss-card .fight-btn{width:100%;background:linear-gradient(135deg,#ff5566,#a01828);color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;font-size:14px;touch-action:manipulation}
+.daily-boss-card .fight-btn{width:100%;background:linear-gradient(135deg,#ff5566,#a01828);color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;font-size:14px}
 .skin-card{padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.06);margin-bottom:8px;display:flex;gap:12px;align-items:center}
 .skin-card.active{border-color:var(--theme);box-shadow:0 0 20px var(--border)}
 .skin-card .em{font-size:44px}
 .skin-card .info{flex:1;font-size:12px}
 .skin-card .info b{color:#fff;display:block;margin-bottom:2px}
 .skin-card .info span{color:var(--dim);font-size:11px}
-.skin-card .act{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation}
+.skin-card .act{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px}
+.event-card{padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,107,255,.4),rgba(28,36,72,.95));border:2px solid #a06bff;text-align:center;margin-bottom:12px;box-shadow:0 0 30px rgba(160,107,255,.5);position:relative;overflow:hidden}
+.event-card h3{color:#d8b8ff;font-size:16px;margin-bottom:6px}
+.event-card .desc{font-size:11px;color:#c8d2ff;line-height:1.5;margin-bottom:10px}
+.event-card .timer{font-size:22px;font-weight:900;color:#a06bff;font-family:monospace;margin:6px 0}
+.prestige-card{padding:16px;border-radius:16px;background:linear-gradient(135deg,rgba(247,201,72,.3),rgba(160,40,40,.4));border:2px solid var(--theme);text-align:center;margin-bottom:12px}
+.stat-row{display:flex;justify-content:space-between;padding:8px 10px;background:rgba(255,255,255,.03);border-radius:8px;margin-bottom:4px;font-size:12px}
+.stat-row .lbl{color:var(--dim)}
+.stat-row .val{color:#fff;font-weight:800}
+.filter-bar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.filter-bar button{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--dim);padding:5px 10px;border-radius:14px;font-size:10px;font-weight:700}
+.filter-bar button.on{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;border-color:transparent}
+.ring-aura{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:0}
+.ring-aura .r{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:2px solid;animation:pulse 2s infinite}
 </style>
 </head>
 <body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="logo">🐉</div>
+  <h1>Путь к Бессмертию</h1>
+  <div class="sub">Боевой Континент</div>
+  <div class="bar"><div id="splash-bar"></div></div>
+  <div class="status" id="splash-status">Инициализация...</div>
+</div>
+
 <div id="bgfx"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
 <div id="particles"></div>
 <div id="toasts"></div>
@@ -247,69 +261,37 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 </header>
 <main id="main">
 
-<section class="screen active" id="screen-create">
-  <h1>Новая жизнь</h1>
-  <p class="sub">Твоя история начинается здесь</p>
+<!-- ОНБОРДИНГ (1 экран) -->
+<section class="screen active" id="screen-start">
+  <h1>Добро пожаловать</h1>
+  <p class="sub">Быстрый старт: имя, душа, школа</p>
   <div class="card">
-    <h2>📛 Имя</h2>
+    <h2>📛 Имя персонажа</h2>
     <input type="text" id="inp-name" maxlength="16" placeholder="Введи имя..."/>
-    <div style="font-size:11px;color:var(--dim);margin-top:8px;text-align:center">Случайно: <span id="rand-name" style="color:var(--theme);cursor:pointer;font-weight:700;text-decoration:underline">—</span></div>
+    <div style="font-size:11px;color:var(--dim);margin-top:8px;text-align:center">
+      Случайно: <span id="rand-name" style="color:var(--theme);cursor:pointer;font-weight:700;text-decoration:underline">—</span>
+    </div>
   </div>
   <div class="card">
-    <h2>🎂 Возраст</h2>
-    <div style="text-align:center;margin:10px 0"><span id="age-display" style="font-size:42px;font-weight:900;color:var(--theme)">6</span><span style="font-size:14px;color:var(--dim)"> лет</span></div>
-    <input type="range" id="inp-age" min="6" max="10" value="6"/>
-    <div id="age-desc" style="font-size:11px;color:var(--dim);margin-top:10px;text-align:center;min-height:32px"></div>
+    <h2>🌟 Врождённая Душа</h2>
+    <div id="hero-list-quick" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"></div>
   </div>
-  <button class="btn" id="btn-create">НАЧАТЬ ПУТЬ →</button>
-</section>
-
-<section class="screen" id="screen-hero">
-  <h1>Врождённая Душа</h1>
-  <p class="sub">Какой дар пробудился в тебе?</p>
-  <div id="hero-list"></div>
-  <button class="btn" id="btn-hero-next" style="margin-top:8px">ДАЛЕЕ →</button>
-</section>
-
-<section class="screen" id="screen-prologue">
-  <h1>🏠 Дом</h1>
-  <p class="sub" id="prologue-sub">3 дня подготовки</p>
-  <div class="card"><div style="font-size:12px;color:#c8d2ff;line-height:1.6">Родители наняли учителя на <b>3 дня</b>. От твоих решений зависит, куда ты попадёшь.</div></div>
-  <div id="prologue-actions"></div>
-  <button class="btn" id="btn-prologue-exam" disabled style="margin-top:8px">🎓 Сдать экзамен</button>
-</section>
-
-<section class="screen" id="screen-exam">
-  <h1>🎓 Экзамен</h1>
-  <p class="sub">Мастер оценивает твои способности</p>
-  <div class="card" style="text-align:center">
-    <div id="exam-visual" style="font-size:64px;margin:14px 0">🔮</div>
-    <div id="exam-result" style="font-size:14px;line-height:1.6"></div>
+  <div class="card">
+    <h2>🏫 Школа</h2>
+    <div id="school-list-quick" style="display:grid;gap:8px"></div>
   </div>
-  <button class="btn" id="btn-exam-next">ПРОДОЛЖИТЬ →</button>
-</section>
-
-<section class="screen" id="screen-school">
-  <h1>Выбор пути</h1>
-  <p class="sub" id="school-sub">Тебе доступны следующие школы</p>
-  <div id="school-list"></div>
-  <button class="btn" id="btn-school-start" style="margin-top:8px">ВСТУПИТЬ →</button>
-</section>
-
-<section class="screen" id="screen-awaken">
-  <h1>Пробуждение Души</h1>
-  <p class="sub">Алтарь Святого Духа готов</p>
-  <div class="card" style="text-align:center">
-    <div id="altar-vis" style="margin:20px auto;width:140px;height:140px;position:relative"></div>
-    <div id="hero-greeting" style="font-size:13px;color:var(--dim);line-height:1.6"></div>
+  <button class="btn" id="btn-start">НАЧАТЬ ПРИКЛЮЧЕНИЕ →</button>
+  <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--dim)">
+    Возраст: 6 лет · Начальные ресурсы выдаются автоматически
   </div>
-  <button class="btn" id="btn-awaken">✨ ПРОБУДИТЬ</button>
 </section>
 
+<!-- ГЛАВНОЕ МЕНЮ -->
 <section class="screen" id="screen-menu">
   <h1 id="menu-title">Персонаж</h1>
   <p class="sub" id="menu-sub">—</p>
   <div id="my-char-card"></div>
+  <div id="event-container"></div>
   <div class="card">
     <h2>⚡ Быстрые действия</h2>
     <button class="btn" id="btn-map" style="margin-bottom:8px">🗺️ Карта мира</button>
@@ -329,12 +311,21 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div class="card"><h2>📋 Квесты дня</h2><div id="quests-list"></div></div>
 </section>
 
+<!-- КАРТА -->
 <section class="screen" id="screen-map">
   <h1>🗺️ Карта мира</h1>
   <p class="sub">Путешествуй и исследуй</p>
-  <div class="world-map" id="world-map"></div>
+  <div class="world-map" id="world-map">
+    <div class="map-fog"></div>
+    <svg class="map-path" id="map-path" viewBox="0 0 480 520" preserveAspectRatio="none"></svg>
+  </div>
+  <div class="card">
+    <h2>📍 Текущая локация</h2>
+    <div id="map-current-info"></div>
+  </div>
 </section>
 
+<!-- ЛОКАЦИЯ -->
 <section class="screen" id="screen-location">
   <div id="loc-header"></div>
   <div class="tabs" id="loc-tabs">
@@ -346,24 +337,28 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="loc-content"></div>
 </section>
 
+<!-- КЛАНЫ -->
 <section class="screen" id="screen-clans">
   <h1>⚔️ Кланы</h1>
   <p class="sub">Союзники и враги</p>
   <div id="clans-list"></div>
 </section>
 
+<!-- СЕКТА -->
 <section class="screen" id="screen-sect">
   <h1>🏯 Секта</h1>
   <p class="sub">Твоё наследие</p>
   <div id="sect-content"></div>
 </section>
 
+<!-- ПИТОМЦЫ -->
 <section class="screen" id="screen-pets">
   <h1>🐾 Питомцы</h1>
-  <p class="sub">Верные спутники дают бонусы</p>
+  <p class="sub">Верные спутники</p>
   <div id="pets-list"></div>
 </section>
 
+<!-- АУКЦИОН -->
 <section class="screen" id="screen-auction">
   <h1>🏪 Аукцион</h1>
   <p class="sub">Купить и продать</p>
@@ -374,29 +369,34 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="auction-content"></div>
 </section>
 
+<!-- NPC -->
 <section class="screen" id="screen-npc">
   <h1>💞 Наставники</h1>
   <p class="sub">Развивай отношения</p>
   <div id="npc-list"></div>
 </section>
 
+<!-- ПОДЗЕМЕЛЬЯ -->
 <section class="screen" id="screen-dungeons">
   <h1>🗝️ Подземелья</h1>
-  <p class="sub">Попыток сегодня: <b id="dungeon-attempts" style="color:var(--theme)">3/3</b></p>
+  <p class="sub">Попыток: <b id="dungeon-attempts" style="color:var(--theme)">3/3</b></p>
   <div id="dungeons-list"></div>
 </section>
 
+<!-- БАШНЯ -->
 <section class="screen" id="screen-tower">
   <h1>🗼 Башня Испытаний</h1>
-  <p class="sub">Рекорд: этаж <b id="tower-best" style="color:var(--theme)">1</b></p>
+  <p class="sub">Этаж <b id="tower-best" style="color:var(--theme)">1</b> · Сезон</p>
   <div class="tower-vis" id="tower-vis"></div>
   <div class="card" style="text-align:center">
     <div style="font-size:13px;margin-bottom:6px">Текущий: <b id="tower-floor" style="color:var(--theme);font-size:20px">1</b></div>
     <div style="font-size:12px;color:var(--dim);margin-bottom:12px" id="tower-enemy"></div>
     <button class="btn" id="btn-tower-fight">⚔️ СРАЗИТЬСЯ</button>
   </div>
+  <div class="card"><h2>🏆 Топ Башни</h2><div id="tower-leaderboard"></div></div>
 </section>
 
+<!-- АРЕНА -->
 <section class="screen" id="screen-arena">
   <h1>⚔️ Арена</h1>
   <p class="sub">Сезон: <b id="arena-season" style="color:var(--theme)">14 дней</b></p>
@@ -410,6 +410,7 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div class="card"><h2>🏆 Топ игроков</h2><div id="arena-leaderboard"></div></div>
 </section>
 
+<!-- КУЗНИЦА -->
 <section class="screen" id="screen-forge">
   <h1>🔨 Кузница</h1>
   <p class="sub">Создавай предметы</p>
@@ -423,30 +424,41 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="forge-content"></div>
 </section>
 
+<!-- ПРОФИЛЬ -->
 <section class="screen" id="screen-profile">
   <h1>👤 Профиль</h1>
   <p class="sub" id="profile-school">—</p>
   <div class="tabs" id="profile-tabs">
-    <button data-tab="equip" class="on">⚔️ Экип</button>
+    <button data-tab="stats" class="on">📊 Стат</button>
+    <button data-tab="equip">⚔️ Экип</button>
     <button data-tab="bag">🎒 Сумка</button>
     <button data-tab="talents">🌳 Таланты</button>
     <button data-tab="ach">🏅 Награды</button>
     <button data-tab="skins">🎨 Скины</button>
+    <button data-tab="prestige">♻️ Престиж</button>
     <button data-tab="shop">💎 Магазин</button>
   </div>
   <div id="profile-content"></div>
 </section>
 
+<!-- БОЙ -->
 <section class="screen" id="screen-battle">
   <div class="battle-scene">
     <div class="stars" id="stars"></div>
     <div class="moon"></div>
-    <svg class="mountains" viewBox="0 0 400 200" preserveAspectRatio="none"><polygon points="0,200 60,90 120,140 180,80 240,130 300,70 400,160 400,200" fill="#0a1030" opacity=".7"/><polygon points="0,200 40,140 100,170 160,130 220,160 280,120 360,170 400,140 400,200" fill="#050814" opacity=".9"/></svg>
+    <svg class="mountains" viewBox="0 0 400 200" preserveAspectRatio="none">
+      <polygon points="0,200 60,90 120,140 180,80 240,130 300,70 400,160 400,200" fill="#0a1030" opacity=".7"/>
+      <polygon points="0,200 40,140 100,170 160,130 220,160 280,120 360,170 400,140 400,200" fill="#050814" opacity=".9"/>
+    </svg>
     <div class="ground"></div>
     <div class="fighter">
       <div class="unit" id="p-unit">
         <div class="platform"></div>
-        <div style="position:relative"><div class="aura" id="p-aura"></div><div id="p-avatar"></div></div>
+        <div style="position:relative">
+          <div class="aura" id="p-aura"></div>
+          <div class="ring-aura" id="p-rings"></div>
+          <div id="p-avatar"></div>
+        </div>
         <div class="name" id="p-name">Игрок</div>
         <div class="hpbar"><div id="p-hpbar" style="width:100%"></div></div>
         <div class="hp-text" id="p-hp">100/100</div>
@@ -454,7 +466,10 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
       </div>
       <div class="unit" id="e-unit">
         <div class="platform"></div>
-        <div style="position:relative"><div class="aura" id="e-aura" style="--aura-color:rgba(255,77,94,.5)"></div><div id="e-avatar"></div></div>
+        <div style="position:relative">
+          <div class="aura" id="e-aura" style="--aura-color:rgba(255,77,94,.5)"></div>
+          <div id="e-avatar"></div>
+        </div>
         <div class="name" id="e-name">Враг</div>
         <div class="hpbar enemy"><div id="e-hpbar" style="width:100%"></div></div>
         <div class="hp-text" id="e-hp">100/100</div>
@@ -463,7 +478,7 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
     </div>
   </div>
   <div style="text-align:right;margin-bottom:8px">
-    <span id="auto-toggle" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,.1);color:var(--dim);touch-action:manipulation">⚡ АВТО: ВЫКЛ</span>
+    <span id="auto-toggle" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,.1);color:var(--dim)">⚡ АВТО: ВЫКЛ</span>
   </div>
   <div class="logbox" id="log"></div>
   <div class="actions" id="actions"></div>
@@ -474,11 +489,12 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 <nav id="nav" class="hidden">
   <button data-tab="menu" class="on"><span class="ico">👤</span>Герой</button>
   <button data-tab="map"><span class="ico">🗺️</span>Карта</button>
-  <button data-tab="pets"><span class="ico">🐾</span>Питомцы</button>
-  <button data-tab="dungeons"><span class="ico">🗝️</span>Подзем.</button>
   <button data-tab="tower"><span class="ico">🗼</span>Башня</button>
   <button data-tab="arena"><span class="ico">⚔️</span>Арена</button>
+  <button data-tab="dungeons"><span class="ico">🗝️</span>Подзем.</button>
+  <button data-tab="pets"><span class="ico">🐾</span>Питомцы</button>
   <button data-tab="auction"><span class="ico">🏪</span>Аукцион</button>
+  <button data-tab="clans"><span class="ico">🏴</span>Кланы</button>
   <button data-tab="sect"><span class="ico">🏯</span>Секта</button>
   <button data-tab="forge"><span class="ico">🔨</span>Кузня</button>
   <button data-tab="profile"><span class="ico">🎒</span>Профиль</button>
@@ -486,7 +502,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 </div>
 
 <script>
-/* ==================== ERROR OVERLAY ==================== */
 window.addEventListener('error', (e)=>{
   try{
     const el = document.createElement('div');
@@ -509,24 +524,24 @@ const HEROES = [
 ];
 
 const SCHOOLS = [
-  { id:'shrek', name:'Академия Шрека', emblem:'🐲', color:'#f7c948', motto:'«Мы — монстры!»', bonus:'+12% ко всем статам', stats:{str:1.12,def:1.12,spd:1.12,spr:1.12}, startGold:300, startEnergy:60, passiveDesc:'+12% ко всему' },
-  { id:'tang', name:'Врата Тан', emblem:'⚔️', color:'#ff4d5e', motto:'«Сила — в оружии»', bonus:'+25% ATK · агрессия', stats:{str:1.25,def:0.9,spd:1.05,spr:1.05}, startGold:200, startEnergy:50, passiveDesc:'20% усиленная атака' },
-  { id:'star', name:'Империя Звёзд', emblem:'⭐', color:'#7ac8ff', motto:'«Защита — основа»', bonus:'+25% DEF · +20% HP', stats:{str:1.0,def:1.25,spd:0.9,spr:1.0}, startGold:250, startEnergy:55, passiveDesc:'+25% DEF, +20% HP' },
-  { id:'blue_lightning', name:'Секта Синей Молнии', emblem:'⚡', color:'#4a7cff', motto:'«Дух превыше плоти»', bonus:'+30% духа · магия', stats:{str:0.95,def:0.95,spd:1.15,spr:1.3}, startGold:180, startEnergy:70, passiveDesc:'-5% HP врагу/ход' },
-  { id:'shadow_sect', name:'Теневая Секта', emblem:'🌑', color:'#5a3a8a', motto:'«Выживает хитрейший»', bonus:'Ассасины · сложный старт', stats:{str:1.15,def:0.85,spd:1.2,spr:0.9}, startGold:50, startEnergy:40, passiveDesc:'+50% золота, -30% HP' }
+  { id:'shrek', name:'Академия Шрека', emblem:'🐲', color:'#f7c948', bonus:'+12% ко всем статам', stats:{str:1.12,def:1.12,spd:1.12,spr:1.12}, startGold:300, startEnergy:60, passiveDesc:'+12% ко всему' },
+  { id:'tang', name:'Врата Тан', emblem:'⚔️', color:'#ff4d5e', bonus:'+25% ATK · агрессия', stats:{str:1.25,def:0.9,spd:1.05,spr:1.05}, startGold:200, startEnergy:50, passiveDesc:'20% усиленная атака' },
+  { id:'star', name:'Империя Звёзд', emblem:'⭐', color:'#7ac8ff', bonus:'+25% DEF · +20% HP', stats:{str:1.0,def:1.25,spd:0.9,spr:1.0}, startGold:250, startEnergy:55, passiveDesc:'+25% DEF, +20% HP' },
+  { id:'blue_lightning', name:'Секта Синей Молнии', emblem:'⚡', color:'#4a7cff', bonus:'+30% духа · магия', stats:{str:0.95,def:0.95,spd:1.15,spr:1.3}, startGold:180, startEnergy:70, passiveDesc:'-5% HP врагу/ход' },
+  { id:'shadow_sect', name:'Теневая Секта', emblem:'🌑', color:'#5a3a8a', bonus:'Ассасины · сложный старт', stats:{str:1.15,def:0.85,spd:1.2,spr:0.9}, startGold:50, startEnergy:40, passiveDesc:'+50% золота, -30% HP' }
 ];
 
 const LOCATIONS = [
-  { id:'village', name:'Родная Деревня', emoji:'🏠', minLevel:1, x:12, y:80, desc:'Тихая деревня.', enemies:['Древесный Волк','Каменный Скорпион'], treasures:['family_chest','old_well','grandma_box'], lore:'Старшее поколение говорит о лагере мастеров души.', drops:{herbs:0.6,ore:0.3,crystals:0.1} },
-  { id:'forest', name:'Лес Духов', emoji:'🌲', minLevel:1, x:30, y:35, desc:'Густой лес.', enemies:['Пламенный Лис','Ледяной Скорпион'], treasures:['herb_patch','hidden_grove','ancient_tree'], lore:'В чаще спит древний зверь.', drops:{herbs:0.5,ore:0.3,crystals:0.2} },
-  { id:'academy', name:'Академия', emoji:'🏫', minLevel:5, x:50, y:55, desc:'Твоя школа.', enemies:['Тень Сокурсника','Тень Наставника'], treasures:['academy_vault','headmaster_gift'], lore:'В подвалах библиотека древних техник.', drops:{herbs:0.3,ore:0.3,crystals:0.4} },
-  { id:'mountains', name:'Ледяные Горы', emoji:'🏔️', minLevel:8, x:75, y:20, desc:'Суровые горы.', enemies:['Ледяной Император','Каменный Голем'], treasures:['ice_crystal','frozen_chest','dragon_egg'], lore:'Легенды о драконе под ледником.', drops:{herbs:0.1,ore:0.5,crystals:0.4} },
-  { id:'city', name:'Имперский Город', emoji:'🏛️', minLevel:10, x:55, y:80, desc:'Столица.', enemies:['Наёмный Убийца','Стражник Империи'], treasures:['merchant_gift','imperial_seal','library_scroll'], lore:'Здесь правит император.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
-  { id:'ruins', name:'Древние Руины', emoji:'🏛️', minLevel:15, x:25, y:65, desc:'Остатки цивилизации.', enemies:['Стражник Руин','Проклятый Жрец'], treasures:['ancient_relic','forgotten_tome','soul_altar'], lore:'Секреты павших мастеров.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
-  { id:'abyss', name:'Тёмная Бездна', emoji:'🕳️', minLevel:20, x:85, y:70, desc:'Земля тёмных культиваторов.', enemies:['Демон Бездны','Тёмный Лорд'], treasures:['demonic_crystal','dark_relic','void_shard'], lore:'Здесь не действуют законы мира.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
-  { id:'dragon_lair', name:'Логово Дракона', emoji:'🐲', minLevel:25, x:70, y:50, desc:'Дом Красного Дракона.', enemies:['Красный Дракон','Императорский Феникс'], treasures:['dragon_heart','phoenix_feather','dragon_hoard'], lore:'Только мастер с 9 кольцами победит.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
-  { id:'secret_grove', name:'Забытая Роща', emoji:'🌸', minLevel:12, x:50, y:12, secret:true, desc:'Скрытая роща духов.', enemies:['Дух Цветка','Хранитель Рощи'], treasures:['blossom_chest','spirit_pool'], lore:'Здесь цветут души павших воинов.', drops:{herbs:0.8,ore:0,crystals:0.2} },
-  { id:'sky_temple', name:'Небесный Храм', emoji:'☁️', minLevel:30, x:88, y:10, secret:true, desc:'Храм в облаках.', enemies:['Небесный Страж','Ангел-Хранитель'], treasures:['celestial_relic','divine_tome'], lore:'Предание говорит, тут живут боги.', drops:{herbs:0,ore:0,crystals:1} }
+  { id:'village', name:'Родная Деревня', emoji:'🏠', minLevel:1, x:12, y:82, region:'center', regionColor:'#3ddc84', desc:'Тихая деревня.', enemies:['Древесный Волк','Каменный Скорпион'], treasures:['family_chest','old_well','grandma_box'], lore:'Старшее поколение говорит о лагере мастеров души.', drops:{herbs:0.6,ore:0.3,crystals:0.1} },
+  { id:'forest', name:'Лес Духов', emoji:'🌲', minLevel:1, x:32, y:38, region:'center', regionColor:'#3ddc84', desc:'Густой лес.', enemies:['Пламенный Лис','Ледяной Скорпион'], treasures:['herb_patch','hidden_grove','ancient_tree'], lore:'В чаще спит древний зверь.', drops:{herbs:0.5,ore:0.3,crystals:0.2} },
+  { id:'academy', name:'Академия', emoji:'🏫', minLevel:5, x:50, y:58, region:'center', regionColor:'#3ddc84', desc:'Твоя школа.', enemies:['Тень Сокурсника','Тень Наставника'], treasures:['academy_vault','headmaster_gift'], lore:'В подвалах библиотека древних техник.', drops:{herbs:0.3,ore:0.3,crystals:0.4} },
+  { id:'mountains', name:'Ледяные Горы', emoji:'🏔️', minLevel:8, x:76, y:22, region:'north', regionColor:'#7ac8ff', desc:'Суровые горы.', enemies:['Ледяной Император','Каменный Голем'], treasures:['ice_crystal','frozen_chest','dragon_egg'], lore:'Легенды о драконе под ледником.', drops:{herbs:0.1,ore:0.5,crystals:0.4} },
+  { id:'city', name:'Имперский Город', emoji:'🏛️', minLevel:10, x:56, y:82, region:'center', regionColor:'#3ddc84', desc:'Столица.', enemies:['Наёмный Убийца','Стражник Империи'], treasures:['merchant_gift','imperial_seal','library_scroll'], lore:'Здесь правит император.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
+  { id:'ruins', name:'Древние Руины', emoji:'🏛️', minLevel:15, x:26, y:66, region:'west', regionColor:'#a06bff', desc:'Остатки цивилизации.', enemies:['Стражник Руин','Проклятый Жрец'], treasures:['ancient_relic','forgotten_tome','soul_altar'], lore:'Секреты павших мастеров.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
+  { id:'abyss', name:'Тёмная Бездна', emoji:'🕳️', minLevel:20, x:86, y:72, region:'east', regionColor:'#ff4d5e', desc:'Земля культиваторов.', enemies:['Демон Бездны','Тёмный Лорд'], treasures:['demonic_crystal','dark_relic','void_shard'], lore:'Здесь не действуют законы мира.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
+  { id:'dragon_lair', name:'Логово Дракона', emoji:'🐲', minLevel:25, x:72, y:52, region:'east', regionColor:'#ff4d5e', desc:'Дом Красного Дракона.', enemies:['Красный Дракон','Императорский Феникс'], treasures:['dragon_heart','phoenix_feather','dragon_hoard'], lore:'Только мастер с 9 кольцами победит.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
+  { id:'secret_grove', name:'Забытая Роща', emoji:'🌸', minLevel:12, x:50, y:14, region:'north', regionColor:'#7ac8ff', secret:true, desc:'Скрытая роща духов.', enemies:['Дух Цветка','Хранитель Рощи'], treasures:['blossom_chest','spirit_pool'], lore:'Здесь цветут души павших воинов.', drops:{herbs:0.8,ore:0,crystals:0.2} },
+  { id:'sky_temple', name:'Небесный Храм', emoji:'☁️', minLevel:30, x:90, y:12, region:'north', regionColor:'#7ac8ff', secret:true, desc:'Храм в облаках.', enemies:['Небесный Страж','Ангел-Хранитель'], treasures:['celestial_relic','divine_tome'], lore:'Предание говорит, тут живут боги.', drops:{herbs:0,ore:0,crystals:1} }
 ];
 
 const CLANS = [
@@ -568,8 +583,8 @@ const TREASURES = {
 
 const STORY_CHAPTERS = [
   {id:1,title:'Начало пути',req:1,text:'Ты родился в деревне. Родители верили — в тебе есть дар.',
-   choices:[{label:'Следовать традициям',effect:'good',gold:200,exp:50,desc:'Благословение семьи'},{label:'Идти своим путём',effect:'neutral',gold:300,exp:30,desc:'Больше золота'}]},
-  {id:2,title:'Первое испытание',req:5,text:'Слухи о твоих способностях дошли до соседних деревень.',
+   choices:[{label:'Следовать традициям',effect:'good',gold:200,exp:50,desc:'Благословение'},{label:'Идти своим путём',effect:'neutral',gold:300,exp:30,desc:'Больше золота'}]},
+  {id:2,title:'Первое испытание',req:5,text:'Слухи о тебе дошли до соседних деревень.',
    choices:[{label:'Защитить деревню',effect:'good',gold:500,exp:150,rep:{body_sect:20},desc:'+20 репутации'},{label:'Уйти в город',effect:'neutral',gold:800,exp:80,rep:{seven_treasure:20},desc:'+20 репутации'}]},
   {id:3,title:'Кланы пробуждаются',req:10,text:'Кланы обратили на тебя внимание.',
    choices:[{label:'Союз с Синей Молнией',effect:'good',gold:1000,exp:400,rep:{blue_electric:30},desc:'+30 репутации'},{label:'Союз с Чистым Небом',effect:'evil',gold:1500,exp:200,rep:{clear_sky:30},desc:'+30 репутации'}]},
@@ -670,7 +685,7 @@ const AUCTION_ITEMS = [
 const NPCS = [
   {id:'shu_lao',name:'Шу-Лао',emoji:'🧙',desc:'Старейшина деревни',gift:'Бонус к опыту'},
   {id:'yu_xiaogang',name:'Ю Сяоган',emoji:'🥋',desc:'Мастер академии',gift:'Оружие'},
-  {id:'tang_hao',name:'Тан Хао',emoji:'⚔️',desc:'Кузнец',gift:'Скидка в кузнице'},
+  {id:'tang_hao',name:'Тан Хао',emoji:'⚔️',desc:'Кузнец',gift:'Скидка'},
   {id:'bibby_dun',name:'Бибби Дун',emoji:'😈',desc:'Тёмный культиватор',gift:'Артефакты'},
   {id:'ning_fengzhi',name:'Нин Фэнчжи',emoji:'👸',desc:'Императрица',gift:'Имперские награды'}
 ];
@@ -683,8 +698,16 @@ const SKINS = [
   {id:'celestial',name:'Небесный',emoji:'✨',cost:5000,desc:'Полубог',theme:'#7ac8ff'}
 ];
 
+/* Сезонные события (ротация раз в 7 дней) */
+const EVENTS = [
+  {id:'invasion',name:'🌋 Нашествие демонов',desc:'Демоны заполонили мир. Побеждай их в 2 раза чаще!',bonus:'exp',mult:2.0},
+  {id:'harvest',name:'🌾 Праздник урожая',desc:'Собирай травы и ресурсы — дроп х2!',bonus:'gold',mult:2.0},
+  {id:'tournament',name:'🏆 Турнир империи',desc:'На Арене двойная слава и рейтинг!',bonus:'rating',mult:2.0},
+  {id:'moon',name:'🌕 Лунный фестиваль',desc:'Опыт за победы удваивается!',bonus:'exp',mult:2.0}
+];
+
 /* ==================== СОСТОЯНИЕ ==================== */
-const SAVE_KEY = 'soul_land_v11';
+const SAVE_KEY = 'soul_land_v12';
 let state = loadState();
 
 function defaultState(){
@@ -693,7 +716,6 @@ function defaultState(){
     moralPath:'neutral', awakened:false,
     level:1, exp:0, expNext:100, gold:200, energy:50, maxEnergy:50,
     lastEnergyTick:Date.now(), restCooldown:0,
-    prologue:{done:false, acts:[], score:0, examPassed:null, unlockedSchools:null},
     currentLocation:'village',
     discoveredLocations:['village'],
     visitedLocations:{village:true},
@@ -705,7 +727,7 @@ function defaultState(){
     souls:[], activeSoulIndex:0,
     battlesWon:0, rating:0, arenaWins:0, arenaLosses:0,
     dungeonAttempts:{date:null,left:3}, dungeonProgress:{forest:0,cave:0,dragon_lair:0},
-    towerFloor:1, towerBest:1,
+    towerFloor:1, towerBest:1, towerSeason:0,
     dailyStreak:0, lastDailyClaim:0,
     dailyBossDate:null, dailyBossDefeated:false,
     quests:[], questsDate:null,
@@ -721,7 +743,9 @@ function defaultState(){
     pets:{owned:[],active:null},
     npc:{},
     skins:{owned:['default'],active:'default'},
-    auction:{refreshedAt:0,items:[]}
+    auction:{refreshedAt:0,items:[]},
+    stats:{totalDamage:0, bestBattle:0, fastestBattle:null, ringsAbsorbed:0, chestsOpened:0},
+    prestige:{level:0, bonus:0, history:[]}
   };
 }
 function saveState(){
@@ -754,6 +778,10 @@ function currentLoc(){ return LOCATIONS.find(l=>l.id===state.currentLocation) ||
 function clanAlly(id){ return state.clans[id] && state.clans[id].isAlly; }
 function clanEnemy(id){ return state.clans[id] && state.clans[id].isEnemy; }
 function activePet(){ return PETS.find(p=>p.id === state.pets.active) || null; }
+function currentEvent(){
+  const week = Math.floor(Date.now() / (7*24*60*60*1000));
+  return EVENTS[week % EVENTS.length];
+}
 
 function applyTheme(){
   const h = getHero();
@@ -809,7 +837,7 @@ function vib(ms){
 }
 function updateHUD(){
   const el1 = $('#hud-age'); if(el1) el1.textContent = Math.min(state.age, 30);
-  const el2 = $('#hud-level'); if(el2) el2.textContent = state.level;
+  const el2 = $('#hud-level'); if(el2) el2.textContent = state.level + (state.prestige.level ? ' ⭐'+state.prestige.level : '');
   const el3 = $('#hud-gold'); if(el3) el3.textContent = state.gold;
   const el4 = $('#hud-energy'); if(el4) el4.textContent = state.energy;
   const bar = $('#exp-bar');
@@ -849,195 +877,60 @@ async function pullFromServer(){
   }catch(e){ return false; }
 }
 
-/* ==================== СОЗДАНИЕ ==================== */
-function randomName(){ return RANDOM_NAMES[Math.floor(Math.random()*RANDOM_NAMES.length)]; }
-function updateAgeDesc(){
-  const inp = $('#inp-age'); if(!inp) return;
-  const a = parseInt(inp.value);
-  const d = $('#age-display'); if(d) d.textContent = a;
-  const descs = {6:'🌱 Юн. +5% опыта навсегда',7:'🌿 Лучший возраст. +10% статов',8:'🍀 +5% статов',9:'🌾 Поздно. +200 золота',10:'🌳 +500 золота, +3💎'};
-  const el = $('#age-desc'); if(el) el.textContent = descs[a] || '';
-}
-function doCreate(){
-  const name = ($('#inp-name').value || '').trim() || randomName();
-  const age = parseInt($('#inp-age').value) || 6;
-  state.playerName = name;
-  state.age = age;
-  if(age === 6) state.permBonuses.exp += 0.05;
-  else if(age === 7 || age === 8) state.permBonuses.atk += 0.05;
-  else if(age === 9) state.gold += 200;
-  else if(age === 10){ state.gold += 500; state.resources.crystals += 3; }
-  saveState(); pushToServer();
-  renderHeroPicker(); show('screen-hero');
-}
-
-/* ==================== ГЕРОЙ ==================== */
+/* ==================== ОНБОРДИНГ (1 экран) ==================== */
 let selectedHeroId = null;
-function renderHeroPicker(){
-  const list = $('#hero-list'); if(!list) return;
+let selectedSchoolId = null;
+
+function randomName(){ return RANDOM_NAMES[Math.floor(Math.random()*RANDOM_NAMES.length)]; }
+
+function renderQuickHeroes(){
+  const list = $('#hero-list-quick'); if(!list) return;
   list.innerHTML = '';
   HEROES.forEach(h=>{
     const div = document.createElement('div');
-    div.className = 'hero-pick' + (selectedHeroId===h.id ? ' selected' : '');
-    div.innerHTML = `<div class="art">${h.emoji}</div>
-      <div class="info">
-        <b>${h.name}</b>
-        <div style="color:#9aa6c8;line-height:1.4;margin:3px 0">${h.desc}</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;color:var(--dim);margin-top:4px">
-          <span>СИЛ ${h.stats.str}</span><span>ЗАЩ ${h.stats.def}</span>
-          <span>СКОР ${h.stats.spd}</span><span>ДУХ ${h.stats.spr}</span>
-        </div>
-        <div style="margin-top:6px;color:${h.theme}">✨ ${h.uniqueSkill.name}</div>
-        <div style="color:var(--dim);margin-top:2px">🎯 ${h.passive}</div>
-      </div>`;
-    div.onclick = () => { sfx.click(); selectedHeroId = h.id; renderHeroPicker(); };
+    div.style.cssText = `padding:8px 4px;background:${selectedHeroId===h.id?'linear-gradient(135deg,rgba(247,201,72,.2),rgba(160,107,255,.2))':'rgba(255,255,255,.03)'};border:2px solid ${selectedHeroId===h.id?'var(--theme)':'rgba(255,255,255,.06)'};border-radius:10px;text-align:center;cursor:pointer`;
+    div.innerHTML = `<div style="font-size:28px">${h.emoji}</div><div style="font-size:9px;font-weight:800;color:var(--theme);margin-top:2px;line-height:1.1">${h.name.split(' ')[0]}</div>`;
+    div.onclick = () => { sfx.click(); selectedHeroId = h.id; renderQuickHeroes(); };
     list.appendChild(div);
   });
 }
-function confirmHero(){
+function renderQuickSchools(){
+  const list = $('#school-list-quick'); if(!list) return;
+  list.innerHTML = '';
+  SCHOOLS.forEach(s=>{
+    const div = document.createElement('div');
+    div.style.cssText = `padding:8px 12px;background:${selectedSchoolId===s.id?`linear-gradient(135deg,${s.color}40,rgba(14,19,48,.9))`:'rgba(255,255,255,.03)'};border:2px solid ${selectedSchoolId===s.id?s.color:'rgba(255,255,255,.06)'};border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px`;
+    div.innerHTML = `<span style="font-size:20px">${s.emblem}</span><div style="flex:1"><div style="font-size:12px;font-weight:800;color:${s.color}">${s.name}</div><div style="font-size:10px;color:var(--dim)">${s.bonus}</div></div>`;
+    div.onclick = () => { sfx.click(); selectedSchoolId = s.id; renderQuickSchools(); };
+    list.appendChild(div);
+  });
+}
+function doQuickStart(){
+  const name = ($('#inp-name').value || '').trim() || randomName();
   if(!selectedHeroId){ toast('❌ Выбери душу', 'red'); return; }
+  if(!selectedSchoolId){ toast('❌ Выбери школу', 'red'); return; }
+  state.playerName = name;
+  state.age = 6;
   state.heroId = selectedHeroId;
+  state.schoolId = selectedSchoolId;
   state.souls = [{heroId:selectedHeroId, level:1, rings:[]}];
   state.activeSoulIndex = 0;
-  saveState(); applyTheme(); pushToServer();
-  showPrologue();
-}
-
-/* ==================== ПРОЛОГ ==================== */
-const PROLOGUE_ACTS = [
-  {id:'meditate',em:'🧘',name:'Медитация',desc:'+10 опыта, +1 очко таланта'},
-  {id:'train',em:'💪',name:'Физподготовка',desc:'+2% HP навсегда'},
-  {id:'study',em:'📖',name:'Учёба',desc:'+20 золота'},
-  {id:'social',em:'👥',name:'Общение',desc:'+5 репутации кланов'},
-  {id:'explore',em:'🌿',name:'Прогулка',desc:'+2 травы, шанс находки'}
-];
-let prologueDaysUsed = 0;
-function showPrologue(){ prologueDaysUsed = state.prologue.acts.length; renderPrologue(); show('screen-prologue'); }
-function renderPrologue(){
-  const c = $('#prologue-actions'); if(!c) return;
-  c.innerHTML = '';
-  PROLOGUE_ACTS.forEach(a=>{
-    const used = state.prologue.acts.filter(x=>x===a.id).length;
-    const canUse = used < 3 && prologueDaysUsed < 3;
-    const div = document.createElement('div');
-    div.className = 'prologue-act' + (used>=3?' done':'');
-    div.innerHTML = `<div style="font-size:36px">${a.em}</div>
-      <div style="flex:1;font-size:12px">
-        <b style="color:#fff;display:block;margin-bottom:2px">${a.name} <span style="color:var(--dim);font-weight:400">(${used}/3)</span></b>
-        <span style="color:var(--dim);font-size:11px">${a.desc}</span>
-      </div>
-      ${canUse ? '<button class="btn sec" style="width:auto;padding:8px 14px;font-size:12px">+1</button>' : used>=3 ? '<span style="color:#3ddc84;font-weight:800">✓</span>' : ''}`;
-    if(canUse) div.querySelector('button').onclick = () => { sfx.click(); doPrologueAct(a); };
-    c.appendChild(div);
-  });
-  const el = $('#prologue-sub'); if(el) el.textContent = `Использовано дней: ${prologueDaysUsed}/3`;
-  const btn = $('#btn-prologue-exam');
-  if(btn){
-    btn.disabled = prologueDaysUsed < 3;
-    btn.textContent = prologueDaysUsed<3 ? `🎓 Экзамен (${3-prologueDaysUsed} дн.)` : '🎓 Сдать экзамен';
-  }
-}
-function doPrologueAct(a){
-  if(prologueDaysUsed >= 3) return;
-  state.prologue.acts.push(a.id);
-  prologueDaysUsed++;
-  switch(a.id){
-    case 'meditate': state.exp += 10; state.talentPoints += 1; break;
-    case 'train': state.permBonuses.hp += 0.02; break;
-    case 'study': state.gold += 20; break;
-    case 'social':
-      CLANS.forEach(c=>{
-        if(!state.clans[c.id]) state.clans[c.id] = {rep:0,isAlly:false,isEnemy:false};
-        state.clans[c.id].rep = Math.min(100, state.clans[c.id].rep + 5);
-        updateClanFlags(c.id);
-      }); break;
-    case 'explore':
-      state.resources.herbs += 2;
-      if(Math.random() < 0.3){ state.gold += 30; toast('🌿 +30💰', 'gold'); }
-      break;
-  }
-  saveState(); updateHUD(); renderPrologue();
-  toast(`✅ ${a.name}`, 'green', 1200);
-}
-function doExam(){
-  if(prologueDaysUsed < 3){ toast('❌ Используй все дни', 'red'); return; }
-  const med = state.prologue.acts.filter(x=>x==='meditate').length;
-  const tr = state.prologue.acts.filter(x=>x==='train').length;
-  const st = state.prologue.acts.filter(x=>x==='study').length;
-  const so = state.prologue.acts.filter(x=>x==='social').length;
-  const ex = state.prologue.acts.filter(x=>x==='explore').length;
-  let score = med * 8 + tr * 7 + st * 6 + so * 5 + ex * 6;
-  const unique = [med,tr,st,so,ex].filter(x=>x>0).length;
-  score += unique * 3;
-  state.prologue.score = score;
-  state.prologue.done = true;
-  let result, unlocked;
-  if(score >= 45){ result = {emoji:'🌟',title:'ВЕЛИКОЛЕПНО!',text:'Мастер поражён!'}; unlocked = ['shrek','tang','star','blue_lightning']; }
-  else if(score >= 30){ result = {emoji:'✨',title:'ОТЛИЧНО!',text:'Тебя ждут три школы.'}; unlocked = ['tang','star','blue_lightning']; }
-  else if(score >= 20){ result = {emoji:'👍',title:'НЕПЛОХО',text:'Тебя берут в две школы.'}; unlocked = ['star','blue_lightning']; }
-  else if(score >= 10){ result = {emoji:'😐',title:'СЛАБО',text:'Только Теневая Секта.'}; unlocked = ['shadow_sect']; }
-  else { result = {emoji:'💀',title:'ПРОВАЛ',text:'Путь закрыт.'}; unlocked = ['shadow_sect']; }
-  state.prologue.unlockedSchools = unlocked;
-  const vis = $('#exam-visual'); if(vis) vis.textContent = result.emoji;
-  const res = $('#exam-result');
-  if(res) res.innerHTML = `<b style="color:var(--theme);font-size:16px">${result.title}</b><br>
-    <div style="font-size:12px;color:var(--dim);margin:8px 0">Счёт: <b style="color:var(--theme)">${score}</b></div>
-    <span style="color:var(--dim)">${result.text}</span>`;
-  sfx.level(); vib([50,50,50]);
-  saveState(); pushToServer();
-  show('screen-exam');
-}
-
-/* ==================== ШКОЛА ==================== */
-let selectedSchoolId = null;
-function renderSchoolPicker(){
-  const list = $('#school-list'); if(!list) return;
-  list.innerHTML = '';
-  const unlocked = state.prologue.unlockedSchools || ['shrek','tang','star','blue_lightning'];
-  SCHOOLS.filter(s=>unlocked.includes(s.id)).forEach(s=>{
-    const div = document.createElement('div');
-    div.className = 'school-pick' + (selectedSchoolId===s.id?' selected':'');
-    div.style.setProperty('--school-color', s.color);
-    div.style.background = `radial-gradient(circle at 80% 20%,${s.color}22,transparent 60%),linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9))`;
-    div.innerHTML = `<div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">
-        <div style="font-size:36px">${s.emblem}</div>
-        <div><div class="name">${s.name}</div><div style="font-size:10px;color:var(--dim);font-style:italic">${s.motto}</div></div>
-      </div>
-      <div style="font-size:11px;color:#c8d2ff;line-height:1.5;background:rgba(0,0,0,.25);padding:8px 10px;border-radius:8px">${s.bonus}</div>
-      <div style="font-size:10px;color:var(--dim);margin-top:6px">🎯 ${s.passiveDesc}</div>`;
-    div.onclick = () => { sfx.click(); selectedSchoolId = s.id; renderSchoolPicker(); };
-    list.appendChild(div);
-  });
-}
-function confirmSchool(){
-  if(!selectedSchoolId){ toast('❌ Выбери школу', 'red'); return; }
-  state.schoolId = selectedSchoolId;
   const school = getSchool();
   state.gold += school.startGold;
   state.energy = school.startEnergy;
   state.maxEnergy = school.startEnergy;
-  const hero = getHero();
-  const g = $('#hero-greeting');
-  if(g) g.innerHTML = `<b style="color:${hero.theme};font-size:14px">${state.playerName}</b><br>
-    Душа: <b style="color:${hero.theme}">${hero.name}</b><br>
-    Школа: <b style="color:${school.color}">${school.name}</b><br>
-    <span style="font-size:11px">${school.passiveDesc}</span>`;
-  saveState(); applyTheme(); updateHUD(); pushToServer();
-  show('screen-awaken');
-}
-function awaken(){
-  sfx.level(); vib([30,50,30]);
   state.awakened = true;
   state.lastEnergyTick = Date.now();
-  saveState(); updateHUD(); pushToServer();
-  toast(`✨ ${state.playerName} пробудил душу!`, 'gold', 2500);
+  saveState(); applyTheme(); updateHUD(); pushToServer();
+  sfx.level(); vib([50,50,50]);
+  toast(`✨ ${name} вступает в ${school.name}!`, 'gold', 2500);
   setTimeout(()=>goMenu(), 900);
 }
 
 /* ==================== МЕНЮ ==================== */
 function goMenu(){
   updateHUD(); refreshQuestsIfNeeded(); resetDailyBossIfNeeded();
-  if(!state.awakened){ const n = $('#nav'); if(n) n.classList.add('hidden'); show('screen-create'); return; }
+  if(!state.awakened){ const n = $('#nav'); if(n) n.classList.add('hidden'); show('screen-start'); return; }
   const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
   const hero = getHero();
   const school = getSchool();
@@ -1060,7 +953,7 @@ function goMenu(){
           <div style="font-size:56px;width:72px;height:72px;display:flex;align-items:center;justify-content:center">${skin.emoji || hero.emoji}</div>
         </div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:15px;font-weight:800;color:${skin.theme||hero.theme}">${state.playerName}</div>
+          <div style="font-size:15px;font-weight:800;color:${skin.theme||hero.theme}">${state.playerName}${state.prestige.level ? ' ⭐'+state.prestige.level : ''}</div>
           <div style="font-size:11px;color:var(--dim);margin:2px 0 6px;text-transform:uppercase">${hero.role} · ${school.name}</div>
           <div style="font-size:11px;color:var(--dim)">Возраст: <b style="color:var(--theme)">${Math.min(state.age,30)}</b> · Кольца: ${ringsHtml}</div>
           ${pet ? `<div style="font-size:11px;color:var(--theme);margin-top:3px">${pet.emoji} ${pet.name} · ${pet.desc}</div>` : ''}
@@ -1075,6 +968,20 @@ function goMenu(){
         · Опыт: <b>${state.exp}/${state.expNext}</b>
       </div>
     </div>`;
+  // Событие
+  const ev = currentEvent();
+  const evContainer = $('#event-container');
+  if(evContainer){
+    const weekNum = Math.floor(Date.now() / (7*24*60*60*1000));
+    const daysLeft = 7 - Math.floor((Date.now() - weekNum*7*24*60*60*1000) / (24*60*60*1000));
+    evContainer.innerHTML = `<div class="event-card">
+      <h3>${ev.name}</h3>
+      <div class="desc">${ev.desc}</div>
+      <div class="timer">⏳ ${daysLeft} дн.</div>
+      <div style="font-size:11px;color:#a06bff;font-weight:800">×${ev.mult.toFixed(1)} ${ev.bonus === 'exp' ? 'опыта' : ev.bonus === 'gold' ? 'золота' : 'рейтинга'}</div>
+    </div>`;
+  }
+  // Сюжет
   const nextChap = STORY_CHAPTERS.find(c=>c.id === state.storyChapter + 1);
   const storyEl = $('#story-menu');
   if(storyEl){
@@ -1186,10 +1093,11 @@ function computeStats(){
     }
   });
   const ringsBonus = totalRings() * 2;
-  let str = (hero.stats.str + eqStr + ringsBonus) * school.stats.str * lvlMul * (1 + state.permBonuses.atk);
-  let def = (hero.stats.def + eqDef + ringsBonus) * school.stats.def * lvlMul;
-  let spd = (hero.stats.spd + eqSpd + ringsBonus) * school.stats.spd * lvlMul;
-  let spr = (hero.stats.spr + eqSpr + ringsBonus) * school.stats.spr * lvlMul;
+  const prestigeMul = 1 + state.prestige.bonus;
+  let str = (hero.stats.str + eqStr + ringsBonus) * school.stats.str * lvlMul * (1 + state.permBonuses.atk) * prestigeMul;
+  let def = (hero.stats.def + eqDef + ringsBonus) * school.stats.def * lvlMul * prestigeMul;
+  let spd = (hero.stats.spd + eqSpd + ringsBonus) * school.stats.spd * lvlMul * prestigeMul;
+  let spr = (hero.stats.spr + eqSpr + ringsBonus) * school.stats.spr * lvlMul * prestigeMul;
   if(clanAlly('blue_electric')) spd *= 1.10;
   if(clanEnemy('blue_electric')) spr *= 0.90;
   if(clanEnemy('body_sect')) def *= 0.85;
@@ -1208,6 +1116,7 @@ function computeStats(){
   hpBonus += disciplesBonus;
   if(pet && pet.bonus.hp) hpBonus += pet.bonus.hp;
   if(state.schoolId === 'shadow_sect') hpBonus -= 0.3;
+  hpBonus += state.prestige.bonus * 0.5;
   return {
     str: Math.round(str), def: Math.round(def),
     spd: Math.round(spd), spr: Math.round(spr),
@@ -1219,15 +1128,51 @@ function computeStats(){
 /* ==================== КАРТА ==================== */
 function renderWorldMap(){
   const map = $('#world-map'); if(!map) return;
-  map.querySelectorAll('.map-node').forEach(n=>n.remove());
+  // Убираем старые ноды и регионы, оставляем fog и path
+  map.querySelectorAll('.map-node, .map-region').forEach(n=>n.remove());
+  // Рисуем пути между открытыми локациями
+  const pathSvg = $('#map-path');
+  if(pathSvg){
+    pathSvg.innerHTML = '';
+    const discovered = LOCATIONS.filter(l => state.discoveredLocations.includes(l.id));
+    discovered.forEach((loc, i) => {
+      const next = discovered[i+1];
+      if(next){
+        const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+        line.setAttribute('x1', loc.x*4.8);
+        line.setAttribute('y1', loc.y*5.2);
+        line.setAttribute('x2', next.x*4.8);
+        line.setAttribute('y2', next.y*5.2);
+        line.setAttribute('stroke', 'rgba(247,201,72,.35)');
+        line.setAttribute('stroke-width', '2');
+        line.setAttribute('stroke-dasharray', '6 4');
+        pathSvg.appendChild(line);
+      }
+    });
+  }
+  // Рисуем регионы (круги-подложки)
+  const regions = {};
+  LOCATIONS.forEach(loc=>{
+    if(!regions[loc.region]) regions[loc.region] = {color:loc.regionColor, points:[]};
+    regions[loc.region].points.push(loc);
+  });
+  Object.entries(regions).forEach(([name, r])=>{
+    const avgX = r.points.reduce((s,l)=>s+l.x,0)/r.points.length;
+    const avgY = r.points.reduce((s,l)=>s+l.y,0)/r.points.length;
+    const div = document.createElement('div');
+    div.className = 'map-region';
+    div.style.cssText = `position:absolute;left:calc(${avgX}% - 90px);top:calc(${avgY}% - 90px);width:180px;height:180px;background:radial-gradient(circle,${r.color}30,transparent 70%);border:1px dashed ${r.color}40`;
+    map.appendChild(div);
+  });
+  // Рисуем ноды
   LOCATIONS.forEach(loc=>{
     const discovered = state.discoveredLocations.includes(loc.id);
     const isCurrent = state.currentLocation === loc.id;
     const locked = !discovered && state.level < loc.minLevel;
     const div = document.createElement('div');
     div.className = 'map-node' + (isCurrent?' current':'') + (discovered?' discovered':'') + (locked?' locked':'') + (loc.secret?' secret':'');
-    div.style.left = `calc(${loc.x}% - 32px)`;
-    div.style.top = `calc(${loc.y}% - 32px)`;
+    div.style.left = `calc(${loc.x}% - 34px)`;
+    div.style.top = `calc(${loc.y}% - 34px)`;
     div.innerHTML = `${loc.emoji}<div class="lbl">${discovered?loc.name:'???'}</div>`;
     div.onclick = () => {
       sfx.click();
@@ -1237,6 +1182,21 @@ function renderWorldMap(){
     };
     map.appendChild(div);
   });
+  // Инфо о текущей локации
+  const info = $('#map-current-info');
+  const loc = currentLoc();
+  if(info) info.innerHTML = `<div style="display:flex;gap:12px;align-items:center">
+    <div style="font-size:44px">${loc.emoji}</div>
+    <div style="flex:1">
+      <div style="font-size:15px;font-weight:800;color:var(--theme)">${loc.name}</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:2px">${loc.desc}</div>
+    </div>
+    <button class="btn" id="btn-go-loc" style="width:auto;padding:8px 14px;font-size:12px">Войти</button>
+  </div>`;
+  setTimeout(()=>{
+    const b = $('#btn-go-loc');
+    if(b) b.onclick = () => { sfx.click(); openLocation(state.currentLocation); };
+  }, 0);
 }
 function travelTo(locId){
   if(state.energy < 3){ toast('⚡ Мало энергии', 'red'); return; }
@@ -1358,6 +1318,7 @@ function openTreasure(locId, tid, t){
   sfx.treasure(); vib([50,30,50,30,100]);
   if(!state.treasureOpened[locId]) state.treasureOpened[locId] = {};
   state.treasureOpened[locId][tid] = true;
+  state.stats.chestsOpened++;
   let rewardText = '';
   switch(t.reward){
     case 'gold': {
@@ -1388,6 +1349,7 @@ function openTreasure(locId, tid, t){
       const skill = RING_SKILL_POOL[Math.floor(Math.random()*RING_SKILL_POOL.length)];
       if(soul.rings.length < 9){
         soul.rings.push({ageYears:100 * (1+Math.floor(Math.random()*10)), color, skill:{...skill}});
+        state.stats.ringsAbsorbed++;
         rewardText = `💫 ${RING_NAMES[color]} кольцо! ${skill.name}`;
       } else {
         state.gold += 500;
@@ -1567,9 +1529,9 @@ function renderPets(){
         <div style="font-size:10px;color:var(--dim);margin-top:2px">${p.rarity.toUpperCase()}</div>
       </div>
       ${owned ? (isActive
-        ? `<button class="act" data-action="release" style="background:linear-gradient(135deg,#ff5566,#b62030);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation">Отпустить</button>`
-        : `<button class="act" data-action="activate" style="background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation">Активировать</button>`)
-        : `<button class="act" ${canBuy?'':'disabled'} data-action="buy" style="background:${canBuy?'linear-gradient(135deg,#ffd75e,var(--theme))':'#3a4488'};color:${canBuy?'#1a1400':'#fff'};border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation">${p.cost}💰</button>`}`;
+        ? `<button class="act" data-action="release" style="background:linear-gradient(135deg,#ff5566,#b62030);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px">Отпустить</button>`
+        : `<button class="act" data-action="activate" style="background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px">Активировать</button>`)
+        : `<button class="act" ${canBuy?'':'disabled'} data-action="buy" style="background:${canBuy?'linear-gradient(135deg,#ffd75e,var(--theme))':'#3a4488'};color:${canBuy?'#1a1400':'#fff'};border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px">${p.cost}💰</button>`}`;
     const btn = div.querySelector('[data-action]');
     if(btn){
       btn.onclick = () => {
@@ -1760,7 +1722,7 @@ function renderTower(){
   updateHUD();
   const b = $('#tower-best'); if(b) b.textContent = state.towerBest;
   const f = $('#tower-floor'); if(f) f.textContent = state.towerFloor;
-  const e = $('#tower-enemy'); if(e) e.textContent = `Враг: Страж этажа ${state.towerFloor}`;
+  const e = $('#tower-enemy'); if(e) e.textContent = `Враг: Страж этажа ${state.towerFloor} (HP ${100+state.towerFloor*40}, ATK ${10+state.towerFloor*3})`;
   const vis = $('#tower-vis'); if(!vis) return;
   vis.innerHTML = '';
   const total = Math.max(10, state.towerFloor + 5);
@@ -1769,6 +1731,23 @@ function renderTower(){
     el.className = 'tower-floor' + (i < state.towerFloor ? ' done' : i === state.towerFloor ? ' current' : '');
     el.innerHTML = `<span class="lbl">${i}</span>`;
     vis.appendChild(el);
+  }
+  // Лидерборд
+  const lb = $('#tower-leaderboard');
+  if(lb){
+    const names = ['Тан Сан','Сяо Ву','Дай Мубай','Чжу Чжуцин','Оскар','Ма Хунцзюнь'];
+    const me = { name: state.playerName, floor: state.towerBest, me: true };
+    const bots = names.map(n => ({name: n, floor: 3 + Math.floor(Math.random()*30)}));
+    const all = [...bots, me].sort((a,b)=>b.floor-a.floor);
+    lb.innerHTML = '';
+    all.slice(0,8).forEach((p,i)=>{
+      const div = document.createElement('div');
+      div.className = 'ach-card' + (p.me?' done':'');
+      div.innerHTML = `<div style="font-weight:900;width:28px;text-align:center;font-size:14px">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)}</div>
+        <div style="flex:1;font-size:12px"><b style="color:#fff;display:block">${p.name}${p.me?' (ТЫ)':''}</b></div>
+        <div style="color:var(--theme);font-weight:800;font-size:14px">${p.floor} эт.</div>`;
+      lb.appendChild(div);
+    });
   }
   show('screen-tower'); setNav('tower');
 }
@@ -1879,7 +1858,8 @@ function craftItem(r){
 }
 
 /* ==================== ПРОФИЛЬ ==================== */
-let profileTab = 'equip';
+let profileTab = 'stats';
+let bagFilter = 'all';
 function renderProfile(){
   updateHUD();
   const hero = getHero();
@@ -1888,7 +1868,22 @@ function renderProfile(){
   $$('#profile-tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab === profileTab));
   const c = $('#profile-content'); if(!c) return;
   c.innerHTML = '';
-  if(profileTab === 'equip'){
+
+  if(profileTab === 'stats'){
+    const s = state.stats;
+    c.innerHTML = `<div class="card">
+      <h2>📊 Статистика</h2>
+      <div class="stat-row"><span class="lbl">Побед в боях</span><span class="val">${state.battlesWon}</span></div>
+      <div class="stat-row"><span class="lbl">Колец поглощено</span><span class="val">${s.ringsAbsorbed || 0}</span></div>
+      <div class="stat-row"><span class="lbl">Сундуков открыто</span><span class="val">${s.chestsOpened || 0}</span></div>
+      <div class="stat-row"><span class="lbl">Всего урона</span><span class="val">${(s.totalDamage || 0).toLocaleString()}</span></div>
+      <div class="stat-row"><span class="lbl">Побед на Арене</span><span class="val">${state.arenaWins}</span></div>
+      <div class="stat-row"><span class="lbl">Поражений на Арене</span><span class="val">${state.arenaLosses}</span></div>
+      <div class="stat-row"><span class="lbl">Этаж Башни (рекорд)</span><span class="val">${state.towerBest}</span></div>
+      <div class="stat-row"><span class="lbl">Открыто локаций</span><span class="val">${state.discoveredLocations.length} / ${LOCATIONS.length}</span></div>
+      <div class="stat-row"><span class="lbl">Престиж</span><span class="val">⭐ ${state.prestige.level} (${Math.round(state.prestige.bonus*100)}%)</span></div>
+    </div>`;
+  } else if(profileTab === 'equip'){
     ['weapon','armor','ring'].forEach(slot=>{
       const names = {weapon:'Оружие',armor:'Броня',ring:'Кольцо'};
       const emojis = {weapon:'⚔️',armor:'🛡️',ring:'💍'};
@@ -1910,8 +1905,35 @@ function renderProfile(){
       c.appendChild(div);
     });
   } else if(profileTab === 'bag'){
-    const items = Object.entries(state.inventory).filter(([k,v])=>v>0);
-    if(!items.length){ c.innerHTML = '<p class="sub">Сумка пуста</p>'; return; }
+    // Фильтры
+    const filters = [
+      {id:'all', label:'Все'},
+      {id:'potion', label:'🧪 Зелья', match:['heal','buff']},
+      {id:'scroll', label:'📜 Свитки', match:['resurrect','freeze','damage','exp']},
+      {id:'equip', label:'⚔️ Экип', match:['slot']}
+    ];
+    const bar = document.createElement('div');
+    bar.className = 'filter-bar';
+    filters.forEach(f=>{
+      const btn = document.createElement('button');
+      btn.textContent = f.label;
+      btn.className = bagFilter === f.id ? 'on' : '';
+      btn.onclick = () => { bagFilter = f.id; renderProfile(); };
+      bar.appendChild(btn);
+    });
+    c.appendChild(bar);
+    const allItems = Object.entries(state.inventory).filter(([k,v])=>v>0);
+    const items = allItems.filter(([id])=>{
+      if(bagFilter === 'all') return true;
+      let item = null;
+      Object.values(FORGE_RECIPES).forEach(arr => arr.forEach(r => { if(r.id === id) item = r; }));
+      if(!item) return false;
+      const f = filters.find(f => f.id === bagFilter);
+      if(!f || !f.match) return true;
+      if(f.match.includes('slot')) return !!item.slot;
+      return f.match.includes(item.type);
+    });
+    if(!items.length){ c.innerHTML += '<p class="sub">Нет предметов</p>'; return; }
     const grid = document.createElement('div');
     grid.className = 'inv-grid';
     items.forEach(([id, count])=>{
@@ -1953,7 +1975,7 @@ function renderProfile(){
         const lvl = tlv(n.id);
         const canBuy = lvl < n.max && state.talentPoints > 0;
         const node = document.createElement('div');
-        node.style.cssText = `display:flex;align-items:center;gap:6px;padding:8px;background:rgba(255,255,255,.03);border:1px solid ${lvl>0?'var(--theme)':'rgba(255,255,255,.06)'};border-radius:10px;margin-bottom:6px;font-size:11px;cursor:${canBuy?'pointer':'default'};touch-action:manipulation`;
+        node.style.cssText = `display:flex;align-items:center;gap:6px;padding:8px;background:rgba(255,255,255,.03);border:1px solid ${lvl>0?'var(--theme)':'rgba(255,255,255,.06)'};border-radius:10px;margin-bottom:6px;font-size:11px;cursor:${canBuy?'pointer':'default'}`;
         node.innerHTML = `<div style="flex:1"><b style="font-size:11px;color:#fff">${n.name}</b>
           <div style="font-size:9px;color:var(--dim)">${n.desc}</div></div>
           <span style="font-weight:800;color:var(--theme);font-size:10px">${lvl}/${n.max}</span>`;
@@ -1997,7 +2019,7 @@ function renderProfile(){
           <span>${a.desc} · ${Math.min(val,a.target)}/${a.target}</span>
           <div class="bar"><div style="width:${Math.min(100,val/a.target*100)}%"></div></div>
         </div>
-        ${done && !claimed ? `<button class="action" style="background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px;touch-action:manipulation">ЗАБРАТЬ</button>` : claimed ? '<span style="color:#3ddc84;font-size:24px">✓</span>' : ''}`;
+        ${done && !claimed ? `<button class="action" style="background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px">ЗАБРАТЬ</button>` : claimed ? '<span style="color:#3ddc84;font-size:24px">✓</span>' : ''}`;
       if(done && !claimed) div.querySelector('.action').onclick = () => {
         state.achievements[a.id] = true;
         state.gold += a.reward;
@@ -2036,6 +2058,44 @@ function renderProfile(){
       };
       c.appendChild(div);
     });
+  } else if(profileTab === 'prestige'){
+    const canPrestige = state.level >= 40;
+    c.innerHTML = `<div class="card prestige-card">
+      <div style="font-size:64px;margin:8px 0">♻️</div>
+      <h2 style="justify-content:center">Престиж</h2>
+      <p class="sub" style="color:#c8d2ff">Сбросить уровень, но получить постоянный бонус</p>
+      <div style="font-size:13px;margin:10px 0">
+        Текущий престиж: <b style="color:var(--theme)">⭐ ${state.prestige.level}</b><br>
+        Бонус: <b style="color:var(--green)">+${Math.round(state.prestige.bonus*100)}% ко всем статам</b>
+      </div>
+      <div style="font-size:12px;color:var(--dim);margin:10px 0;line-height:1.6">
+        При следующем престиже:<br>
+        • +10% к постоянному бонусу<br>
+        • Сохранишь: кольца, золото, ресурсы, экипировку<br>
+        • Потеряешь: уровень, опыт, таланты (очки вернутся)
+      </div>
+      <button class="btn ${canPrestige?'':'sec'}" id="btn-prestige" ${canPrestige?'':'disabled'}>
+        ${canPrestige ? '♻️ СОВЕРШИТЬ ПРЕСТИЖ' : `🔒 Нужен 40 ур. (${state.level}/40)`}
+      </button>
+    </div>`;
+    if(canPrestige){
+      $('#btn-prestige').onclick = () => {
+        if(!confirm('Точно совершить престиж? Уровень и опыт сбросятся.')) return;
+        state.prestige.level++;
+        state.prestige.bonus += 0.10;
+        state.prestige.history.push({level: state.prestige.level, ts: Date.now()});
+        state.level = 1;
+        state.exp = 0;
+        state.expNext = 100;
+        state.talentPoints += Object.values(state.talents).reduce((a,b)=>a+b,0);
+        for(const k in state.talents) state.talents[k] = 0;
+        state.age = 6;
+        saveState(); updateHUD(); pushToServer();
+        sfx.level(); vib([50,50,50,50,100,50]);
+        toast(`⭐ Престиж ${state.prestige.level}! +10% ко всему`, 'purple', 4000);
+        renderProfile();
+      };
+    }
   } else if(profileTab === 'shop'){
     SHOP_ITEMS.forEach(item=>{
       const div = document.createElement('div');
@@ -2216,6 +2276,7 @@ function handleTab(tab){
   else if(tab === 'tower') renderTower();
   else if(tab === 'arena') renderArena();
   else if(tab === 'auction') renderAuction();
+  else if(tab === 'clans'){ renderClans(); show('screen-clans'); setNav('clans'); }
   else if(tab === 'sect'){ renderSect(); show('screen-sect'); setNav('sect'); }
   else if(tab === 'forge') renderForge();
   else if(tab === 'profile') renderProfile();
@@ -2244,11 +2305,11 @@ function startBattle(enemy, mode='pve', locId=null){
     mode, beast: enemy, locId,
     p: { name: state.playerName, heroId: hero.id, emoji: hero.emoji, hp: st.maxHp, maxHp: st.maxHp,
          atk: st.atk, def: st.def, spd: st.spd, spr: st.spr,
-         skills, buffs:{atk:1,def:1,spd:1,turns:0}, shield:0, freezes:0, stun:0, pet },
+         skills, buffs:{atk:1,def:1,spd:1,turns:0}, shield:0, freezes:0, stun:0, pet, healingUsed:false },
     e: { name: enemy.name, hp: enemy.hp, maxHp: enemy.hp,
          atk: enemy.atk, def: enemy.def, spd: enemy.spd, spr:3,
          buffs:{atk:1,def:1,spd:1,turns:0}, shield:0, freezes:0, stun:0 },
-    turn: 0, over: false, reviveUsed: false
+    turn: 0, over: false, reviveUsed: false, startTime: Date.now()
   };
   renderBattle();
   show('screen-battle');
@@ -2268,6 +2329,20 @@ function spawnStars(){
     s.style.animationDelay = (-Math.random()*3)+'s';
     c.appendChild(s);
   }
+}
+function renderRingAuras(){
+  const el = $('#p-rings'); if(!el) return;
+  const soul = state.souls[state.activeSoulIndex];
+  el.innerHTML = '';
+  if(!soul || !soul.rings) return;
+  const latest = soul.rings.slice(-3);
+  latest.forEach((r, i)=>{
+    const size = 60 + i * 18;
+    const div = document.createElement('div');
+    div.className = 'r';
+    div.style.cssText = `width:${size}px;height:${size}px;border-color:${RING_COLORS[r.color]};box-shadow:0 0 12px ${RING_COLORS[r.color]};opacity:.7`;
+    el.appendChild(div);
+  });
 }
 function renderBattle(){
   if(!battle) return;
@@ -2291,6 +2366,7 @@ function renderBattle(){
   };
   const pS = $('#p-statuses'); if(pS) pS.innerHTML = stHtml(p);
   const eS = $('#e-statuses'); if(eS) eS.innerHTML = stHtml(e);
+  renderRingAuras();
 }
 function logMsg(text, cls=''){
   const box = $('#log'); if(!box) return;
@@ -2405,7 +2481,7 @@ function openBattleItems(){
     for(const arr of Object.values(FORGE_RECIPES)) for(const r of arr) if(r.id === id) recipe = r;
     if(!recipe) return;
     const div = document.createElement('div');
-    div.style.cssText = 'padding:10px 6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;text-align:center;font-size:11px;position:relative;touch-action:manipulation';
+    div.style.cssText = 'padding:10px 6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;text-align:center;font-size:11px;position:relative';
     div.innerHTML = `<div style="font-size:24px">${recipe.ico}</div><div>${recipe.name}</div>
       <span style="position:absolute;top:2px;right:6px;color:var(--theme);font-weight:800">×${count}</span>`;
     div.onclick = () => { useBattleItem(recipe); ov.remove(); };
@@ -2454,29 +2530,63 @@ function useBattleItem(recipe){
   setTimeout(enemyTurn, 500);
   const a = $('#actions'); if(a) a.innerHTML = '';
 }
+/* УМНЫЙ АВТОБОЙ */
+function smartAutoAction(){
+  const p = battle.p, e = battle.e;
+  const hpPct = p.hp / p.maxHp;
+  const enemyHpPct = e.hp / e.maxHp;
+  // 1. Критическое лечение
+  if(hpPct < 0.3){
+    if((state.inventory.big_potion||0) > 0){
+      const recipe = FORGE_RECIPES.potions.find(r=>r.id==='big_potion');
+      if(recipe){ useBattleItem(recipe); return null; }
+    }
+    if((state.inventory.hp_potion||0) > 0 && !battle.p.healingUsed){
+      const recipe = FORGE_RECIPES.potions.find(r=>r.id==='hp_potion');
+      if(recipe){ battle.p.healingUsed = true; useBattleItem(recipe); return null; }
+    }
+    // Защита если нет зелий
+    return 'defend';
+  }
+  // 2. Начало боя — используем buff
+  if(battle.turn === 1 && (state.inventory.atk_potion||0) > 0){
+    const recipe = FORGE_RECIPES.potions.find(r=>r.id==='atk_potion');
+    if(recipe){ useBattleItem(recipe); return null; }
+  }
+  // 3. Мощный удар по ослабленному врагу
+  if(enemyHpPct < 0.25){
+    if((state.inventory.meteor||0) > 0){
+      const recipe = FORGE_RECIPES.scrolls.find(r=>r.id==='meteor');
+      if(recipe){ useBattleItem(recipe); return null; }
+    }
+  }
+  // 4. HP средний — щит
+  if(hpPct < 0.5 && Math.random() < 0.4){
+    const shieldSkill = p.skills.findIndex(s => s.type === 'shield');
+    if(shieldSkill >= 0) return 'skill' + shieldSkill;
+    return 'defend';
+  }
+  // 5. Обычная логика
+  const r = Math.random();
+  if(r < 0.25) return 'skill0';
+  else if(r < 0.45 && p.skills[1]) return 'skill1';
+  else return 'attack';
+}
 function playerAction(action){
   const p = battle.p, e = battle.e;
   if(battle.over) return;
   if(p.stun > 0){ p.stun--; logMsg(`${p.name} оглушён`, 'sys'); setTimeout(enemyTurn, 500); return; }
   if(action === 'auto'){
-    const hpPct = p.hp / p.maxHp;
-    if(hpPct < 0.3 && (state.inventory.hp_potion||0) > 0){
-      const recipe = FORGE_RECIPES.potions.find(r=>r.id==='hp_potion');
-      if(recipe){ useBattleItem(recipe); return; }
-    }
-    if(hpPct < 0.5) action = 'defend';
-    else {
-      const r = Math.random();
-      if(r < 0.3) action = 'skill0';
-      else if(r < 0.5) action = 'skill1';
-      else action = 'attack';
-    }
+    const smart = smartAutoAction();
+    if(smart === null) return; // использовал предмет, ход передаётся
+    action = smart;
   }
   const finish = () => { renderBattle(); if(e.hp <= 0){ endBattle('win'); return; } setTimeout(enemyTurn, 700); };
   if(action === 'attack'){
     let crit = Math.random() < 0.1 + tlv('str2')*0.05;
     let dmg = calcDamage(p.atk * (crit?1.8:1), e.def);
     applyDamageToEnemy(dmg);
+    state.stats.totalDamage += dmg;
     logMsg(`${p.name}${crit?' КРИТ!':''} — ${dmg}`, 'dmg');
     shootProjectile('p', getHero().theme, () => {
       floatDmg('e', dmg, crit?'#ffb84d':'#ff5566');
@@ -2503,6 +2613,7 @@ function applySkill(user, target, sk){
       if(tlv('str1') > 0) dmg = Math.round(dmg * (1 + tlv('str1')*0.1));
       if(state.heroId === 'zhu_zhuqing' && target.hp/target.maxHp < 0.3) dmg *= 2;
       applyDamageToEnemy(dmg);
+      state.stats.totalDamage += dmg;
       logMsg(`${user.name} → ${sk.name}: ${dmg}`, 'dmg');
       shootProjectile('p', getHero().theme, () => {
         floatDmg('e', dmg, '#ffb84d'); sfx.hit(); shakeUnit('e');
@@ -2515,6 +2626,7 @@ function applySkill(user, target, sk){
       let dmg = calcDamage(user.atk * sk.mult * skillMul, target.def);
       if(state.heroId === 'ma_hongjun') dmg = Math.round(dmg * 1.25);
       applyDamageToEnemy(dmg);
+      state.stats.totalDamage += dmg;
       logMsg(`${user.name} → ${sk.name}: ${dmg}`, 'dmg');
       shootProjectile('p', '#ff6a2a', () => {
         floatDmg('e', dmg, '#ffb84d'); sfx.hit(); hitFlash();
@@ -2561,6 +2673,7 @@ function enemyTurn(){
     logMsg(`⚔️ ТАКТИЧЕСКИЙ ОТПОР!`, 'sys');
     const cd = Math.round(p.atk * 0.7);
     applyDamageToEnemy(cd);
+    state.stats.totalDamage += cd;
     logMsg(`↩️ Контратака: ${cd}`, 'dmg');
     floatDmg('e', cd, '#3ddc84');
     renderBattle();
@@ -2594,14 +2707,18 @@ function endBattle(result){
   if(!battle) return;
   battle.over = true;
   const a = $('#actions'); if(a) a.innerHTML = '';
+  const battleDuration = (Date.now() - (battle.startTime || Date.now())) / 1000;
   if(result === 'win'){
     logMsg(`🏆 Победа!`, 'sys');
     sfx.win(); vib([30,50,30]);
     const beast = battle.beast;
+    const ev = currentEvent();
     let goldMul = 1 + tlv('spr3')*0.1;
     if(clanEnemy('clear_sky')) goldMul *= 0.85;
     if(state.schoolId === 'shadow_sect') goldMul *= 1.5;
+    if(ev.bonus === 'gold') goldMul *= ev.mult;
     let expMul = 1 + state.permBonuses.exp + (clanAlly('clear_sky') ? 0.15 : 0);
+    if(ev.bonus === 'exp') expMul *= ev.mult;
     state.gold += Math.round((beast.gold||0) * goldMul);
     state.battlesWon++;
     if(battle.locId){
@@ -2610,7 +2727,13 @@ function endBattle(result){
     }
     if(battle.mode === 'dungeon') progressQuest('dungeon', 1);
     if(battle.mode === 'tower') progressQuest('tower', 1);
-    if(battle.mode === 'arena'){ progressQuest('arena_win', 1); state.rating += 15+Math.floor(Math.random()*15); state.arenaWins++; }
+    if(battle.mode === 'arena'){
+      progressQuest('arena_win', 1);
+      let ratGain = 15+Math.floor(Math.random()*15);
+      if(ev.bonus === 'rating') ratGain = Math.round(ratGain * ev.mult);
+      state.rating += ratGain;
+      state.arenaWins++;
+    }
     if(battle.mode === 'pve') progressQuest('kill', 1);
     if(battle.mode === 'daily_boss'){
       state.dailyBossDefeated = true;
@@ -2618,13 +2741,14 @@ function endBattle(result){
       state.resources.crystals += 5;
       toast('🏆 Босс дня! +500💰 +5💎', 'gold', 3000);
     }
+    // Статистика
+    if(!state.stats.fastestBattle || battleDuration < state.stats.fastestBattle) state.stats.fastestBattle = Math.round(battleDuration);
     saveState(); updateHUD(); pushToServer();
-    // Сначала лут, потом level-up
+    // Лут
     const beastCopy = {...beast};
     const modeCopy = battle.mode;
     const locIdCopy = battle.locId;
     const hadLevelUp = gainExp(Math.round((beastCopy.exp||0) * expMul), true);
-    // Лут
     if(modeCopy === 'pve' && Math.random() < 0.3){
       const soul = state.souls[state.activeSoulIndex];
       if(soul){
@@ -2634,18 +2758,17 @@ function endBattle(result){
           const color = colors[Math.floor(Math.random()*colors.length)];
           const skill = RING_SKILL_POOL[Math.floor(Math.random()*RING_SKILL_POOL.length)];
           soul.rings.push({ageYears:50 + Math.floor(Math.random()*200), color, skill:{...skill}});
+          state.stats.ringsAbsorbed++;
           saveState();
           toast(`💫 ${RING_NAMES[color]}! ${skill.name}`, 'gold', 3000);
         }
       }
     }
-    // Level-up визуал
     if(hadLevelUp){
       sfx.level(); vib([50,30,50,30,50]);
       showLevelUp();
     }
     setTimeout(() => {
-      // Сундук после боя
       if(Math.random() < 0.15 && modeCopy === 'pve'){
         showChest();
         return;
@@ -2733,6 +2856,7 @@ function showChest(){
     else if(r.name === 'Кристаллы') state.resources.crystals += r.val;
     else if(r.name === 'Травы') state.resources.herbs += r.val;
     else if(r.name === 'Очко таланта') state.talentPoints += r.val;
+    state.stats.chestsOpened++;
     saveState(); updateHUD(); pushToServer();
     ov.remove();
     setTimeout(()=>goMenu(), 400);
@@ -2796,11 +2920,20 @@ function rest(){
 }
 
 /* ==================== ИНИЦИАЛИЗАЦИЯ ==================== */
+async function setSplashProgress(pct, text){
+  const bar = document.getElementById('splash-bar');
+  const status = document.getElementById('splash-status');
+  if(bar) bar.style.width = pct + '%';
+  if(status) status.textContent = text;
+  await new Promise(r => setTimeout(r, 200));
+}
+
 async function init(){
   try{
-    updateHUD();
-    const c = document.getElementById('particles');
-    if(c){
+    await setSplashProgress(10, 'Загрузка данных...');
+    // Частицы
+    const pc = document.getElementById('particles');
+    if(pc){
       for(let i=0;i<20;i++){
         const p = document.createElement('div'); p.className='particle';
         p.style.left = Math.random()*100+'%';
@@ -2808,18 +2941,18 @@ async function init(){
         p.style.animationDelay = (-Math.random()*20)+'s';
         const size = 2+Math.random()*3;
         p.style.width = size+'px'; p.style.height = size+'px';
-        c.appendChild(p);
+        pc.appendChild(p);
       }
     }
-    applyTheme();
-
+    await setSplashProgress(30, 'Инициализация Telegram...');
     if(window.Telegram && Telegram.WebApp){
       Telegram.WebApp.ready();
       Telegram.WebApp.expand();
       Telegram.WebApp.setHeaderColor('#070914');
       try{ Telegram.WebApp.enableClosingConfirmation(); }catch(e){}
     }
-
+    await setSplashProgress(50, 'Применение стиля...');
+    applyTheme();
     const altar = document.getElementById('altar-vis');
     if(altar){
       altar.innerHTML = `<div style="position:absolute;top:0;right:0;bottom:0;left:0;border-radius:50%;background:radial-gradient(circle,${getHero().theme}60,transparent 70%);animation:pulse 2.5s ease-in-out infinite"></div>
@@ -2830,21 +2963,17 @@ async function init(){
           <text x="50" y="62" font-size="40" text-anchor="middle">🗿</text>
         </svg>`;
     }
-
+    await setSplashProgress(65, 'Настройка управления...');
     // Слушатели
-    const bc = $('#btn-create'); if(bc) bc.onclick = () => { sfx.click(); doCreate(); };
-    const rn = $('#rand-name'); if(rn) rn.onclick = () => { const inp = $('#inp-name'); if(inp) inp.value = randomName(); };
-    const ia = $('#inp-age'); if(ia) ia.oninput = updateAgeDesc;
-    updateAgeDesc();
-    const inpN = $('#inp-name'); if(inpN) inpN.value = randomName();
-    if(rn) rn.textContent = randomName();
+    const rn = $('#rand-name');
+    if(rn){
+      rn.textContent = randomName();
+      rn.onclick = () => { const inp = $('#inp-name'); if(inp) inp.value = randomName(); };
+    }
+    const inpN = $('#inp-name');
+    if(inpN) inpN.value = randomName();
 
-    const bhn = $('#btn-hero-next'); if(bhn) bhn.onclick = () => { sfx.click(); confirmHero(); };
-    const bpe = $('#btn-prologue-exam'); if(bpe) bpe.onclick = () => { sfx.click(); doExam(); };
-    const ben = $('#btn-exam-next'); if(ben) ben.onclick = () => { sfx.click(); renderSchoolPicker(); show('screen-school'); };
-    const bss = $('#btn-school-start'); if(bss) bss.onclick = () => { sfx.click(); confirmSchool(); };
-    const baw = $('#btn-awaken'); if(baw) baw.onclick = awaken;
-
+    const bs = $('#btn-start'); if(bs) bs.onclick = () => { sfx.click(); doQuickStart(); };
     const bm = $('#btn-map'); if(bm) bm.onclick = () => { sfx.click(); handleTab('map'); };
     const bt = $('#btn-train'); if(bt) bt.onclick = () => { sfx.click(); train(); };
     const br = $('#btn-rest'); if(br) br.onclick = () => { sfx.click(); rest(); };
@@ -2874,11 +3003,15 @@ async function init(){
       }
     };
 
+    await setSplashProgress(80, 'Синхронизация с сервером...');
+    try{ await pullFromServer(); }catch(e){}
+
     setInterval(()=>{ tickEnergy(); updateHUD(); }, 30000);
     setInterval(saveState, 30000);
     setInterval(pushToServer, 60000);
     tickEnergy();
 
+    // Сброс сундуков раз в 24 часа
     const now = Date.now();
     if(now - (state.treasureLastReset||0) > 24*60*60*1000){
       state.treasureOpened = {};
@@ -2886,42 +3019,35 @@ async function init(){
       saveState();
     }
 
-    pullFromServer().then(loaded=>{
-      if(loaded){
-        if(state.awakened) goMenu();
-        updateHUD();
-      }
-    }).catch(()=>{});
+    await setSplashProgress(95, 'Готово!');
+    renderQuickHeroes();
+    renderQuickSchools();
 
     // Онбординг
     if(!state.playerName || !state.heroId){
       const nav = $('#nav'); if(nav) nav.classList.add('hidden');
-      show('screen-create');
-      return;
+      show('screen-start');
+    } else if(!state.awakened){
+      // Старый сейв без флага awakened — считаем пробуждённым
+      state.awakened = true;
+      saveState();
+      const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
+      goMenu();
+    } else {
+      const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
+      goMenu();
     }
-    if(!state.prologue.done){
-      const nav = $('#nav'); if(nav) nav.classList.add('hidden');
-      showPrologue();
-      return;
-    }
-    if(!state.schoolId){
-      const nav = $('#nav'); if(nav) nav.classList.add('hidden');
-      renderSchoolPicker();
-      show('screen-school');
-      return;
-    }
-    if(!state.awakened){
-      const nav = $('#nav'); if(nav) nav.classList.add('hidden');
-      show('screen-awaken');
-      return;
-    }
-    const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
-    goMenu();
+
+    await setSplashProgress(100, 'Добро пожаловать!');
+    await new Promise(r => setTimeout(r, 400));
+    const splash = document.getElementById('splash');
+    if(splash) splash.classList.add('hide');
+    setTimeout(()=>{ if(splash) splash.remove(); }, 700);
   }catch(err){
     console.error('Init error:', err);
     const el = document.createElement('div');
     el.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#ff4d5e;color:#fff;padding:8px;z-index:99999;font-size:12px;font-family:monospace';
-    el.textContent = 'Ошибка инициализации: ' + err.message;
+    el.textContent = 'Ошибка: ' + err.message;
     document.body.appendChild(el);
   }
 }
