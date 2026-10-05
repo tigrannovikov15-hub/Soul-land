@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
 const { Telegraf, Markup } = require('telegraf');
+let Pool = null;
+try{ Pool = require('pg').Pool; }catch(e){}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,19 +13,43 @@ app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders: (res, filePath) => {
     if(filePath.endsWith('.html')){
       res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
     }
   }
 }));
 app.use(express.json({ limit: '2mb' }));
 
 app.get('/', (req, res) => {
-  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+  res.setHeader('Cache-Control', 'no-store');
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/health', (req, res) => res.json({ ok: true, ts: Date.now() }));
+
+/* ===== PostgreSQL ===== */
+let db = null;
+if(process.env.DATABASE_URL && Pool){
+  db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DATABASE_URL.includes('render.com') ? { rejectUnauthorized: false } : false
+  });
+  (async()=>{
+    try{
+      await db.query(`
+        CREATE TABLE IF NOT EXISTS players (
+          telegram_id BIGINT PRIMARY KEY,
+          username VARCHAR(64),
+          first_name VARCHAR(64),
+          save_data JSONB,
+          updated_at TIMESTAMPTZ DEFAULT NOW()
+        );
+      `);
+      await db.query(`CREATE INDEX IF NOT EXISTS idx_players_updated ON players(updated_at);`);
+      console.log('✅ БД готова');
+    }catch(e){ console.error('❌ БД:', e.message); }
+  })();
+}
+
+const memSaves = new Map();
 
 function validateInitData(initData){
   if(!initData || !process.env.BOT_TOKEN) return null;
@@ -45,26 +71,44 @@ function validateInitData(initData){
   }catch(e){ return null; }
 }
 
-const saves = new Map();
-
-app.get('/api/save', (req, res) => {
+app.get('/api/save', async (req, res) => {
   const user = validateInitData(req.headers['x-telegram-init-data']);
   if(!user) return res.status(401).json({ error: 'unauthorized' });
-  res.json({ ok: true, save: saves.get(String(user.id)) || null });
+  try{
+    if(db){
+      const r = await db.query('SELECT save_data FROM players WHERE telegram_id = $1', [user.id]);
+      if(r.rows.length === 0) return res.json({ ok:true, save:null });
+      res.json({ ok:true, save: r.rows[0].save_data });
+    } else {
+      res.json({ ok:true, save: memSaves.get(String(user.id)) || null });
+    }
+  }catch(e){ res.status(500).json({ error: e.message }); }
 });
 
-app.post('/api/save', (req, res) => {
+app.post('/api/save', async (req, res) => {
   const user = validateInitData(req.headers['x-telegram-init-data']);
   if(!user) return res.status(401).json({ error: 'unauthorized' });
   const { data } = req.body || {};
   if(!data) return res.status(400).json({ error: 'no data' });
   const safe = JSON.parse(JSON.stringify(data));
   if(typeof safe.level !== 'number' || safe.level < 1 || safe.level > 500) safe.level = 1;
-  if(typeof safe.gold !== 'number' || safe.gold < 0 || safe.gold > 1e9) safe.gold = 0;
-  if(typeof safe.rating !== 'number' || safe.rating < 0 || safe.rating > 100000) safe.rating = 0;
+  if(typeof safe.gold !== 'number' || safe.gold < 0 || safe.gold > 1e12) safe.gold = 0;
+  if(typeof safe.rating !== 'number' || safe.rating < 0 || safe.rating > 1000000) safe.rating = 0;
   if(typeof safe.age !== 'number' || safe.age < 6 || safe.age > 30) safe.age = 6;
-  saves.set(String(user.id), safe);
-  res.json({ ok: true });
+  try{
+    if(db){
+      await db.query(`
+        INSERT INTO players (telegram_id, username, first_name, save_data, updated_at)
+        VALUES ($1, $2, $3, $4, NOW())
+        ON CONFLICT (telegram_id) DO UPDATE
+        SET username = EXCLUDED.username, first_name = EXCLUDED.first_name,
+            save_data = EXCLUDED.save_data, updated_at = NOW()
+      `, [user.id, user.username || null, user.first_name || null, JSON.stringify(safe)]);
+    } else {
+      memSaves.set(String(user.id), safe);
+    }
+    res.json({ ok:true });
+  }catch(e){ res.status(500).json({ error: e.message }); }
 });
 
 const PRICES = {
@@ -74,7 +118,7 @@ const PRICES = {
   talent_reset:{ title:'Сброс талантов', description:'Вернуть очки', price:40 }
 };
 
-app.post('/api/shop/invoice', (req, res) => {
+app.post('/api/shop/invoice', async (req, res) => {
   const user = validateInitData(req.headers['x-telegram-init-data']);
   if(!user) return res.status(401).json({ error: 'unauthorized' });
   const { itemCode } = req.body || {};
@@ -82,16 +126,18 @@ app.post('/api/shop/invoice', (req, res) => {
   if(!item) return res.status(400).json({ error: 'unknown item' });
   const bot = global.__bot;
   if(!bot) return res.status(500).json({ error: 'bot not ready' });
-  bot.telegram.createInvoiceLink({
-    title: item.title, description: item.description,
-    payload: JSON.stringify({ itemCode, userId: user.id, ts: Date.now() }),
-    provider_token: '', currency: 'XTR',
-    prices: [{ label: item.title, amount: item.price }]
-  }).then(link => res.json({ invoiceLink: link }))
-    .catch(e => res.status(500).json({ error: e.message }));
+  try{
+    const link = await bot.telegram.createInvoiceLink({
+      title: item.title, description: item.description,
+      payload: JSON.stringify({ itemCode, userId: user.id, ts: Date.now() }),
+      provider_token: '', currency: 'XTR',
+      prices: [{ label: item.title, amount: item.price }]
+    });
+    res.json({ invoiceLink: link });
+  }catch(e){ res.status(500).json({ error: e.message }); }
 });
 
-app.listen(PORT, () => console.log(`🌐 Сервер запущен: ${PORT}`));
+app.listen(PORT, () => console.log(`🌐 Сервер: ${PORT}`));
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const WEBAPP_URL = process.env.WEBAPP_URL || (process.env.RENDER_EXTERNAL_HOSTNAME
@@ -114,7 +160,7 @@ if(BOT_TOKEN){
   });
 
   bot.help((ctx) => ctx.replyWithMarkdown(
-    `📜 *Как играть*\n\n1️⃣ Создай героя\n2️⃣ Исследуй карту\n3️⃣ Пройди 10 глав сюжета\n4️⃣ Победи Короля Демонов\n5️⃣ Оснуй Секту Тан`,
+    `📜 *Как играть*\n\n1️⃣ Создай героя\n2️⃣ Исследуй карту\n3️⃣ Пройди 10 глав\n4️⃣ Победи Короля Демонов\n5️⃣ Оснуй Секту Тан`,
     Markup.inlineKeyboard([[Markup.button.webApp('🎮 Играть', WEBAPP_URL)]])
   ));
   bot.action('help', (ctx) => { ctx.answerCbQuery(); ctx.replyWithMarkdown('📜 Жми «Играть»!', Markup.inlineKeyboard([[Markup.button.webApp('🎮 Играть', WEBAPP_URL)]])); });
@@ -149,18 +195,26 @@ if(BOT_TOKEN){
   process.once('SIGINT', () => bot.stop('SIGINT'));
   process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
+  /* ===== CRON ПУШИ ===== */
   const lastPushes = new Map();
   setInterval(async () => {
     try{
-      for(const [uid, save] of saves){
+      let players = [];
+      if(db){
+        const r = await db.query('SELECT telegram_id, save_data FROM players WHERE updated_at > NOW() - INTERVAL \'7 days\'');
+        players = r.rows.map(row => ({uid: String(row.telegram_id), save: row.save_data}));
+      } else {
+        for(const [uid, save] of memSaves) players.push({uid, save});
+      }
+      for(const {uid, save} of players){
         if(!save || !save.awakened) continue;
         const now = Date.now();
-        const lastPush = lastPushes.get(uid) || 0;
-        if(now - lastPush < 4*60*60*1000) continue;
+        const last = lastPushes.get(uid) || 0;
+        if(now - last < 4*60*60*1000) continue;
         if(save.energy >= save.maxEnergy){
           try{
             await bot.telegram.sendMessage(uid,
-              `⚡ *Энергия полная!*\n\nЗаходи, Мастер Души — пора в бой!`,
+              `⚡ *Энергия полная!*\n\nЗаходи — пора в бой!`,
               { parse_mode:'Markdown', reply_markup: { inline_keyboard: [[{ text:'🎮 Играть', web_app: { url: WEBAPP_URL } }]] } }
             );
             lastPushes.set(uid, now);
