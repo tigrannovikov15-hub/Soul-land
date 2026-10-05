@@ -6,49 +6,33 @@
 <title>Путь к Бессмертию</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--theme:#f7c948;--text:#eaf0ff;--dim:#8b95bb;--border:rgba(247,201,72,.25)}
+:root{--theme:#f7c948;--text:#eaf0ff;--dim:#8b95bb;--border:rgba(247,201,72,.25);--red:#ff4d5e;--green:#3ddc84;--purple:#a06bff;--blue:#4a7cff}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
 body{background:#070914;color:var(--text);font-family:-apple-system,'Segoe UI',Roboto,sans-serif;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
 input,textarea{-webkit-user-select:text!important;user-select:text!important}
-button,.btn,.tabs button,.map-node,.hero-pick,.school-pick{touch-action:manipulation}
-/* SPLASH */
-#splash{position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;background:radial-gradient(circle at 50% 50%,#1a2350,#070914);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
-#splash.hide{opacity:0;pointer-events:none}
-#splash .logo{font-size:72px;animation:splashPulse 1.5s ease-in-out infinite;filter:drop-shadow(0 0 30px var(--theme))}
-#splash h1{font-size:24px;margin:16px 0 4px;background:linear-gradient(135deg,#ffe9a8,var(--theme),#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
-#splash .sub{font-size:12px;color:var(--dim);margin-bottom:24px;letter-spacing:2px;text-transform:uppercase}
-#splash .bar{width:240px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:10px}
-#splash .bar>div{height:100%;width:0%;background:linear-gradient(90deg,var(--theme),#a06bff);transition:width .3s}
-#splash .status{font-size:11px;color:var(--dim);font-family:monospace;height:16px}
-@keyframes splashPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
-@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.15)}}
-@keyframes float{0%{transform:translateY(100vh);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(-10vh) translateX(40px);opacity:0}}
-@keyframes nodeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-@keyframes twinkle{0%,100%{opacity:.3}50%{opacity:1}}
-@keyframes flash{0%{opacity:1}100%{opacity:0}}
-@keyframes floatUp{0%{opacity:0;transform:translate(-50%,0) scale(.5)}20%{opacity:1;transform:translate(-50%,-10px) scale(1.2)}100%{opacity:0;transform:translate(-50%,-70px) scale(1)}}
-@keyframes ringPulse{0%,100%{opacity:.6;filter:blur(0)}50%{opacity:1;filter:blur(1px)}}
+button,.btn,.tabs button,.map-node{touch-action:manipulation}
 #bgfx{position:fixed;top:0;right:0;bottom:0;left:0;z-index:0;pointer-events:none;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:drift 18s ease-in-out infinite}
 .orb.a{width:280px;height:280px;background:var(--theme);left:-80px;top:-60px;opacity:.15}
 .orb.b{width:320px;height:320px;background:#7a2aff;right:-100px;top:30%;opacity:.4}
 .orb.c{width:240px;height:240px;background:#00b4a8;left:20%;bottom:-80px;opacity:.35}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.15)}}
 #particles{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1;pointer-events:none}
 .particle{position:absolute;width:3px;height:3px;border-radius:50%;background:radial-gradient(circle,#ffe9a8,transparent);animation:float linear infinite;opacity:.7}
+@keyframes float{0%{transform:translateY(100vh);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(-10vh) translateX(40px);opacity:0}}
 #app{position:relative;z-index:2;max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column}
 header{padding:10px 12px 8px;display:flex;gap:5px;align-items:center;background:rgba(7,9,20,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:10;position:relative}
 header .stat{flex:1;text-align:center;font-size:9px;color:var(--dim);letter-spacing:.3px;text-transform:uppercase}
-header .stat b{display:block;font-size:13px;color:var(--theme);margin-top:1px}
+header .stat b{display:block;font-size:13px;color:var(--theme);margin-top:1px;text-shadow:0 0 10px var(--theme)}
 .exp-bar{position:absolute;bottom:-1px;left:0;height:2px;background:linear-gradient(90deg,var(--theme),#a06bff);transition:width .4s}
 main{flex:1;overflow-y:auto;padding:14px 14px 84px;position:relative;-webkit-overflow-scrolling:touch}
 .screen{display:none}
 .screen.active{display:block;animation:fadeUp .35s cubic-bezier(.22,.8,.3,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 h1{font-size:21px;margin-bottom:4px;text-align:center;font-weight:800;background:linear-gradient(135deg,#ffe9a8,var(--theme) 40%,#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent}
 h2{font-size:15px;color:var(--theme);margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:6px}
+h3{font-size:14px;color:var(--theme);font-weight:800;margin-bottom:8px}
 .sub{font-size:12px;color:var(--dim);text-align:center;margin-bottom:12px}
 .card{background:linear-gradient(160deg,rgba(28,36,72,.88),rgba(14,19,48,.88));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;margin-bottom:10px;backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
 .btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;transition:all .15s;box-shadow:0 4px 18px var(--border);font-family:inherit}
@@ -64,16 +48,16 @@ input[type=text]:focus{border-color:var(--theme)}
 .stats div{background:rgba(255,255,255,.04);padding:6px 4px;border-radius:8px;text-align:center;color:var(--dim);text-transform:uppercase;border:1px solid rgba(255,255,255,.04)}
 .stats b{color:var(--theme);display:block;font-size:14px;margin-top:2px}
 .aura{position:absolute;top:-6px;right:-6px;bottom:-6px;left:-6px;border-radius:50%;background:radial-gradient(circle,var(--aura-color,rgba(247,201,72,.4)) 0%,transparent 65%);animation:pulse 2.5s ease-in-out infinite;pointer-events:none}
-/* MAP */
-.world-map{position:relative;width:100%;height:520px;background:radial-gradient(ellipse at center,#1a2350,#070914);border-radius:20px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
-.map-fog{position:absolute;top:0;right:0;bottom:0;left:0;background:radial-gradient(circle at 50% 50%,transparent 30%,rgba(7,9,20,.7) 70%,rgba(7,9,20,.95) 100%);pointer-events:none;z-index:5}
-.map-region{position:absolute;border-radius:50%;pointer-events:none;animation:ringPulse 4s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
+.world-map{position:relative;width:100%;height:540px;background:radial-gradient(ellipse at center,#1a2350,#070914);border-radius:20px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
+.map-fog{position:absolute;top:0;right:0;bottom:0;left:0;background:radial-gradient(circle at 50% 50%,transparent 25%,rgba(7,9,20,.75) 65%,rgba(7,9,20,.95) 100%);pointer-events:none;z-index:5}
 .map-node{position:absolute;width:68px;height:68px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:26px;background:radial-gradient(circle,rgba(28,36,72,.95),rgba(14,19,48,.95));border:2px solid var(--border);cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(0,0,0,.5);z-index:3}
 .map-node:active{transform:scale(.92)}
 .map-node.discovered{border-color:var(--theme);box-shadow:0 0 20px var(--border)}
 .map-node.current{background:radial-gradient(circle,#ffd75e,#e09b1b);border-color:#fff;animation:nodeBob 1.5s ease-in-out infinite}
 .map-node.locked{opacity:.45;filter:grayscale(.7)}
 .map-node.secret{border-color:#a06bff;box-shadow:0 0 20px rgba(160,107,255,.6)}
+@keyframes nodeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .map-node .lbl{font-size:8px;font-weight:800;color:#fff;margin-top:2px;text-shadow:0 1px 3px rgba(0,0,0,.9);max-width:66px;text-align:center;line-height:1}
 .map-node.current .lbl{color:#1a1400;text-shadow:none}
 .map-path{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2}
@@ -82,10 +66,10 @@ input[type=text]:focus{border-color:var(--theme)}
 .loc-header .info{flex:1}
 .loc-header .name{font-size:17px;font-weight:900;color:var(--theme)}
 .loc-header .desc{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.4}
-/* BATTLE */
 .battle-scene{position:relative;min-height:320px;margin-bottom:14px;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#0a1230 0%,#1a2050 40%,#050810 100%);border:1px solid rgba(255,255,255,.06)}
 .battle-scene .stars{position:absolute;top:0;right:0;bottom:0;left:0;opacity:.6}
 .battle-scene .stars span{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
+@keyframes twinkle{0%,100%{opacity:.3}50%{opacity:1}}
 .battle-scene .moon{position:absolute;top:18px;right:26px;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fff6d8,#c8a860);box-shadow:0 0 50px rgba(255,240,200,.7);opacity:.85}
 .battle-scene .mountains{position:absolute;bottom:0;left:0;right:0;width:100%;height:70%;opacity:.7}
 .battle-scene .ground{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,rgba(15,20,50,.95) 0%,rgba(5,8,20,1) 100%)}
@@ -94,6 +78,7 @@ input[type=text]:focus{border-color:var(--theme)}
 .fighter .unit .platform{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80%;height:16px;border-radius:50%;background:radial-gradient(ellipse,rgba(74,124,255,.6),transparent 70%);filter:blur(3px)}
 .fighter .unit .name{font-size:12px;font-weight:800;margin-top:8px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.8)}
 .fighter .unit.hit{animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .fighter .unit .statuses{display:flex;justify-content:center;gap:3px;margin-top:4px;min-height:16px;flex-wrap:wrap}
 .status-ico{font-size:11px;background:rgba(0,0,0,.6);border-radius:6px;padding:1px 4px;border:1px solid rgba(255,255,255,.15)}
 .hpbar{height:12px;background:#0a0e20;border-radius:8px;overflow:hidden;margin-top:6px;border:1px solid rgba(255,255,255,.15)}
@@ -108,8 +93,10 @@ input[type=text]:focus{border-color:var(--theme)}
 .actions .btn.skill{background:linear-gradient(135deg,#7a3ee0,#4a1e9e);color:#e0c4ff}
 .actions .btn.ultimate{background:linear-gradient(135deg,var(--theme),#e09b1b);color:#1a1400;font-weight:900}
 .float-dmg{position:absolute;font-weight:900;font-size:26px;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.9);animation:floatUp 1.2s cubic-bezier(.2,.7,.3,1) forwards;z-index:20;left:50%;top:20%}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,0) scale(.5)}20%{opacity:1;transform:translate(-50%,-10px) scale(1.2)}100%{opacity:0;transform:translate(-50%,-70px) scale(1)}}
 .projectile{position:absolute;width:24px;height:24px;pointer-events:none;z-index:15;filter:drop-shadow(0 0 8px currentColor)}
 .hit-flash{position:fixed;top:0;right:0;bottom:0;left:0;pointer-events:none;z-index:30;animation:flash .3s ease-out;opacity:0;background:radial-gradient(circle at 50% 50%,rgba(255,80,80,.5),transparent 60%)}
+@keyframes flash{0%{opacity:1}100%{opacity:0}}
 nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;gap:1px;background:rgba(7,9,20,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:50}
 nav button{flex:1;background:transparent;border:none;color:var(--dim);padding:6px 2px;font-size:8px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px}
 nav button .ico{font-size:18px}
@@ -221,7 +208,7 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .skin-card .info b{color:#fff;display:block;margin-bottom:2px}
 .skin-card .info span{color:var(--dim);font-size:11px}
 .skin-card .act{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px}
-.event-card{padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,107,255,.4),rgba(28,36,72,.95));border:2px solid #a06bff;text-align:center;margin-bottom:12px;box-shadow:0 0 30px rgba(160,107,255,.5);position:relative;overflow:hidden}
+.event-card{padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,107,255,.4),rgba(28,36,72,.95));border:2px solid #a06bff;text-align:center;margin-bottom:12px;box-shadow:0 0 30px rgba(160,107,255,.5)}
 .event-card h3{color:#d8b8ff;font-size:16px;margin-bottom:6px}
 .event-card .desc{font-size:11px;color:#c8d2ff;line-height:1.5;margin-bottom:10px}
 .event-card .timer{font-size:22px;font-weight:900;color:#a06bff;font-family:monospace;margin:6px 0}
@@ -237,16 +224,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 </style>
 </head>
 <body>
-
-<!-- SPLASH -->
-<div id="splash">
-  <div class="logo">🐉</div>
-  <h1>Путь к Бессмертию</h1>
-  <div class="sub">Боевой Континент</div>
-  <div class="bar"><div id="splash-bar"></div></div>
-  <div class="status" id="splash-status">Инициализация...</div>
-</div>
-
 <div id="bgfx"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
 <div id="particles"></div>
 <div id="toasts"></div>
@@ -261,7 +238,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 </header>
 <main id="main">
 
-<!-- ОНБОРДИНГ (1 экран) -->
 <section class="screen active" id="screen-start">
   <h1>Добро пожаловать</h1>
   <p class="sub">Быстрый старт: имя, душа, школа</p>
@@ -286,7 +262,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   </div>
 </section>
 
-<!-- ГЛАВНОЕ МЕНЮ -->
 <section class="screen" id="screen-menu">
   <h1 id="menu-title">Персонаж</h1>
   <p class="sub" id="menu-sub">—</p>
@@ -311,13 +286,12 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div class="card"><h2>📋 Квесты дня</h2><div id="quests-list"></div></div>
 </section>
 
-<!-- КАРТА -->
 <section class="screen" id="screen-map">
   <h1>🗺️ Карта мира</h1>
   <p class="sub">Путешествуй и исследуй</p>
   <div class="world-map" id="world-map">
     <div class="map-fog"></div>
-    <svg class="map-path" id="map-path" viewBox="0 0 480 520" preserveAspectRatio="none"></svg>
+    <svg class="map-path" id="map-path" viewBox="0 0 480 540" preserveAspectRatio="none"></svg>
   </div>
   <div class="card">
     <h2>📍 Текущая локация</h2>
@@ -325,7 +299,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   </div>
 </section>
 
-<!-- ЛОКАЦИЯ -->
 <section class="screen" id="screen-location">
   <div id="loc-header"></div>
   <div class="tabs" id="loc-tabs">
@@ -337,28 +310,24 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="loc-content"></div>
 </section>
 
-<!-- КЛАНЫ -->
 <section class="screen" id="screen-clans">
   <h1>⚔️ Кланы</h1>
   <p class="sub">Союзники и враги</p>
   <div id="clans-list"></div>
 </section>
 
-<!-- СЕКТА -->
 <section class="screen" id="screen-sect">
-  <h1>🏯 Секта</h1>
+  <h1>🏯 Секта Тан</h1>
   <p class="sub">Твоё наследие</p>
   <div id="sect-content"></div>
 </section>
 
-<!-- ПИТОМЦЫ -->
 <section class="screen" id="screen-pets">
   <h1>🐾 Питомцы</h1>
   <p class="sub">Верные спутники</p>
   <div id="pets-list"></div>
 </section>
 
-<!-- АУКЦИОН -->
 <section class="screen" id="screen-auction">
   <h1>🏪 Аукцион</h1>
   <p class="sub">Купить и продать</p>
@@ -369,21 +338,18 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="auction-content"></div>
 </section>
 
-<!-- NPC -->
 <section class="screen" id="screen-npc">
   <h1>💞 Наставники</h1>
   <p class="sub">Развивай отношения</p>
   <div id="npc-list"></div>
 </section>
 
-<!-- ПОДЗЕМЕЛЬЯ -->
 <section class="screen" id="screen-dungeons">
   <h1>🗝️ Подземелья</h1>
   <p class="sub">Попыток: <b id="dungeon-attempts" style="color:var(--theme)">3/3</b></p>
   <div id="dungeons-list"></div>
 </section>
 
-<!-- БАШНЯ -->
 <section class="screen" id="screen-tower">
   <h1>🗼 Башня Испытаний</h1>
   <p class="sub">Этаж <b id="tower-best" style="color:var(--theme)">1</b> · Сезон</p>
@@ -396,7 +362,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div class="card"><h2>🏆 Топ Башни</h2><div id="tower-leaderboard"></div></div>
 </section>
 
-<!-- АРЕНА -->
 <section class="screen" id="screen-arena">
   <h1>⚔️ Арена</h1>
   <p class="sub">Сезон: <b id="arena-season" style="color:var(--theme)">14 дней</b></p>
@@ -410,7 +375,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div class="card"><h2>🏆 Топ игроков</h2><div id="arena-leaderboard"></div></div>
 </section>
 
-<!-- КУЗНИЦА -->
 <section class="screen" id="screen-forge">
   <h1>🔨 Кузница</h1>
   <p class="sub">Создавай предметы</p>
@@ -424,7 +388,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="forge-content"></div>
 </section>
 
-<!-- ПРОФИЛЬ -->
 <section class="screen" id="screen-profile">
   <h1>👤 Профиль</h1>
   <p class="sub" id="profile-school">—</p>
@@ -435,13 +398,11 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
     <button data-tab="talents">🌳 Таланты</button>
     <button data-tab="ach">🏅 Награды</button>
     <button data-tab="skins">🎨 Скины</button>
-    <button data-tab="prestige">♻️ Престиж</button>
     <button data-tab="shop">💎 Магазин</button>
   </div>
   <div id="profile-content"></div>
 </section>
 
-<!-- БОЙ -->
 <section class="screen" id="screen-battle">
   <div class="battle-scene">
     <div class="stars" id="stars"></div>
@@ -492,9 +453,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <button data-tab="tower"><span class="ico">🗼</span>Башня</button>
   <button data-tab="arena"><span class="ico">⚔️</span>Арена</button>
   <button data-tab="dungeons"><span class="ico">🗝️</span>Подзем.</button>
-  <button data-tab="pets"><span class="ico">🐾</span>Питомцы</button>
-  <button data-tab="auction"><span class="ico">🏪</span>Аукцион</button>
-  <button data-tab="clans"><span class="ico">🏴</span>Кланы</button>
   <button data-tab="sect"><span class="ico">🏯</span>Секта</button>
   <button data-tab="forge"><span class="ico">🔨</span>Кузня</button>
   <button data-tab="profile"><span class="ico">🎒</span>Профиль</button>
@@ -534,14 +492,16 @@ const SCHOOLS = [
 const LOCATIONS = [
   { id:'village', name:'Родная Деревня', emoji:'🏠', minLevel:1, x:12, y:82, region:'center', regionColor:'#3ddc84', desc:'Тихая деревня.', enemies:['Древесный Волк','Каменный Скорпион'], treasures:['family_chest','old_well','grandma_box'], lore:'Старшее поколение говорит о лагере мастеров души.', drops:{herbs:0.6,ore:0.3,crystals:0.1} },
   { id:'forest', name:'Лес Духов', emoji:'🌲', minLevel:1, x:32, y:38, region:'center', regionColor:'#3ddc84', desc:'Густой лес.', enemies:['Пламенный Лис','Ледяной Скорпион'], treasures:['herb_patch','hidden_grove','ancient_tree'], lore:'В чаще спит древний зверь.', drops:{herbs:0.5,ore:0.3,crystals:0.2} },
-  { id:'academy', name:'Академия', emoji:'🏫', minLevel:5, x:50, y:58, region:'center', regionColor:'#3ddc84', desc:'Твоя школа.', enemies:['Тень Сокурсника','Тень Наставника'], treasures:['academy_vault','headmaster_gift'], lore:'В подвалах библиотека древних техник.', drops:{herbs:0.3,ore:0.3,crystals:0.4} },
+  { id:'academy', name:'Академия Шрека', emoji:'🏫', minLevel:5, x:50, y:58, region:'center', regionColor:'#3ddc84', desc:'Твоя школа.', enemies:['Тень Сокурсника','Тень Наставника'], treasures:['academy_vault','headmaster_gift'], lore:'В подвалах библиотека древних техник.', drops:{herbs:0.3,ore:0.3,crystals:0.4} },
   { id:'mountains', name:'Ледяные Горы', emoji:'🏔️', minLevel:8, x:76, y:22, region:'north', regionColor:'#7ac8ff', desc:'Суровые горы.', enemies:['Ледяной Император','Каменный Голем'], treasures:['ice_crystal','frozen_chest','dragon_egg'], lore:'Легенды о драконе под ледником.', drops:{herbs:0.1,ore:0.5,crystals:0.4} },
   { id:'city', name:'Имперский Город', emoji:'🏛️', minLevel:10, x:56, y:82, region:'center', regionColor:'#3ddc84', desc:'Столица.', enemies:['Наёмный Убийца','Стражник Империи'], treasures:['merchant_gift','imperial_seal','library_scroll'], lore:'Здесь правит император.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
   { id:'ruins', name:'Древние Руины', emoji:'🏛️', minLevel:15, x:26, y:66, region:'west', regionColor:'#a06bff', desc:'Остатки цивилизации.', enemies:['Стражник Руин','Проклятый Жрец'], treasures:['ancient_relic','forgotten_tome','soul_altar'], lore:'Секреты павших мастеров.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
   { id:'abyss', name:'Тёмная Бездна', emoji:'🕳️', minLevel:20, x:86, y:72, region:'east', regionColor:'#ff4d5e', desc:'Земля культиваторов.', enemies:['Демон Бездны','Тёмный Лорд'], treasures:['demonic_crystal','dark_relic','void_shard'], lore:'Здесь не действуют законы мира.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
   { id:'dragon_lair', name:'Логово Дракона', emoji:'🐲', minLevel:25, x:72, y:52, region:'east', regionColor:'#ff4d5e', desc:'Дом Красного Дракона.', enemies:['Красный Дракон','Императорский Феникс'], treasures:['dragon_heart','phoenix_feather','dragon_hoard'], lore:'Только мастер с 9 кольцами победит.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
   { id:'secret_grove', name:'Забытая Роща', emoji:'🌸', minLevel:12, x:50, y:14, region:'north', regionColor:'#7ac8ff', secret:true, desc:'Скрытая роща духов.', enemies:['Дух Цветка','Хранитель Рощи'], treasures:['blossom_chest','spirit_pool'], lore:'Здесь цветут души павших воинов.', drops:{herbs:0.8,ore:0,crystals:0.2} },
-  { id:'sky_temple', name:'Небесный Храм', emoji:'☁️', minLevel:30, x:90, y:12, region:'north', regionColor:'#7ac8ff', secret:true, desc:'Храм в облаках.', enemies:['Небесный Страж','Ангел-Хранитель'], treasures:['celestial_relic','divine_tome'], lore:'Предание говорит, тут живут боги.', drops:{herbs:0,ore:0,crystals:1} }
+  { id:'sky_temple', name:'Небесный Храм', emoji:'☁️', minLevel:30, x:90, y:12, region:'north', regionColor:'#7ac8ff', secret:true, desc:'Храм в облаках.', enemies:['Небесный Страж','Ангел-Хранитель'], treasures:['celestial_relic','divine_tome'], lore:'Предание говорит, тут живут боги.', drops:{herbs:0,ore:0,crystals:1} },
+  { id:'sea_god_island', name:'Остров Морского Бога', emoji:'🌊', minLevel:50, x:8, y:50, region:'sea', regionColor:'#4a7cff', secret:true, desc:'Священный остров.', enemies:['Морской Дракон','Глубоководный Кит'], treasures:['sea_god_relic','deep_pearl'], lore:'Здесь проходят испытания Морского Бога.', drops:{herbs:0,ore:0,crystals:1} },
+  { id:'slaughter_city', name:'Город Резни', emoji:'💀', minLevel:40, x:20, y:20, region:'west', regionColor:'#a06bff', secret:true, desc:'Город без правил.', enemies:['Убийца Арены','Король Резни'], treasures:['slaughter_relic','blood_gem'], lore:'Только сильнейшие выживают.', drops:{herbs:0,ore:0,crystals:0.5} }
 ];
 
 const CLANS = [
@@ -578,24 +538,47 @@ const TREASURES = {
   blossom_chest:{name:'Цветочный сундук',emoji:'🌸',reward:'resource',resource:'herbs',min:20,max:40},
   spirit_pool:{name:'Пруд духов',emoji:'💧',reward:'talent_point',min:2,max:4},
   celestial_relic:{name:'Небесная реликвия',emoji:'✨',reward:'ring',min:2,max:3},
-  divine_tome:{name:'Божественный том',emoji:'📖',reward:'talent_point',min:5,max:10}
+  divine_tome:{name:'Божественный том',emoji:'📖',reward:'talent_point',min:5,max:10},
+  sea_god_relic:{name:'Реликвия Морского Бога',emoji:'🔱',reward:'ring',min:3,max:4},
+  deep_pearl:{name:'Глубоководная жемчужина',emoji:'🦪',reward:'talent_point',min:10,max:15},
+  slaughter_relic:{name:'Реликвия Резни',emoji:'🗡️',reward:'ring',min:2,max:3},
+  blood_gem:{name:'Кровавый камень',emoji:'🩸',reward:'talent_point',min:5,max:10}
 };
 
 const STORY_CHAPTERS = [
-  {id:1,title:'Начало пути',req:1,text:'Ты родился в деревне. Родители верили — в тебе есть дар.',
-   choices:[{label:'Следовать традициям',effect:'good',gold:200,exp:50,desc:'Благословение'},{label:'Идти своим путём',effect:'neutral',gold:300,exp:30,desc:'Больше золота'}]},
-  {id:2,title:'Первое испытание',req:5,text:'Слухи о тебе дошли до соседних деревень.',
-   choices:[{label:'Защитить деревню',effect:'good',gold:500,exp:150,rep:{body_sect:20},desc:'+20 репутации'},{label:'Уйти в город',effect:'neutral',gold:800,exp:80,rep:{seven_treasure:20},desc:'+20 репутации'}]},
-  {id:3,title:'Кланы пробуждаются',req:10,text:'Кланы обратили на тебя внимание.',
-   choices:[{label:'Союз с Синей Молнией',effect:'good',gold:1000,exp:400,rep:{blue_electric:30},desc:'+30 репутации'},{label:'Союз с Чистым Небом',effect:'evil',gold:1500,exp:200,rep:{clear_sky:30},desc:'+30 репутации'}]},
-  {id:4,title:'Тени прошлого',req:15,text:'Руины раскрывают тайну рождения.',
-   choices:[{label:'Принять правду',effect:'good',gold:2000,exp:800,desc:'+опыт'},{label:'Отрицать',effect:'evil',gold:3000,exp:500,desc:'+золото'}]},
-  {id:5,title:'Восхождение',req:25,text:'Ты готов основать свою секту.',
-   choices:[{label:'Секта Света',effect:'good',gold:5000,exp:2000,sect:'light',desc:'Защитники'},{label:'Секта Тьмы',effect:'evil',gold:5000,exp:2000,sect:'dark',desc:'Тени'}]}
+  {id:1,title:'Пробуждение Души',req:1,text:'Ты родился в деревне на окраине континента. В шесть лет твоя Боевая Душа пробудилась. Старейшина деревни направляет тебя в Академию Шрека.',
+   choices:[{label:'Отправиться в академию',effect:'good',gold:200,exp:100,desc:'Начало пути'}]},
+  {id:2,title:'Академия Шрека',req:5,text:'Ты поступаешь в Академию Шрека. Здесь учатся сильнейшие молодые мастера души. Твои новые друзья — Семеро Монстров Шрека.',
+   choices:[{label:'Тренироваться с командой',effect:'good',gold:300,exp:200,rep:{blue_electric:10},desc:'+репутация'},{label:'Тренироваться в одиночку',effect:'neutral',gold:500,exp:100,desc:'+золото'}]},
+  {id:3,title:'Турнир Академий',req:15,text:'Начинается всеконтинентальный турнир среди академий. Академия Шрека выходит в финал. Ты сражаешься против сильнейших.',
+   choices:[{label:'Победить в финале',effect:'good',gold:2000,exp:1000,desc:'Слава и награды'},{label:'Уступить по стратегии',effect:'neutral',gold:1500,exp:1500,desc:'Скрыть силу'}]},
+  {id:4,title:'Духовный Храм',req:25,text:'Духовный Храм под руководством Бибби Дун начинает захват континента. Ты узнаёшь правду о своей семье.',
+   choices:[{label:'Сражаться против Храма',effect:'good',gold:3000,exp:1500,rep:{body_sect:20},desc:'+репутация'},{label:'Искать союзников',effect:'neutral',gold:4000,exp:1000,desc:'+золото'}]},
+  {id:5,title:'Город Резни',req:35,text:'Чтобы стать сильнее, ты отправляешься в Город Резни — место, где нет правил. Победив 100 противников, ты получаешь силу Короля Резни.',
+   choices:[{label:'Пройти испытание',effect:'good',gold:5000,exp:3000,desc:'+сила'}]},
+  {id:6,title:'Остров Морского Бога',req:45,text:'Легенды говорят о священном острове, где сам Морской Бог оставил свои испытания. Ты отправляешься туда, чтобы получить его силу.',
+   choices:[{label:'Пройти 9 испытаний',effect:'good',gold:8000,exp:5000,desc:'+сила Морского Бога'},{label:'Отказаться',effect:'evil',gold:10000,exp:2000,desc:'+золото'}]},
+  {id:7,title:'Восстановление силы',req:55,text:'С силой Морского Бога ты возвращаешься на континент. Ты собираешь свою команду — Семерых Монстров — и основываешь Секту Тан.',
+   choices:[{label:'Основать Секту Тан',effect:'good',gold:10000,exp:8000,desc:'Секта Тан'}]},
+  {id:8,title:'Война с Духовным Храмом',req:65,text:'Бибби Дун объявляет себя Королём Демонов и начинает войну. Ты собираешь силы для решающей битвы.',
+   choices:[{label:'Атаковать Храм',effect:'good',gold:15000,exp:10000,desc:'+сила'},{label:'Ждать подкрепления',effect:'neutral',gold:20000,exp:5000,desc:'+золото'}]},
+  {id:9,title:'Король Демонов',req:80,text:'Бибби Дун становится Ракшасой — тёмным богом. Она развязала войну, которая угрожает всему континенту. Ты должен её остановить.',
+   choices:[{label:'Сразиться с Бибби Дун',effect:'good',gold:25000,exp:20000,desc:'Решающая битва'},{label:'Собрать богов',effect:'neutral',gold:30000,exp:10000,desc:'+золото'}]},
+  {id:10,title:'Восхождение Бога',req:95,text:'Ты побеждаешь Бибби Дун и становишься новым богом континента. Секта Тан процветает, а мир восстановлен.',
+   choices:[{label:'Стать богом',effect:'good',gold:50000,exp:50000,desc:'Бог Души'},{label:'Отказаться от силы',effect:'evil',gold:100000,exp:0,desc:'Смертный путь'}]}
 ];
 
-const RANKS = [{min:1,name:'Ученик'},{min:10,name:'Мастер Души'},{min:20,name:'Мастер Души II'},{min:30,name:'Мастер Души III'},{min:40,name:'Доуло'},{min:50,name:'Доуло II'},{min:60,name:'Титулованный Доуло'},{min:70,name:'Бог Души'}];
-const ARENA_RANKS = [{min:0,name:'Дерево'},{min:100,name:'Бронза'},{min:300,name:'Серебро'},{min:600,name:'Золото'},{min:1000,name:'Платина'},{min:1600,name:'Алмаз'},{min:2400,name:'Мастер'},{min:3400,name:'Грандмастер'}];
+const RANKS = [
+  {min:1,name:'Ученик'},{min:10,name:'Мастер Души'},{min:20,name:'Мастер Души II'},
+  {min:30,name:'Мастер Души III'},{min:40,name:'Доуло'},{min:50,name:'Доуло II'},
+  {min:60,name:'Титулованный Доуло'},{min:70,name:'Венец Духа'},{min:80,name:'Богоподобный Дух'},
+  {min:90,name:'Предельный Доуло'},{min:100,name:'Бог Души'}
+];
+const ARENA_RANKS = [
+  {min:0,name:'Дерево'},{min:100,name:'Бронза'},{min:300,name:'Серебро'},
+  {min:600,name:'Золото'},{min:1000,name:'Платина'},{min:1600,name:'Алмаз'},
+  {min:2400,name:'Мастер'},{min:3400,name:'Грандмастер'}
+];
 const RING_COLORS = {yellow:'#f7d24d',purple:'#a06bff',black:'#5a5a6a',red:'#ff4d5e'};
 const RING_NAMES = {yellow:'Жёлтое',purple:'Фиолетовое',black:'Чёрное',red:'Красное'};
 
@@ -612,7 +595,9 @@ const QUEST_POOL = [
 const DUNGEONS = [
   {id:'forest',name:'Лес Духов',emoji:'🌲',minLevel:1,theme:'#3ddc84',desc:'Простые звери',floors:[{name:'Альфа-Волк',hp:150,atk:18,def:8,spd:7,exp:80,gold:120},{name:'Древесный Страж',hp:280,atk:26,def:14,spd:9,exp:180,gold:250}]},
   {id:'cave',name:'Пещера Теней',emoji:'🕳️',minLevel:8,theme:'#a06bff',desc:'Полу-боссы',floors:[{name:'Тёмный Скорпион',hp:450,atk:40,def:22,spd:12,exp:280,gold:400},{name:'Ледяной Император',hp:700,atk:55,def:30,spd:14,exp:450,gold:700}]},
-  {id:'dragon_lair',name:'Логово Дракона',emoji:'🐲',minLevel:15,theme:'#ff4d5e',desc:'Только для опытных',floors:[{name:'Красный Дракон',hp:900,atk:70,def:42,spd:16,exp:700,gold:1200},{name:'Императорский Феникс',hp:1300,atk:95,def:55,spd:20,exp:1200,gold:2000}]}
+  {id:'dragon_lair',name:'Логово Дракона',emoji:'🐲',minLevel:15,theme:'#ff4d5e',desc:'Только для опытных',floors:[{name:'Красный Дракон',hp:900,atk:70,def:42,spd:16,exp:700,gold:1200},{name:'Императорский Феникс',hp:1300,atk:95,def:55,spd:20,exp:1200,gold:2000}]},
+  {id:'slaughter',name:'Город Резни',emoji:'💀',minLevel:40,theme:'#8a1a1a',desc:'Только для избранных',floors:[{name:'Убийца Арены',hp:1500,atk:110,def:60,spd:22,exp:2000,gold:3000},{name:'Король Резни',hp:2000,atk:140,def:75,spd:25,exp:3000,gold:5000}]},
+  {id:'sea_god',name:'Остров Морского Бога',emoji:'🌊',minLevel:50,theme:'#4a7cff',desc:'Испытания Морского Бога',floors:[{name:'Морской Дракон',hp:2500,atk:160,def:85,spd:28,exp:4000,gold:7000},{name:'Глубоководный Кит',hp:3500,atk:200,def:100,spd:30,exp:6000,gold:10000}]}
 ];
 
 const FORGE_RECIPES = {
@@ -686,7 +671,7 @@ const NPCS = [
   {id:'shu_lao',name:'Шу-Лао',emoji:'🧙',desc:'Старейшина деревни',gift:'Бонус к опыту'},
   {id:'yu_xiaogang',name:'Ю Сяоган',emoji:'🥋',desc:'Мастер академии',gift:'Оружие'},
   {id:'tang_hao',name:'Тан Хао',emoji:'⚔️',desc:'Кузнец',gift:'Скидка'},
-  {id:'bibby_dun',name:'Бибби Дун',emoji:'😈',desc:'Тёмный культиватор',gift:'Артефакты'},
+  {id:'bibby_dun',name:'Бибби Дун',emoji:'😈',desc:'Королева Демонов',gift:'Артефакты'},
   {id:'ning_fengzhi',name:'Нин Фэнчжи',emoji:'👸',desc:'Императрица',gift:'Имперские награды'}
 ];
 
@@ -698,7 +683,6 @@ const SKINS = [
   {id:'celestial',name:'Небесный',emoji:'✨',cost:5000,desc:'Полубог',theme:'#7ac8ff'}
 ];
 
-/* Сезонные события (ротация раз в 7 дней) */
 const EVENTS = [
   {id:'invasion',name:'🌋 Нашествие демонов',desc:'Демоны заполонили мир. Побеждай их в 2 раза чаще!',bonus:'exp',mult:2.0},
   {id:'harvest',name:'🌾 Праздник урожая',desc:'Собирай травы и ресурсы — дроп х2!',bonus:'gold',mult:2.0},
@@ -707,7 +691,7 @@ const EVENTS = [
 ];
 
 /* ==================== СОСТОЯНИЕ ==================== */
-const SAVE_KEY = 'soul_land_v12';
+const SAVE_KEY = 'soul_land_v13';
 let state = loadState();
 
 function defaultState(){
@@ -726,7 +710,7 @@ function defaultState(){
     storyChapter:0, storyProgress:[],
     souls:[], activeSoulIndex:0,
     battlesWon:0, rating:0, arenaWins:0, arenaLosses:0,
-    dungeonAttempts:{date:null,left:3}, dungeonProgress:{forest:0,cave:0,dragon_lair:0},
+    dungeonAttempts:{date:null,left:3}, dungeonProgress:{forest:0,cave:0,dragon_lair:0,slaughter:0,sea_god:0},
     towerFloor:1, towerBest:1, towerSeason:0,
     dailyStreak:0, lastDailyClaim:0,
     dailyBossDate:null, dailyBossDefeated:false,
@@ -745,7 +729,8 @@ function defaultState(){
     skins:{owned:['default'],active:'default'},
     auction:{refreshedAt:0,items:[]},
     stats:{totalDamage:0, bestBattle:0, fastestBattle:null, ringsAbsorbed:0, chestsOpened:0},
-    prestige:{level:0, bonus:0, history:[]}
+    prestige:{level:0, bonus:0, history:[]},
+    demonKingDefeated:false
   };
 }
 function saveState(){
@@ -782,7 +767,6 @@ function currentEvent(){
   const week = Math.floor(Date.now() / (7*24*60*60*1000));
   return EVENTS[week % EVENTS.length];
 }
-
 function applyTheme(){
   const h = getHero();
   const skin = getSkin();
@@ -877,12 +861,10 @@ async function pullFromServer(){
   }catch(e){ return false; }
 }
 
-/* ==================== ОНБОРДИНГ (1 экран) ==================== */
+/* ==================== ОНБОРДИНГ ==================== */
 let selectedHeroId = null;
 let selectedSchoolId = null;
-
 function randomName(){ return RANDOM_NAMES[Math.floor(Math.random()*RANDOM_NAMES.length)]; }
-
 function renderQuickHeroes(){
   const list = $('#hero-list-quick'); if(!list) return;
   list.innerHTML = '';
@@ -968,7 +950,6 @@ function goMenu(){
         · Опыт: <b>${state.exp}/${state.expNext}</b>
       </div>
     </div>`;
-  // Событие
   const ev = currentEvent();
   const evContainer = $('#event-container');
   if(evContainer){
@@ -981,7 +962,6 @@ function goMenu(){
       <div style="font-size:11px;color:#a06bff;font-weight:800">×${ev.mult.toFixed(1)} ${ev.bonus === 'exp' ? 'опыта' : ev.bonus === 'gold' ? 'золота' : 'рейтинга'}</div>
     </div>`;
   }
-  // Сюжет
   const nextChap = STORY_CHAPTERS.find(c=>c.id === state.storyChapter + 1);
   const storyEl = $('#story-menu');
   if(storyEl){
@@ -1010,6 +990,7 @@ function goMenu(){
           if(ch.sect) state.sect.alignment = ch.sect;
           state.storyChapter++;
           state.storyProgress.push(nextChap.id);
+          if(nextChap.id === 9) state.demonKingDefeated = true;
           saveState(); updateHUD(); pushToServer();
           toast(`📜 Глава ${nextChap.id}! +${ch.gold}💰`, 'purple', 3000);
           goMenu();
@@ -1019,7 +1000,7 @@ function goMenu(){
     } else if(nextChap){
       storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--dim);padding:14px">🔒 Глава ${nextChap.id} на ${nextChap.req} уровне</div>`;
     } else {
-      storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--gold);padding:14px">✨ Сюжет завершён</div>`;
+      storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--gold);padding:14px">✨ Сюжет завершён. Ты — Бог Души!</div>`;
     }
   }
   renderDailyBoss();
@@ -1128,9 +1109,7 @@ function computeStats(){
 /* ==================== КАРТА ==================== */
 function renderWorldMap(){
   const map = $('#world-map'); if(!map) return;
-  // Убираем старые ноды и регионы, оставляем fog и path
   map.querySelectorAll('.map-node, .map-region').forEach(n=>n.remove());
-  // Рисуем пути между открытыми локациями
   const pathSvg = $('#map-path');
   if(pathSvg){
     pathSvg.innerHTML = '';
@@ -1140,9 +1119,9 @@ function renderWorldMap(){
       if(next){
         const line = document.createElementNS('http://www.w3.org/2000/svg','line');
         line.setAttribute('x1', loc.x*4.8);
-        line.setAttribute('y1', loc.y*5.2);
+        line.setAttribute('y1', loc.y*5.4);
         line.setAttribute('x2', next.x*4.8);
-        line.setAttribute('y2', next.y*5.2);
+        line.setAttribute('y2', next.y*5.4);
         line.setAttribute('stroke', 'rgba(247,201,72,.35)');
         line.setAttribute('stroke-width', '2');
         line.setAttribute('stroke-dasharray', '6 4');
@@ -1150,7 +1129,6 @@ function renderWorldMap(){
       }
     });
   }
-  // Рисуем регионы (круги-подложки)
   const regions = {};
   LOCATIONS.forEach(loc=>{
     if(!regions[loc.region]) regions[loc.region] = {color:loc.regionColor, points:[]};
@@ -1164,7 +1142,6 @@ function renderWorldMap(){
     div.style.cssText = `position:absolute;left:calc(${avgX}% - 90px);top:calc(${avgY}% - 90px);width:180px;height:180px;background:radial-gradient(circle,${r.color}30,transparent 70%);border:1px dashed ${r.color}40`;
     map.appendChild(div);
   });
-  // Рисуем ноды
   LOCATIONS.forEach(loc=>{
     const discovered = state.discoveredLocations.includes(loc.id);
     const isCurrent = state.currentLocation === loc.id;
@@ -1182,7 +1159,6 @@ function renderWorldMap(){
     };
     map.appendChild(div);
   });
-  // Инфо о текущей локации
   const info = $('#map-current-info');
   const loc = currentLoc();
   if(info) info.innerHTML = `<div style="display:flex;gap:12px;align-items:center">
@@ -1430,17 +1406,18 @@ function renderClans(){
 /* ==================== СЕКТА ==================== */
 function renderSect(){
   const c = $('#sect-content'); if(!c) return;
+  if(!state.demonKingDefeated){
+    c.innerHTML = `<div class="card" style="text-align:center">
+      <div style="font-size:64px;margin:14px 0">🔒</div>
+      <h2 style="justify-content:center">Секта закрыта</h2>
+      <p class="sub" style="margin:0">Победи Короля Демонов (глава 9, уровень 80) чтобы открыть Секту Тан</p>
+    </div>`;
+    return;
+  }
   if(!state.sect.founded){
-    if(state.level < 10){
-      c.innerHTML = `<div class="card" style="text-align:center">
-        <div style="font-size:64px;margin:14px 0">🏯</div>
-        <h2 style="justify-content:center">Секта на 10 уровне</h2>
-        <p class="sub" style="margin:0">Ты — ${state.level}/10</p></div>`;
-      return;
-    }
     c.innerHTML = `<div class="card" style="text-align:center">
       <div style="font-size:64px;margin:14px 0">🏯</div>
-      <h2 style="justify-content:center">Основать секту</h2>
+      <h2 style="justify-content:center">Основать Секту Тан</h2>
       <p class="sub">5000 золота и 20 кристаллов</p>
       <div style="font-size:13px;color:${state.gold>=5000?'#3ddc84':'#ff4d5e'};margin-bottom:6px">💰 ${state.gold} / 5000</div>
       <div style="font-size:13px;color:${state.resources.crystals>=20?'#3ddc84':'#ff4d5e'};margin-bottom:14px">💎 ${state.resources.crystals} / 20</div>
@@ -1453,7 +1430,7 @@ function renderSect(){
         state.sect.prestige = 10;
         saveState(); updateHUD(); pushToServer();
         sfx.level(); vib([50,50,50,50,100]);
-        toast(`🏯 Секта основана!`, 'purple', 3000);
+        toast(`🏯 Секта Тан основана!`, 'purple', 3000);
         renderSect();
       };
     }
@@ -1555,7 +1532,7 @@ function renderPets(){
     }
     c.appendChild(div);
   });
-  show('screen-pets'); setNav('pets');
+  show('screen-pets'); setNav('profile');
 }
 
 /* ==================== АУКЦИОН ==================== */
@@ -1732,7 +1709,6 @@ function renderTower(){
     el.innerHTML = `<span class="lbl">${i}</span>`;
     vis.appendChild(el);
   }
-  // Лидерборд
   const lb = $('#tower-leaderboard');
   if(lb){
     const names = ['Тан Сан','Сяо Ву','Дай Мубай','Чжу Чжуцин','Оскар','Ма Хунцзюнь'];
@@ -1882,6 +1858,8 @@ function renderProfile(){
       <div class="stat-row"><span class="lbl">Этаж Башни (рекорд)</span><span class="val">${state.towerBest}</span></div>
       <div class="stat-row"><span class="lbl">Открыто локаций</span><span class="val">${state.discoveredLocations.length} / ${LOCATIONS.length}</span></div>
       <div class="stat-row"><span class="lbl">Престиж</span><span class="val">⭐ ${state.prestige.level} (${Math.round(state.prestige.bonus*100)}%)</span></div>
+      <div class="stat-row"><span class="lbl">Сюжет</span><span class="val">Глава ${state.storyChapter}/10</span></div>
+      <div class="stat-row"><span class="lbl">Король Демонов</span><span class="val">${state.demonKingDefeated ? '✅ Побеждён' : '❌ Не побеждён'}</span></div>
     </div>`;
   } else if(profileTab === 'equip'){
     ['weapon','armor','ring'].forEach(slot=>{
@@ -1905,7 +1883,6 @@ function renderProfile(){
       c.appendChild(div);
     });
   } else if(profileTab === 'bag'){
-    // Фильтры
     const filters = [
       {id:'all', label:'Все'},
       {id:'potion', label:'🧪 Зелья', match:['heal','buff']},
@@ -2058,44 +2035,6 @@ function renderProfile(){
       };
       c.appendChild(div);
     });
-  } else if(profileTab === 'prestige'){
-    const canPrestige = state.level >= 40;
-    c.innerHTML = `<div class="card prestige-card">
-      <div style="font-size:64px;margin:8px 0">♻️</div>
-      <h2 style="justify-content:center">Престиж</h2>
-      <p class="sub" style="color:#c8d2ff">Сбросить уровень, но получить постоянный бонус</p>
-      <div style="font-size:13px;margin:10px 0">
-        Текущий престиж: <b style="color:var(--theme)">⭐ ${state.prestige.level}</b><br>
-        Бонус: <b style="color:var(--green)">+${Math.round(state.prestige.bonus*100)}% ко всем статам</b>
-      </div>
-      <div style="font-size:12px;color:var(--dim);margin:10px 0;line-height:1.6">
-        При следующем престиже:<br>
-        • +10% к постоянному бонусу<br>
-        • Сохранишь: кольца, золото, ресурсы, экипировку<br>
-        • Потеряешь: уровень, опыт, таланты (очки вернутся)
-      </div>
-      <button class="btn ${canPrestige?'':'sec'}" id="btn-prestige" ${canPrestige?'':'disabled'}>
-        ${canPrestige ? '♻️ СОВЕРШИТЬ ПРЕСТИЖ' : `🔒 Нужен 40 ур. (${state.level}/40)`}
-      </button>
-    </div>`;
-    if(canPrestige){
-      $('#btn-prestige').onclick = () => {
-        if(!confirm('Точно совершить престиж? Уровень и опыт сбросятся.')) return;
-        state.prestige.level++;
-        state.prestige.bonus += 0.10;
-        state.prestige.history.push({level: state.prestige.level, ts: Date.now()});
-        state.level = 1;
-        state.exp = 0;
-        state.expNext = 100;
-        state.talentPoints += Object.values(state.talents).reduce((a,b)=>a+b,0);
-        for(const k in state.talents) state.talents[k] = 0;
-        state.age = 6;
-        saveState(); updateHUD(); pushToServer();
-        sfx.level(); vib([50,50,50,50,100,50]);
-        toast(`⭐ Престиж ${state.prestige.level}! +10% ко всему`, 'purple', 4000);
-        renderProfile();
-      };
-    }
   } else if(profileTab === 'shop'){
     SHOP_ITEMS.forEach(item=>{
       const div = document.createElement('div');
@@ -2530,12 +2469,10 @@ function useBattleItem(recipe){
   setTimeout(enemyTurn, 500);
   const a = $('#actions'); if(a) a.innerHTML = '';
 }
-/* УМНЫЙ АВТОБОЙ */
 function smartAutoAction(){
   const p = battle.p, e = battle.e;
   const hpPct = p.hp / p.maxHp;
   const enemyHpPct = e.hp / e.maxHp;
-  // 1. Критическое лечение
   if(hpPct < 0.3){
     if((state.inventory.big_potion||0) > 0){
       const recipe = FORGE_RECIPES.potions.find(r=>r.id==='big_potion');
@@ -2545,28 +2482,23 @@ function smartAutoAction(){
       const recipe = FORGE_RECIPES.potions.find(r=>r.id==='hp_potion');
       if(recipe){ battle.p.healingUsed = true; useBattleItem(recipe); return null; }
     }
-    // Защита если нет зелий
     return 'defend';
   }
-  // 2. Начало боя — используем buff
   if(battle.turn === 1 && (state.inventory.atk_potion||0) > 0){
     const recipe = FORGE_RECIPES.potions.find(r=>r.id==='atk_potion');
     if(recipe){ useBattleItem(recipe); return null; }
   }
-  // 3. Мощный удар по ослабленному врагу
   if(enemyHpPct < 0.25){
     if((state.inventory.meteor||0) > 0){
       const recipe = FORGE_RECIPES.scrolls.find(r=>r.id==='meteor');
       if(recipe){ useBattleItem(recipe); return null; }
     }
   }
-  // 4. HP средний — щит
   if(hpPct < 0.5 && Math.random() < 0.4){
     const shieldSkill = p.skills.findIndex(s => s.type === 'shield');
     if(shieldSkill >= 0) return 'skill' + shieldSkill;
     return 'defend';
   }
-  // 5. Обычная логика
   const r = Math.random();
   if(r < 0.25) return 'skill0';
   else if(r < 0.45 && p.skills[1]) return 'skill1';
@@ -2578,7 +2510,7 @@ function playerAction(action){
   if(p.stun > 0){ p.stun--; logMsg(`${p.name} оглушён`, 'sys'); setTimeout(enemyTurn, 500); return; }
   if(action === 'auto'){
     const smart = smartAutoAction();
-    if(smart === null) return; // использовал предмет, ход передаётся
+    if(smart === null) return;
     action = smart;
   }
   const finish = () => { renderBattle(); if(e.hp <= 0){ endBattle('win'); return; } setTimeout(enemyTurn, 700); };
@@ -2741,10 +2673,8 @@ function endBattle(result){
       state.resources.crystals += 5;
       toast('🏆 Босс дня! +500💰 +5💎', 'gold', 3000);
     }
-    // Статистика
     if(!state.stats.fastestBattle || battleDuration < state.stats.fastestBattle) state.stats.fastestBattle = Math.round(battleDuration);
     saveState(); updateHUD(); pushToServer();
-    // Лут
     const beastCopy = {...beast};
     const modeCopy = battle.mode;
     const locIdCopy = battle.locId;
@@ -2920,18 +2850,8 @@ function rest(){
 }
 
 /* ==================== ИНИЦИАЛИЗАЦИЯ ==================== */
-async function setSplashProgress(pct, text){
-  const bar = document.getElementById('splash-bar');
-  const status = document.getElementById('splash-status');
-  if(bar) bar.style.width = pct + '%';
-  if(status) status.textContent = text;
-  await new Promise(r => setTimeout(r, 200));
-}
-
 async function init(){
   try{
-    await setSplashProgress(10, 'Загрузка данных...');
-    // Частицы
     const pc = document.getElementById('particles');
     if(pc){
       for(let i=0;i<20;i++){
@@ -2944,27 +2864,13 @@ async function init(){
         pc.appendChild(p);
       }
     }
-    await setSplashProgress(30, 'Инициализация Telegram...');
     if(window.Telegram && Telegram.WebApp){
       Telegram.WebApp.ready();
       Telegram.WebApp.expand();
       Telegram.WebApp.setHeaderColor('#070914');
       try{ Telegram.WebApp.enableClosingConfirmation(); }catch(e){}
     }
-    await setSplashProgress(50, 'Применение стиля...');
     applyTheme();
-    const altar = document.getElementById('altar-vis');
-    if(altar){
-      altar.innerHTML = `<div style="position:absolute;top:0;right:0;bottom:0;left:0;border-radius:50%;background:radial-gradient(circle,${getHero().theme}60,transparent 70%);animation:pulse 2.5s ease-in-out infinite"></div>
-        <svg viewBox="0 0 100 100" style="position:absolute;top:0;left:0;width:100%;height:100%">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="${getHero().theme}" stroke-width="1" opacity=".5"/>
-          <circle cx="50" cy="50" r="30" fill="none" stroke="${getHero().theme}" stroke-width="1" opacity=".3"/>
-          <circle cx="50" cy="50" r="20" fill="none" stroke="${getHero().theme}" stroke-width="1" opacity=".5"/>
-          <text x="50" y="62" font-size="40" text-anchor="middle">🗿</text>
-        </svg>`;
-    }
-    await setSplashProgress(65, 'Настройка управления...');
-    // Слушатели
     const rn = $('#rand-name');
     if(rn){
       rn.textContent = randomName();
@@ -3003,7 +2909,6 @@ async function init(){
       }
     };
 
-    await setSplashProgress(80, 'Синхронизация с сервером...');
     try{ await pullFromServer(); }catch(e){}
 
     setInterval(()=>{ tickEnergy(); updateHUD(); }, 30000);
@@ -3011,7 +2916,6 @@ async function init(){
     setInterval(pushToServer, 60000);
     tickEnergy();
 
-    // Сброс сундуков раз в 24 часа
     const now = Date.now();
     if(now - (state.treasureLastReset||0) > 24*60*60*1000){
       state.treasureOpened = {};
@@ -3019,16 +2923,13 @@ async function init(){
       saveState();
     }
 
-    await setSplashProgress(95, 'Готово!');
     renderQuickHeroes();
     renderQuickSchools();
 
-    // Онбординг
     if(!state.playerName || !state.heroId){
       const nav = $('#nav'); if(nav) nav.classList.add('hidden');
       show('screen-start');
     } else if(!state.awakened){
-      // Старый сейв без флага awakened — считаем пробуждённым
       state.awakened = true;
       saveState();
       const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
@@ -3037,12 +2938,6 @@ async function init(){
       const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
       goMenu();
     }
-
-    await setSplashProgress(100, 'Добро пожаловать!');
-    await new Promise(r => setTimeout(r, 400));
-    const splash = document.getElementById('splash');
-    if(splash) splash.classList.add('hide');
-    setTimeout(()=>{ if(splash) splash.remove(); }, 700);
   }catch(err){
     console.error('Init error:', err);
     const el = document.createElement('div');
@@ -3064,367 +2959,5 @@ if(document.readyState === 'loading'){
   setTimeout(init, 50);
 }
 </script>
-<!-- Вставь этот блок целиком перед </body> -->
-<script>
-/* gfx.js — векторная графика для «Путь к Бессмертию»
-   Герои, враги, фоны боя. Без внешних файлов, всё — SVG-строки.
-   API: GFX.hero(id,size) · GFX.enemy(name,size) · GFX.setBG(key) */
-const GFX = (() => {
-  let n = 0;
-  const svg = (inner, sz, vb = '0 0 64 64') =>
-    `<svg viewBox="${vb}" width="${sz}" height="${sz}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
-
-  /* ---------- ГЕРОИ ---------- */
-  const T = { tang_san:'#4a7cff', xiao_wu:'#ff6ab3', dai_mubai:'#e0a020', ma_hongjun:'#ff6a2a', oscar:'#3ddc84', zhu_zhuqing:'#a06bff' };
-  // детали за головой (могут выходить за круг)
-  const BACK = {
-    tang_san:'<path d="M32 3c-6 6-6 14 0 20 6-6 6-14 0-20zM17 11c-2 8 2 14 10 16-1-8-4-14-10-16zM47 11c2 8-2 14-10 16 1-8 4-14 10-16z" fill="#8dffb0" opacity=".9"/>',
-    xiao_wu:'<ellipse cx="23" cy="9" rx="5" ry="13" fill="#ffd0e6" stroke="#ff6ab3" stroke-width="1.5"/><ellipse cx="41" cy="9" rx="5" ry="13" fill="#ffd0e6" stroke="#ff6ab3" stroke-width="1.5"/>',
-    dai_mubai:'<circle cx="16" cy="17" r="6" fill="#f3e7c9" stroke="#e0a020" stroke-width="1.5"/><circle cx="48" cy="17" r="6" fill="#f3e7c9" stroke="#e0a020" stroke-width="1.5"/>',
-    ma_hongjun:'<path d="M32 1c4 6 11 8 11 17-3-2-5-2-6-6-1 4-4 6-5 10-4-3-9-6-9-12 0-4 3-6 4-8 2 3 3 3 5 0z" fill="#ffb13d" stroke="#ff4d2a" stroke-width="1.5"/>',
-    oscar:'<path d="M25 7c-3 3 3 5 0 9M39 7c-3 3 3 5 0 9" stroke="#e8fff0" stroke-width="2" fill="none" stroke-linecap="round"/>',
-    zhu_zhuqing:'<path d="M18 22L15 5l13 9zM46 22l3-17-13 9z" fill="#2a1f4a" stroke="#a06bff" stroke-width="1.5"/>'
-  };
-  // детали поверх лица
-  const FRONT = {
-    dai_mubai:'<path d="M32 17v6M27 18l1 4M37 18l-1 4" stroke="#1a1530" stroke-width="2" stroke-linecap="round"/>',
-    oscar:'<path d="M22 47h20c0 8-4 11-10 11s-10-3-10-11z" fill="#f7c948" stroke="#a87b10" stroke-width="1.5"/>',
-    zhu_zhuqing:'<path d="M21 31h22a11 11 0 0 1-22 0z" fill="#2a1f4a"/>',
-    xiao_wu:'<circle cx="26" cy="33" r="2" fill="#ff9ccb" opacity=".7"/><circle cx="38" cy="33" r="2" fill="#ff9ccb" opacity=".7"/>'
-  };
-  function hero(id, sz = 64) {
-    const c = T[id] || '#f7c948', g = 'g' + (n++);
-    return svg(`<defs>
-      <radialGradient id="${g}" cx=".5" cy=".35" r=".75"><stop offset="0" stop-color="${c}" stop-opacity=".85"/><stop offset="1" stop-color="#0e1330"/></radialGradient>
-      <clipPath id="${g}c"><circle cx="32" cy="32" r="30"/></clipPath></defs>
-      ${BACK[id] || ''}
-      <circle cx="32" cy="32" r="30" fill="url(#${g})" stroke="${c}" stroke-width="2"/>
-      <g clip-path="url(#${g}c)"><path d="M6 66c2-14 12-23 26-23s24 9 26 23z" fill="#1b2150" stroke="${c}" stroke-width="1.5"/></g>
-      <circle cx="32" cy="29" r="11" fill="#f3d3b5"/>
-      <path d="M21 28c0-9 6-14 11-14s11 5 11 14c-3-5-8-7-11-7s-8 2-11 7z" fill="#1a1530"/>
-      <circle cx="28" cy="30" r="1.7" fill="#1a1530"/><circle cx="36" cy="30" r="1.7" fill="#1a1530"/>
-      ${FRONT[id] || ''}`, sz);
-  }
-
-  /* ---------- ВРАГИ ---------- */
-  const E = {
-    wolf:'<path d="M10 14l12 8h20l12-8-2 22-10 18H22L12 36z" fill="#7b8494" stroke="#3a4050" stroke-width="2"/><path d="M26 54l6-10 6 10z" fill="#e8ecf5"/><path d="M18 30l8 3M46 30l-8 3" stroke="#ffd34d" stroke-width="4" stroke-linecap="round"/><path d="M27 47l2 5 2-5zM33 47l2 5 2-5z" fill="#fff"/>',
-    fox:'<path d="M10 12l14 10h16l14-10-2 26-18 14-18-14z" fill="#ff8a3d" stroke="#8a3a10" stroke-width="2"/><path d="M32 54L18 38h28z" fill="#fff4e6"/><path d="M20 30l8 3M44 30l-8 3" stroke="#3a1a08" stroke-width="3.5" stroke-linecap="round"/><circle cx="32" cy="42" r="2.5" fill="#3a1a08"/>',
-    scorpion:'<path d="M14 40c-8-2-8-16 2-18M50 40c8-2 8-16-2-18" stroke="#c4492f" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M32 34c0-14 12-14 12-24" stroke="#c4492f" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="32" cy="42" rx="12" ry="9" fill="#a53a26" stroke="#5a1a10" stroke-width="2"/><circle cx="44" cy="9" r="3" fill="#ffd34d"/><circle cx="28" cy="40" r="2" fill="#ffd34d"/><circle cx="36" cy="40" r="2" fill="#ffd34d"/>',
-    dragon:'<path d="M8 6l14 10M56 6L42 16" stroke="#f3c26b" stroke-width="4" stroke-linecap="round"/><path d="M12 20l20-7 20 7-4 22-16 15-16-15z" fill="#d6283c" stroke="#7a0f1c" stroke-width="2"/><path d="M18 30l10 4M46 30l-10 4" stroke="#ffd34d" stroke-width="4" stroke-linecap="round"/><circle cx="29" cy="46" r="1.5" fill="#3a0810"/><circle cx="35" cy="46" r="1.5" fill="#3a0810"/><path d="M25 50l2 5 2-5M35 50l2 5 2-5z" fill="#fff"/>',
-    phoenix:'<path d="M32 10c-4 10-20 10-26 4 4 14 14 20 26 18 12 2 22-4 26-18-6 6-22 6-26-4z" fill="#ff7a2a" stroke="#a02a0a" stroke-width="1.5"/><path d="M32 14c-3 8-10 12-16 14 6 6 12 8 16 8s10-2 16-8c-6-2-13-6-16-14z" fill="#ffd34d"/><circle cx="32" cy="26" r="6" fill="#ff4d2a"/><circle cx="32" cy="25" r="2" fill="#fff"/><path d="M32 36c-4 6-4 12-8 18M32 36c4 6 4 12 8 18" stroke="#ff7a2a" stroke-width="3" fill="none" stroke-linecap="round"/>',
-    golem:'<rect x="8" y="30" width="12" height="22" rx="3" fill="#6a6778" stroke="#3b3948" stroke-width="2"/><rect x="44" y="30" width="12" height="22" rx="3" fill="#6a6778" stroke="#3b3948" stroke-width="2"/><rect x="14" y="8" width="36" height="32" rx="4" fill="#7d7a8c" stroke="#3b3948" stroke-width="2"/><rect x="20" y="40" width="24" height="16" rx="3" fill="#8b8899" stroke="#3b3948" stroke-width="2"/><rect x="21" y="19" width="8" height="5" fill="#7ad8ff"/><rect x="35" y="19" width="8" height="5" fill="#7ad8ff"/><path d="M24 31h16" stroke="#3b3948" stroke-width="2"/>',
-    shadow:'<path d="M32 5c-12 0-18 10-18 22v29l8-6 5 6 5-6 5 6 5-6 8 6V27C50 15 44 5 32 5z" fill="#2b1f4a" stroke="#a06bff" stroke-width="2"/><ellipse cx="25" cy="26" rx="4" ry="6" fill="#d8b8ff"/><ellipse cx="39" cy="26" rx="4" ry="6" fill="#d8b8ff"/>',
-    demon:'<path d="M12 5c2 10 6 14 10 16M52 5c-2 10-6 14-10 16" stroke="#f3c26b" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="32" cy="35" r="20" fill="#6a1f6e" stroke="#2a0a30" stroke-width="2"/><path d="M18 30l10 4M46 30l-10 4" stroke="#ff4d5e" stroke-width="5" stroke-linecap="round"/><path d="M22 46q10 8 20 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>',
-    guardian:'<path d="M32 4l20 10v18c0 14-10 24-20 28C22 56 12 46 12 32V14z" fill="#8b93a8" stroke="#3b4258" stroke-width="2"/><path d="M32 4v22" stroke="#3b4258" stroke-width="2"/><rect x="18" y="26" width="28" height="7" rx="2" fill="#0a0e20"/><circle cx="26" cy="29.5" r="1.8" fill="#7ad8ff"/><circle cx="38" cy="29.5" r="1.8" fill="#7ad8ff"/>'
-  };
-  function enemy(name = '', sz = 64) {
-    const k = name.includes('Дракон') ? 'dragon' : name.includes('Феникс') ? 'phoenix'
-      : name.includes('Лис') ? 'fox' : name.includes('Скорпион') ? 'scorpion'
-      : name.includes('Волк') ? 'wolf' : name.includes('Голем') ? 'golem'
-      : name.includes('Тень') ? 'shadow' : name.includes('Страж') ? 'guardian' : 'demon';
-    return svg(E[k], sz);
-  }
-
-  /* ---------- ФОНЫ БОЯ: [небо сверху, небо снизу, горы, луна] ---------- */
-  const P = {
-    green:['#0a2a1c','#1c4a34','#0a1f16','#e8ffd8'],
-    gold:['#1a1840','#5a3a50','#140f2a','#ffe9a8'],
-    ice:['#0a2040','#2a5a8a','#0a1830','#e0f4ff'],
-    purple:['#150a30','#3a1f60','#0c0620','#d8b8ff'],
-    red:['#2a0810','#6a1a28','#160408','#ff9a7a'],
-    sky:['#2a3a7a','#8a7ac0','#3a3a80','#fff6d8'],
-    blue:['#0a1230','#1a2860','#050814','#fff6d8']
-  };
-  const MAP = { village:'green', forest:'green', secret_grove:'green', academy:'gold', city:'gold', arena:'gold',
-    mountains:'ice', ruins:'purple', dungeon:'purple', abyss:'red', dragon_lair:'red', daily_boss:'red',
-    sky_temple:'sky', tower:'blue' };
-  const STARS = [[40,30],[90,70],[150,25],[210,55],[270,20],[330,60],[370,35],[120,100],[300,95],[60,120]];
-  function bg(key) {
-    const [t, b, m, mo] = P[MAP[key] || 'blue'], g = 'b' + (n++);
-    return `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0">
-      <defs><linearGradient id="${g}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t}"/><stop offset="1" stop-color="${b}"/></linearGradient>
-      <radialGradient id="${g}m"><stop offset="0" stop-color="${mo}"/><stop offset="1" stop-color="${mo}" stop-opacity="0"/></radialGradient>
-      <linearGradient id="${g}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${b}" stop-opacity="0"/><stop offset="1" stop-color="${m}"/></linearGradient></defs>
-      <rect width="400" height="300" fill="url(#${g}s)"/>
-      ${STARS.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="#fff" opacity=".7"/>`).join('')}
-      <circle cx="330" cy="60" r="60" fill="url(#${g}m)" opacity=".6"/><circle cx="330" cy="60" r="24" fill="${mo}"/>
-      <path d="M0 220L60 120l50 70 60-90 70 100 60-80 70 90 30-30v120H0z" fill="${m}" opacity=".55"/>
-      <path d="M0 250l50-60 60 50 70-70 70 60 60-50 90 70v50H0z" fill="${m}" opacity=".85"/>
-      <rect y="200" width="400" height="100" fill="url(#${g}f)"/></svg>`;
-  }
-  function setBG(key) {
-    const sc = document.querySelector('.battle-scene'); if (!sc) return;
-    sc.querySelectorAll('.gfx-bg').forEach(x => x.remove());
-    const w = document.createElement('div'); w.className = 'gfx-bg'; w.innerHTML = bg(key);
-    sc.insertBefore(w, sc.firstChild);
-    const mt = sc.querySelector('.mountains'), mn = sc.querySelector('.moon');
-    if (mt) mt.style.display = 'none'; if (mn) mn.style.display = 'none';
-  }
-  return { hero, enemy, bg, setBG };
-})();
-
-
-/* ================= SOUL PATCH ================= */
-(() => {
-const wrap = (name, fn) => { const o = window[name]; window[name] = function (...a) { return fn(o, ...a); }; };
-
-/* ---------- CSS: недостающие стили ---------- */
-const st = document.createElement('style');
-st.textContent = `:root{--green:#3ddc84;--gold:#f7c948}
-.story-card .chap{font-size:10px;color:var(--dim);text-transform:uppercase}.story-card h3{color:var(--theme);margin:4px 0}.story-card .text{font-size:12px;color:#c8d2ff;line-height:1.6;margin-bottom:10px}
-.levelup-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.6);pointer-events:none}
-.levelup-overlay .txt{font-size:48px;font-weight:900;color:var(--theme);text-shadow:0 0 30px var(--theme)}.levelup-overlay .sub2{font-size:16px;color:#fff}
-.treasure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.treasure-slot{padding:12px 4px;text-align:center;border-radius:12px;font-size:11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
-.treasure-slot .em{font-size:30px}.treasure-slot.ready{border-color:var(--theme);cursor:pointer}.treasure-slot.opened{opacity:.4}
-.clan-card{display:flex;gap:12px;padding:12px;margin-bottom:8px;border-radius:14px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border:1px solid rgba(255,255,255,.08)}
-.clan-card .em{font-size:36px}.clan-card .info{flex:1;font-size:12px}
-.rep-bar{position:relative;height:5px;background:#0a0e20;border-radius:3px;margin-top:5px;overflow:hidden}.rep-bar>div:first-child{height:100%}
-.sect-card{text-align:center;padding:16px;margin-bottom:10px;border-radius:16px;border:1px solid var(--border);background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9))}.sect-card .em{font-size:56px}
-.disciple-row{display:flex;gap:10px;align-items:center;padding:8px;margin-bottom:6px;border-radius:10px;background:rgba(255,255,255,.03)}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.tile{padding:12px 4px;border-radius:14px;text-align:center;font-size:11px;font-weight:700;color:var(--text);font-family:inherit;background:linear-gradient(160deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border:1px solid var(--border)}
-.tile .i{font-size:26px;display:block;margin-bottom:4px}
-.gfx-bg{position:absolute;top:0;left:0;right:0;bottom:0}.gfx-av svg{filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
-nav button{font-size:10px!important}`;
-document.head.appendChild(st);
-
-/* ---------- Аниме-портреты (оригинальные, в стиле аниме) ---------- */
-const CH = {
- tang_san:{hair:'#1d2a5a',eye:'#4a7cff',acc:'#4a7cff',cloth:'#26408a',back:'<path d="M32 2c-6 5-6 12 0 18 6-6 6-13 0-18zM14 10c0 8 4 12 10 12-1-8-4-11-10-12zM50 10c0 8-4 12-10 12 1-8 4-11 10-12z" fill="#8dffb0" opacity=".9"/>'},
- xiao_wu:{hair:'#ff9ccb',eye:'#ff3d8f',acc:'#ff6ab3',cloth:'#6a2a5a',long:1,back:'<ellipse cx="22" cy="8" rx="4.5" ry="12" fill="#ffd0e6" stroke="#ff6ab3" stroke-width="1.5"/><ellipse cx="42" cy="8" rx="4.5" ry="12" fill="#ffd0e6" stroke="#ff6ab3" stroke-width="1.5"/>'},
- dai_mubai:{hair:'#f3e7a0',eye:'#e0a020',acc:'#e0a020',cloth:'#4a3a1a',back:'<circle cx="15" cy="16" r="6" fill="#f3e7c9"/><circle cx="49" cy="16" r="6" fill="#f3e7c9"/>',front:'<path d="M32 14v6M27 15l1 4M37 15l-1 4" stroke="#1a1530" stroke-width="2" stroke-linecap="round"/>'},
- ma_hongjun:{hair:'#ff5a1a',eye:'#ffb13d',acc:'#ff6a2a',cloth:'#6a1a10',back:'<path d="M32 0c4 6 11 8 11 17-3-2-5-2-6-6-1 4-4 6-5 10-4-3-9-6-9-12 0-4 3-6 4-8 2 3 3 3 5 0z" fill="#ffb13d"/>'},
- oscar:{hair:'#8a5a2a',eye:'#3ddc84',acc:'#3ddc84',cloth:'#1a5a3a',back:'<path d="M25 6c-3 3 3 5 0 9M39 6c-3 3 3 5 0 9" stroke="#e8fff0" stroke-width="2" fill="none" stroke-linecap="round"/>'},
- zhu_zhuqing:{hair:'#20102f',eye:'#a06bff',acc:'#a06bff',cloth:'#2a1f4a',long:1,back:'<path d="M17 22L14 4l13 9zM47 22l3-18-13 9z" fill="#2a1f4a" stroke="#a06bff" stroke-width="1.5"/>',front:'<path d="M21 36h22a11 7 0 0 1-22 0z" fill="#2a1f4a"/>'},
- shu_lao:{hair:'#e8e8f0',eye:'#8b95bb',acc:'#8b95bb',cloth:'#5a4a3a',long:1,front:'<path d="M24 38q8 14 16 0q-8 3-16 0z" fill="#e8e8f0"/>'},
- yu_xiaogang:{hair:'#2a1a3a',eye:'#7a7aff',acc:'#7ac8ff',cloth:'#2a3a6a',front:'<circle cx="26.5" cy="33" r="5" fill="none" stroke="#c8d2ff" stroke-width="1.2"/><circle cx="37.5" cy="33" r="5" fill="none" stroke="#c8d2ff" stroke-width="1.2"/>'},
- tang_hao:{hair:'#3a2a1a',eye:'#bbbbbb',acc:'#e0a020',cloth:'#3a3a3a',front:'<path d="M22 24l5 6" stroke="#b03030" stroke-width="1.6"/><path d="M25 41q7 4 14 0" stroke="#3a2a1a" stroke-width="2" fill="none"/>'},
- bibby_dun:{hair:'#5a1a8a',eye:'#ff4d5e',acc:'#a06bff',cloth:'#2a0a3a',long:1,front:'<path d="M22 12l4-6 3 5 3-7 3 7 3-5 4 6z" fill="#f7c948"/>'},
- ning_fengzhi:{hair:'#dfe8ff',eye:'#7ac8ff',acc:'#7ac8ff',cloth:'#3a5a8a',long:1,front:'<path d="M22 14q10-8 20 0l-3 1q-7-5-14 0z" fill="#f7c948"/><circle cx="32" cy="9" r="2" fill="#7ac8ff"/>'}
-};
-let k = 0;
-function anime(id, sz = 64) {
-  const o = CH[id] || CH.tang_san, g = 'an' + (k++), h = o.hair, e = o.eye, c = o.acc;
-  return `<svg viewBox="0 0 64 64" width="${sz}" height="${sz}" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="${g}" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="${c}" stop-opacity=".8"/><stop offset="1" stop-color="#0e1330"/></radialGradient><clipPath id="${g}c"><circle cx="32" cy="32" r="30"/></clipPath></defs>
-<circle cx="32" cy="32" r="30" fill="url(#${g})" stroke="${c}" stroke-width="2"/>${o.back || ''}
-<g clip-path="url(#${g}c)">${o.long ? `<path d="M11 28c-3 16 0 30 5 36h32c5-6 8-20 5-36z" fill="${h}"/>` : ''}<path d="M10 66c0-13 8-19 22-19s22 6 22 19z" fill="${o.cloth}" stroke="${c}" stroke-width="1.5"/></g>
-<path d="M27 42h10v6q-5 3-10 0z" fill="#e8c4a0"/><ellipse cx="32" cy="31" rx="12" ry="13" fill="#fbe0c8"/>
-<ellipse cx="26.5" cy="33" rx="3.3" ry="4.2" fill="#fff"/><ellipse cx="37.5" cy="33" rx="3.3" ry="4.2" fill="#fff"/>
-<ellipse cx="26.5" cy="33.6" rx="2.4" ry="3.5" fill="${e}"/><ellipse cx="37.5" cy="33.6" rx="2.4" ry="3.5" fill="${e}"/>
-<ellipse cx="26.5" cy="34" rx="1.1" ry="2" fill="#150a20"/><ellipse cx="37.5" cy="34" rx="1.1" ry="2" fill="#150a20"/>
-<circle cx="25.6" cy="32" r="1.1" fill="#fff"/><circle cx="36.6" cy="32" r="1.1" fill="#fff"/>
-<path d="M22.5 29l7-1.4M41.5 29l-7-1.4" stroke="${h}" stroke-width="1.5" stroke-linecap="round"/>
-<path d="M29.5 40.5q2.5 2 5 0" stroke="#b0605a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-<circle cx="23" cy="38" r="2" fill="#ff9ca8" opacity=".5"/><circle cx="41" cy="38" r="2" fill="#ff9ca8" opacity=".5"/>
-<path d="M19 31C16 15 24 5 32 5s16 10 13 26l-3-9-3 5-3-8-3 7-3-7-3 8-3-5z" fill="${h}"/>${o.front || ''}</svg>`;
-}
-const SF = { shadow:'grayscale(.6) brightness(.7) contrast(1.2)', golden:'sepia(.7) saturate(2.2)', dragon:'hue-rotate(-35deg) saturate(1.8)', celestial:'hue-rotate(150deg) brightness(1.2)' };
-GFX.hero = anime; GFX.npc = anime;
-GFX.skin = (h, s, z = 64) => `<span class="gfx-av" style="display:inline-block;filter:${SF[s] || 'none'}">${anime(h, z)}</span>`;
-
-/* ---------- Навигация и меню ---------- */
-const TILES = [['tower','🗼','Башня'],['arena','⚔️','Арена'],['dungeons','🗝️','Подземья'],['pets','🐾','Питомцы'],['auction','🏪','Аукцион'],['clans','🏴','Кланы'],['sect','🏯','Секта'],['npc','💞','Наставники']];
-function tiles(el, list) {
-  if (!el) return; el.innerHTML = '';
-  list.forEach(([t, i, l]) => { const b = document.createElement('button'); b.className = 'tile'; b.innerHTML = `<span class="i">${i}</span>${l}`; b.onclick = () => handleTab(t); el.appendChild(b); });
-}
-$('#nav').innerHTML = [['menu','👤','Герой'],['map','🗺️','Карта'],['forge','🔨','Кузня'],['more','🧭','Ещё'],['profile','🎒','Профиль']]
-  .map(([t, i, l]) => `<button data-tab="${t}"${t === 'menu' ? ' class="on"' : ''}><span class="ico">${i}</span>${l}</button>`).join('');
-const ms = document.createElement('section'); ms.className = 'screen'; ms.id = 'screen-more';
-ms.innerHTML = '<h1>🧭 Все разделы</h1><p class="sub">Бои, торговля, союзы</p><div class="tiles" id="more-tiles"></div>';
-$('#main').appendChild(ms);
-window.renderMore = () => { tiles($('#more-tiles'), TILES); show('screen-more'); setNav('more'); };
-wrap('handleTab', (o, t) => {
-  if (state.awakened && t === 'more') { sfx.click(); renderMore(); return; }
-  if (state.awakened && t === 'npc') { sfx.click(); renderNpc(); setNav('more'); return; }
-  return o(t);
-});
-wrap('setNav', (o, t) => o(({ tower:'more', arena:'more', dungeons:'more', pets:'more', auction:'more', clans:'more', sect:'more', npc:'more' })[t] || t));
-
-// Меню героя: быстрые плитки + вкладки «Сегодня» / «Сюжет и события»
-{
-  const sm = $('#screen-menu'), cards = [...sm.querySelectorAll(':scope > .card')];
-  const today = document.createElement('div'), story = document.createElement('div');
-  today.append(cards[1], cards[3], cards[4]); story.append(cards[2], $('#event-container')); story.style.display = 'none';
-  const tabs = document.createElement('div'); tabs.className = 'tabs';
-  tabs.innerHTML = '<button class="on" data-m="today">📋 Сегодня</button><button data-m="story">📜 Сюжет и события</button>';
-  tabs.onclick = e => { const m = e.target.dataset.m; if (!m) return; sfx.click(); today.style.display = m === 'today' ? '' : 'none'; story.style.display = m === 'story' ? '' : 'none'; tabs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.m === m)); };
-  const qt = document.createElement('div'); qt.className = 'tiles'; qt.id = 'menu-tiles';
-  sm.append(qt, tabs, today, story);
-}
-wrap('goMenu', o => {
-  o(); if (!state.awakened) return;
-  const d = $('#my-char-card div[style*="font-size:56px"]');
-  if (d) { d.innerHTML = GFX.skin(state.heroId, state.skins.active, 64); d.style.fontSize = ''; }
-  tiles($('#menu-tiles'), TILES.slice(0, 3));
-});
-
-/* ---------- Замена эмодзи на портреты ---------- */
-wrap('renderBattle', o => {
-  o(); if (!battle) return;
-  const a = $('#p-avatar'), b = $('#e-avatar');
-  if (a) a.innerHTML = GFX.skin(battle.p.heroId, state.skins.active, 64);
-  if (b) b.innerHTML = GFX.enemy(battle.e.name, 64);
-});
-wrap('startBattle', (o, en, mode, loc) => {
-  o(en, mode, loc); GFX.setBG(loc || mode);
-  const at = $('#auto-toggle'); if (at) at.textContent = state.autoBattle ? '⚡ АВТО: ВКЛ' : '⚡ АВТО: ВЫКЛ';
-});
-wrap('renderQuickHeroes', o => { o(); [...$('#hero-list-quick').children].forEach((c, i) => { const d = c.firstElementChild; if (d) d.innerHTML = GFX.hero(HEROES[i].id, 44); }); });
-wrap('renderNpc', o => { o(); $$('.npc-row .em').forEach((d, i) => { d.innerHTML = GFX.npc(NPCS[i].id, 48); d.style.fontSize = ''; }); });
-
-/* ---------- Профиль: скины, настройки, прокачка экипировки ---------- */
-wrap('renderProfile', o => {
-  o(); const c = $('#profile-content'); if (!c) return;
-  if (profileTab === 'skins') $$('.skin-card .em').forEach((d, i) => { d.innerHTML = GFX.skin(state.heroId, SKINS[i].id, 48); });
-  if (profileTab === 'stats') {
-    const d = document.createElement('div'); d.className = 'card';
-    d.innerHTML = '<h2>⚙️ Настройки</h2><div class="row"><button class="btn sec" id="b-snd"></button><button class="btn danger" id="b-rst">Сброс</button></div>';
-    c.appendChild(d);
-    const b = $('#b-snd'); b.textContent = state.soundOn ? '🔊 Звук: вкл' : '🔇 Звук: выкл';
-    b.onclick = () => { state.soundOn = !state.soundOn; saveState(); renderProfile(); };
-    $('#b-rst').onclick = () => { if (confirm('Удалить весь прогресс?')) { state = defaultState(); saveState(); pushToServer(); location.reload(); } };
-  }
-  if (profileTab === 'equip') {
-    ['weapon', 'armor', 'ring'].forEach((s, i) => {
-      const it = state.equipped[s], row = $$('.equip-row')[i]; if (!it || !row) return;
-      const lv = it.lv || 0, ore = 5 * (lv + 1), g = 200 * (lv + 1);
-      const bt = document.createElement('button'); bt.className = 'action'; bt.style.marginLeft = '6px';
-      bt.textContent = lv >= 5 ? `+${lv} MAX` : `⬆ +${lv + 1} · ${ore}⛏️ ${g}💰`;
-      bt.onclick = () => {
-        if (lv >= 5) return;
-        if (state.resources.ore < ore || state.gold < g) { toast('Не хватает ресурсов', 'red'); return; }
-        state.resources.ore -= ore; state.gold -= g; it.lv = lv + 1;
-        saveState(); updateHUD(); pushToServer(); toast(`⬆ ${it.name} +${it.lv}`, 'gold'); renderProfile();
-      };
-      row.appendChild(bt);
-    });
-  }
-});
-
-/* ---------- ФИКСЫ ---------- */
-// Оружие (atk) не давало ничего; улучшения экипировки; бонус наставника Ю Сяоган
-wrap('computeStats', o => {
-  const r = o(); let atkEq = 0;
-  Object.values(state.equipped || {}).forEach(it => {
-    if (!it || !it.stats) return; const lv = it.lv || 0;
-    atkEq += (it.stats.atk || 0) * (1 + 0.2 * lv); r.def += Math.round((it.stats.def || 0) * 0.2 * lv);
-  });
-  const yx = ((state.npc.yu_xiaogang || {}).affinity || 0) / 100;
-  r.atk = Math.round((r.atk + atkEq) * (1 + 0.1 * yx)); return r;
-});
-// Бонус Шу-Лао: до +20% опыта
-wrap('gainExp', (o, a, s) => o(Math.round(a * (1 + 0.2 * ((state.npc.shu_lao || {}).affinity || 0) / 100)), s));
-// Магазин: без бесплатных товаров внутри Telegram
-window.buyItem = function (item) {
-  sfx.click(); const tg = window.Telegram && Telegram.WebApp;
-  if (!tg || !tg.initData) { demoPurchase(item); return; }
-  if (!tg.openInvoice) { toast('❌ Оплата недоступна', 'red'); return; }
-  fetch('/api/shop/invoice', { method:'POST', headers:{ 'Content-Type':'application/json', 'X-Telegram-Init-Data': tg.initData }, body: JSON.stringify({ itemCode: item.code }) })
-    .then(r => r.json())
-    .then(d => { if (d && d.invoiceLink) tg.openInvoice(d.invoiceLink, s => { if (s === 'paid') applyPurchase(item); else toast('❌ Не оплачено', 'red'); }); else toast('❌ Магазин недоступен', 'red'); })
-    .catch(() => toast('❌ Нет связи', 'red'));
-};
-// Ежедневка: после 7-го дня цикл начинается сразу
-wrap('claimDaily', o => { if (state.dailyStreak >= 7) state.dailyStreak = 0; o(); });
-// Таблицы лидеров: боты стабильны в течение дня
-const seeded = f => { let s = Math.floor(Date.now() / 864e5) * 9301 + 49297; const r = Math.random; Math.random = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; try { f(); } finally { Math.random = r; } };
-wrap('renderTower', o => seeded(o)); wrap('renderArena', o => seeded(o));
-
-/* ---------- НОВЫЕ МЕХАНИКИ ---------- */
-// Пассивки героев/школ и забытые таланты (str3, spr2)
-wrap('applyDamageToEnemy', (o, d) => {
-  if (!battle || battle.over) return o(d);
-  const p = battle.p, hid = state.heroId; let m = 1;
-  if (hid === 'tang_san') m *= 1.1;
-  if (state.schoolId === 'tang' && Math.random() < 0.2) { m *= 1.5; logMsg('⚔️ Усиленная атака!', 'sys'); }
-  if (hid === 'zhu_zhuqing' && p.hp / p.maxHp < 0.3) m *= 1.5;
-  m *= 1 + tlv('str3') * 0.04; d = Math.round(d * m); o(d);
-  if (hid === 'xiao_wu' && Math.random() < 0.15 && battle.e.hp > 0) { const x = Math.round(d * 0.6); o(x); logMsg(`🐰 Двойная атака: ${x}`, 'dmg'); }
-  if (tlv('spr2') > 0) p.hp = Math.min(p.maxHp, p.hp + Math.round(d * tlv('spr2') * 0.02));
-});
-// Враги: ярость, яд, а у игрока — уклонение и двойной ход
-wrap('enemyTurn', o => {
-  if (battle && !battle.over) {
-    const e = battle.e, p = battle.p;
-    if (!e.enraged && e.hp / e.maxHp < 0.3) { e.enraged = 1; e.atk = Math.round(e.atk * 1.3); logMsg(`😡 ${e.name} в ярости!`, 'sys'); }
-    if (e.stun <= 0 && e.freezes <= 0) {
-      if (Math.random() < tlv('spd2') * 0.02) { logMsg('⚡ Двойной ход!', 'heal'); setTimeout(nextTurn, 400); return; }
-      if (Math.random() < tlv('spd3') * 0.03 + p.spd / (p.spd + e.spd) * 0.06) { logMsg('💨 Уклонение!', 'heal'); setTimeout(nextTurn, 500); return; }
-      if (/Скорпион|Лис/.test(e.name) && Math.random() < 0.3) { p.poison = 3; logMsg('☠️ Отравление!', 'dmg'); }
-    }
-  }
-  o();
-});
-wrap('nextTurn', o => {
-  if (battle && !battle.over && battle.p.poison > 0) {
-    const p = battle.p, d = Math.round(p.maxHp * 0.04); p.poison--; p.hp -= d;
-    logMsg(`☠️ Яд: -${d}`, 'dmg'); floatDmg('p', d, '#9a6bff'); renderBattle();
-    if (p.hp <= 0) { endBattle('lose'); return; }
-  }
-  o();
-});
-// Сила кольца зависит от возраста: берутся два самых старых
-window.getPlayerSkills = function () {
-  const hero = getHero(), s = [{ name: hero.uniqueSkill.name, ...hero.uniqueSkill, ultimate: true }, { name: 'Мощный Удар', type: 'damage', mult: 1.5, desc: 'Сильная атака' }];
-  const so = state.souls[state.activeSoulIndex];
-  if (so && so.rings) [...so.rings].sort((a, b) => (b.ageYears || 0) - (a.ageYears || 0)).slice(0, 2).forEach(r => {
-    if (!r.skill) return; const x = { ...r.skill, fromRing: r.color }, kk = 1 + (r.ageYears || 100) / 800;
-    ['mult', 'heal', 'shield', 'atkBuff'].forEach(f => { if (x[f]) x[f] = +Math.min(f === 'shield' || f === 'heal' ? 1 : 9, x[f] * kk).toFixed(2); });
-    s.push(x);
-  });
-  return s;
-};
-// Рейд секты — теперь настоящий бой
-wrap('renderSect', o => {
-  o(); const b = $('#btn-clan-raid'); if (!b) return;
-  b.onclick = () => {
-    if (state.energy < 15) { toast('⚡ Мало энергии', 'red'); return; }
-    state.energy -= 15; saveState(); updateHUD(); const l = state.level;
-    startBattle({ name:'Воины клана', hp:150 + l * 45, atk:14 + l * 3, def:8 + l * 2, spd:6 + l, exp:60 + l * 10, gold:300 + l * 30, art:'boss' }, 'raid');
-  };
-});
-// Итог боя + награда за рейд
-wrap('endBattle', (o, r) => {
-  const g0 = state.gold, b = battle, mode = b && b.mode, name = b && b.beast && b.beast.name;
-  if (b && !b.over && r === 'win' && mode === 'raid') {
-    state.gold += 500; state.resources.crystals += 3;
-    const t = CLANS[Math.floor(Math.random() * CLANS.length)]; state.clans[t.id] = state.clans[t.id] || { rep:0, isAlly:false, isEnemy:false };
-    state.clans[t.id].rep = Math.max(-100, state.clans[t.id].rep - 5); updateClanFlags(t.id); toast('⚔️ Рейд: +500💰 +3💎', 'gold');
-  }
-  const fresh = b && !b.over; o(r);
-  if (fresh && r === 'win' && !state.autoBattle) setTimeout(() => showModal('🏆', 'Победа', `${name}<br>+${state.gold - g0}💰`), 1400);
-});
-// Тайные локации: скрыты, пока не найдены при исследовании
-wrap('renderWorldMap', o => {
-  o(); const ns = [...$$('#world-map .map-node')];
-  LOCATIONS.forEach((l, i) => { if (l.secret && !state.discoveredLocations.includes(l.id) && ns[i]) ns[i].style.display = 'none'; });
-});
-wrap('doExplore', (o, loc) => {
-  const had = state.energy >= 3; o(loc); if (!had) return;
-  const find = (id, from, lv, p) => {
-    if (loc.id === from && state.level >= lv && !state.discoveredLocations.includes(id) && Math.random() < p) {
-      state.discoveredLocations.push(id); saveState(); showModal('✨', 'Тайное место найдено!', LOCATIONS.find(x => x.id === id).name);
-    }
-  };
-  find('secret_grove', 'mountains', 12, 0.15); find('sky_temple', 'dragon_lair', 30, 0.15);
-});
-// Награда за отсутствие и подсказка новичку
-const seen = state.lastSeen || Date.now();
-setTimeout(() => {
-  if (!state.awakened) return; const m = (Date.now() - seen) / 6e4; if (m < 30) return;
-  const h = Math.min(8, m / 60), g = Math.round(h * (30 + state.level * 15)), en = Math.max(0, Math.min(state.maxEnergy - state.energy, Math.round(h * 10)));
-  state.gold += g; state.energy += en; saveState(); updateHUD();
-  showModal('🌙', 'Пока тебя не было', `+${g}💰 · +${en}⚡<br><span style="font-size:11px;color:var(--dim)">${Math.round(h * 10) / 10} ч</span>`);
-}, 3200);
-wrap('doQuickStart', o => {
-  const was = state.awakened; o();
-  if (!was && state.awakened) setTimeout(() => showModal('📖', 'Как играть', '1. Карта → охота на зверей<br>2. Бои дают опыт, кольца и золото<br>3. Кузня улучшает снаряжение, «Ещё» — остальные разделы'), 1500);
-});
-})();
-</script>
-
 </body>
 </html>
