@@ -126,7 +126,7 @@ nav.hidden{display:none}
 .dialog-box{background:linear-gradient(160deg,rgba(28,36,72,.98),rgba(14,19,48,.98));border:2px solid var(--theme);border-radius:18px;padding:16px;box-shadow:0 0 40px var(--border)}
 .dialog-name{color:var(--theme);font-weight:900;font-size:15px;margin-bottom:6px}
 .dialog-text{font-size:14px;line-height:1.6;margin-bottom:14px}
-.dialog-choice{width:100%;padding:12px;margin-bottom:8px;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;background:rgba(255,255,255,.06);color:#eaf0ff;border:1px solid rgba(255,255,255,.1);font-family:inherit;text-align:left}
+.dialog-choice{width:100%;padding:12px;margin-bottom:8px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;background:rgba(255,255,255,.06);color:#eaf0ff;border:1px solid rgba(255,255,255,.1);font-family:inherit;text-align:left}
 .dialog-choice:active{transform:scale(.98)}
 .absorb-zone{position:relative;height:80px;background:linear-gradient(180deg,#04061a,#0a0e20);border-radius:14px;border:1px solid var(--border);overflow:hidden;margin:16px 0}
 .absorb-zone .target{position:absolute;left:50%;top:0;height:100%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(61,220,132,.15),rgba(61,220,132,.55),rgba(61,220,132,.15));border-left:2px solid #3ddc84;border-right:2px solid #3ddc84;box-shadow:0 0 20px rgba(61,220,132,.6)}
@@ -194,12 +194,6 @@ nav.hidden{display:none}
 .pet-card .info{flex:1;font-size:12px}
 .pet-card .info b{color:var(--theme);display:block;margin-bottom:2px;font-size:14px}
 .pet-card .info span{color:var(--dim);font-size:11px}
-.auction-row{display:flex;gap:10px;align-items:center;padding:10px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,.05);font-size:12px}
-.auction-row .em{font-size:24px;width:36px;text-align:center}
-.auction-row .info{flex:1}
-.auction-row .info b{color:#fff;display:block}
-.auction-row .info span{color:var(--dim);font-size:10px}
-.auction-row .price{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;border:none;padding:6px 12px;border-radius:8px;font-weight:800;font-size:11px}
 .event-card{padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,107,255,.4),rgba(28,36,72,.95));border:2px solid #a06bff;text-align:center;margin-bottom:12px}
 .event-card h3{color:#d8b8ff;font-size:16px;margin-bottom:6px}
 .event-card .desc{font-size:11px;color:#c8d2ff;line-height:1.5;margin-bottom:10px}
@@ -527,24 +521,21 @@ window.addEventListener('error', (e)=>{
 
 /* ============ ДАННЫЕ ============ */
 const RANDOM_NAMES = ['Тан Сан','Сяо Ву','Дай Мубай','Чжу Чжуцин','Оскар','Ма Хунцзюнь','Нин Жунжун','Сю-Лао','Тан Хао'];
-
 const HEROES = [
-  { id:'tang_san', name:'Синий Серебряный Дракон', short:'Дракон', svgTag:'🐲', theme:'#4a7cff', stats:{str:7,def:7,spd:7,spr:9}, uniqueSkill:{name:'Ядовитая Трава',type:'damage',mult:1.9,pierce:0.3}, passive:'+10% урона' },
-  { id:'xiao_wu', name:'Мягкая Кость Кролика', short:'Кролик', svgTag:'🐰', theme:'#ff6ab3', stats:{str:8,def:5,spd:11,spr:6}, uniqueSkill:{name:'Восьмикратный Прыжок',type:'damage',mult:1.4,crit:0.6}, passive:'15% двойная атака' },
+  { id:'tang_san', name:'Синий Серебряный Дракон', short:'Дракон', svgTag:'🌿', theme:'#4a7cff', stats:{str:7,def:7,spd:7,spr:9}, uniqueSkill:{name:'Ядовитая Трава',type:'damage',mult:1.9,pierce:0.3}, passive:'+10% урона' },
+  { id:'xiao_wu', name:'Мягкая Кость Кролика', short:'Кролик', svgTag:'🐰', theme:'#ff6ab3', stats:{str:8,def:5,spd:11,spr:6}, uniqueSkill:{name:'Восьмикратный Прыжок',type:'damage',mult:1.4,crit:0.6}, passive:'15% двойная' },
   { id:'dai_mubai', name:'Белый Тигр', short:'Тигр', svgTag:'🐯', theme:'#e0a020', stats:{str:8,def:11,spd:5,spr:4}, uniqueSkill:{name:'Тигриная Броня',type:'shield',shield:0.5}, passive:'-20% урона' },
   { id:'ma_hongjun', name:'Пламенный Феникс', short:'Феникс', svgTag:'🔥', theme:'#ff6a2a', stats:{str:11,def:4,spd:6,spr:8}, uniqueSkill:{name:'Пламенный Шторм',type:'damage_aoe',mult:1.7}, passive:'+25% AoE' },
-  { id:'oscar', name:'Пищевая Душа', short:'Оскар', svgTag:'🍜', theme:'#3ddc84', stats:{str:4,def:6,spd:7,spr:11}, uniqueSkill:{name:'Пища Богов',type:'heal',heal:0.5}, passive:'+5% реген/ход' },
+  { id:'oscar', name:'Пищевая Душа', short:'Оскар', svgTag:'🍜', theme:'#3ddc84', stats:{str:4,def:6,spd:7,spr:11}, uniqueSkill:{name:'Пища Богов',type:'heal',heal:0.5}, passive:'+5% реген' },
   { id:'zhu_zhuqing', name:'Тень-Циветта', short:'Циветта', svgTag:'🐈', theme:'#a06bff', stats:{str:10,def:5,spd:9,spr:5}, uniqueSkill:{name:'Удар Тени',type:'damage',mult:1.6,crit:0.5}, passive:'100% крит при HP<30%' }
 ];
-
 const SCHOOLS = [
-  { id:'shrek', name:'Академия Шрека', emblem:'🐲', color:'#f7c948', bonus:'+12% ко всем статам', stats:{str:1.12,def:1.12,spd:1.12,spr:1.12}, startGold:300, startEnergy:60 },
+  { id:'shrek', name:'Академия Шрека', emblem:'🐲', color:'#f7c948', bonus:'+12% ко всем', stats:{str:1.12,def:1.12,spd:1.12,spr:1.12}, startGold:300, startEnergy:60 },
   { id:'tang', name:'Врата Тан', emblem:'⚔️', color:'#ff4d5e', bonus:'+25% ATK', stats:{str:1.25,def:0.9,spd:1.05,spr:1.05}, startGold:200, startEnergy:50 },
   { id:'star', name:'Империя Звёзд', emblem:'⭐', color:'#7ac8ff', bonus:'+25% DEF +20% HP', stats:{str:1.0,def:1.25,spd:0.9,spr:1.0}, startGold:250, startEnergy:55 },
   { id:'blue_lightning', name:'Секта Синей Молнии', emblem:'⚡', color:'#4a7cff', bonus:'+30% духа', stats:{str:0.95,def:0.95,spd:1.15,spr:1.3}, startGold:180, startEnergy:70 },
   { id:'shadow_sect', name:'Теневая Секта', emblem:'🌑', color:'#5a3a8a', bonus:'+50% золота, -30% HP', stats:{str:1.15,def:0.85,spd:1.2,spr:0.9}, startGold:50, startEnergy:40 }
 ];
-
 const LOCATIONS = [
   { id:'village', name:'Родная Деревня', emoji:'🏠', minLevel:1, x:12, y:82, enemies:['Древесный Волк','Каменный Скорпион'], treasures:['family_chest','old_well','grandma_box'], lore:'Старшее поколение говорит о лагере мастеров души.', drops:{herbs:0.6,ore:0.3,crystals:0.1} },
   { id:'forest', name:'Лес Духов', emoji:'🌲', minLevel:1, x:32, y:38, enemies:['Пламенный Лис','Ледяной Скорпион'], treasures:['herb_patch','hidden_grove','ancient_tree'], lore:'В чаще спит древний зверь.', drops:{herbs:0.5,ore:0.3,crystals:0.2} },
@@ -557,7 +548,6 @@ const LOCATIONS = [
   { id:'secret_grove', name:'Забытая Роща', emoji:'🌸', minLevel:12, x:50, y:14, secret:true, enemies:['Дух Цветка','Хранитель Рощи'], treasures:['blossom_chest','spirit_pool'], lore:'Здесь цветут души.', drops:{herbs:0.8,ore:0,crystals:0.2} },
   { id:'sky_temple', name:'Небесный Храм', emoji:'☁️', minLevel:30, x:90, y:12, secret:true, enemies:['Небесный Страж','Ангел-Хранитель'], treasures:['celestial_relic','divine_tome'], lore:'Тут живут боги.', drops:{herbs:0,ore:0,crystals:1} }
 ];
-
 const TREASURES = {
   family_chest:{name:'Семейный сундук',emoji:'📦',reward:'gold',min:100,max:300},
   old_well:{name:'Старый колодец',emoji:'🪣',reward:'resource',resource:'herbs',min:5,max:10},
@@ -576,7 +566,7 @@ const TREASURES = {
   ancient_relic:{name:'Реликвия',emoji:'⚱️',reward:'ring',min:1,max:1},
   forgotten_tome:{name:'Том',emoji:'📕',reward:'talent_point',min:2,max:4},
   soul_altar:{name:'Алтарь Душ',emoji:'🔮',reward:'ring',min:1,max:2},
-  demonic_crystal:{name:'Демонический кристалл',emoji:'🔴',reward:'resource',resource:'crystals',min:10,max:20},
+  demonic_crystal:{name:'Демонический',emoji:'🔴',reward:'resource',resource:'crystals',min:10,max:20},
   dark_relic:{name:'Тёмная реликвия',emoji:'⚫',reward:'ring',min:1,max:2},
   void_shard:{name:'Осколок',emoji:'🌌',reward:'talent_point',min:3,max:5},
   dragon_heart:{name:'Сердце Дракона',emoji:'❤️',reward:'ring',min:2,max:3},
@@ -585,9 +575,8 @@ const TREASURES = {
   blossom_chest:{name:'Цветочный сундук',emoji:'🌸',reward:'resource',resource:'herbs',min:20,max:40},
   spirit_pool:{name:'Пруд',emoji:'💧',reward:'talent_point',min:2,max:4},
   celestial_relic:{name:'Небесная реликвия',emoji:'✨',reward:'ring',min:2,max:3},
-  divine_tome:{name:'Том',emoji:'📖',reward:'talent_point',min:5,max:10}
+  divine_tome:{name:'Том богов',emoji:'📖',reward:'talent_point',min:5,max:10}
 };
-
 const STORY = [
   {id:1,title:'Пробуждение',req:1,slides:[
     {who:'🧙 Шу-Лао',text:'Тебе шесть лет. Пора пробудить Боевую Душу.'},
@@ -607,35 +596,31 @@ const STORY = [
     {who:'⚔️ Ведущий',text:'Всекитайский турнир начинается!'},
     {who:'👤 Противник',text:'Мы раздавим вас!'}
   ],choices:[
-    {label:'Победить в финале',effect:'good',gold:2000,exp:1000},
+    {label:'Победить',effect:'good',gold:2000,exp:1000},
     {label:'Скрыть силу',effect:'neutral',gold:1500,exp:1500}
   ]},
   {id:4,title:'Духовный Храм',req:25,slides:[
     {who:'😈 Бибби Дун',text:'Духовный Храм объявляет войну!'},
     {who:'🌿 Тан Сан',text:'Мы защитим континент.'}
   ],choices:[
-    {label:'Защитить невинных',effect:'good',gold:3000,exp:1500},
+    {label:'Защитить',effect:'good',gold:3000,exp:1500},
     {label:'Собрать армию',effect:'neutral',gold:4000,exp:1000}
   ]},
   {id:5,title:'Город Резни',req:35,slides:[
-    {who:'💀 Ведущий',text:'Победи 100 противников — станешь Королём Резни.'},
+    {who:'💀 Ведущий',text:'Победи 100 — станешь Королём Резни.'},
     {who:'🌿 Тан Сан',text:'Я готов.'}
-  ],choices:[
-    {label:'Пройти испытание',effect:'good',gold:5000,exp:3000}
-  ]},
+  ],choices:[{label:'Пройти испытание',effect:'good',gold:5000,exp:3000}]},
   {id:6,title:'Остров Морского Бога',req:45,slides:[
-    {who:'🌊 Морской Бог',text:'Пройди 9 испытаний — получишь мою силу.'},
-    {who:'🐲 Морской Дракон',text:'Покажи свою мощь!'}
+    {who:'🌊 Морской Бог',text:'Пройди 9 испытаний.'},
+    {who:'🐲 Морской Дракон',text:'Покажи мощь!'}
   ],choices:[
     {label:'Принять силу',effect:'good',gold:8000,exp:5000},
     {label:'Отказаться',effect:'evil',gold:10000,exp:2000}
   ]},
   {id:7,title:'Основание Секты Тан',req:55,slides:[
-    {who:'🌿 Тан Сан',text:'Пора основать своё наследие.'},
+    {who:'🌿 Тан Сан',text:'Пора основать наследие.'},
     {who:'🐰 Сяо Ву',text:'Мы с тобой!'}
-  ],choices:[
-    {label:'Основать Секту Тан',effect:'good',gold:10000,exp:8000}
-  ]},
+  ],choices:[{label:'Основать Секту Тан',effect:'good',gold:10000,exp:8000}]},
   {id:8,title:'Война',req:65,slides:[
     {who:'😈 Бибби Дун',text:'Я — Король Демонов!'},
     {who:'🌿 Тан Сан',text:'Мы остановим тебя.'}
@@ -644,20 +629,15 @@ const STORY = [
     {label:'Собрать союзников',effect:'neutral',gold:20000,exp:5000}
   ]},
   {id:9,title:'Король Демонов',req:80,slides:[
-    {who:'😈 Бибби Дун',text:'Я стала Ракшасой — тёмным богом!'},
-    {who:'🌿 Тан Сан',text:'Это конец. СИНИЙ СЕРЕБРЯНЫЙ ДРАКОН!'},
-    {who:'😈 Бибби Дун',text:'Невозможно... Сила Бога...'}
-  ],choices:[
-    {label:'Победить',effect:'good',gold:25000,exp:20000}
-  ]},
+    {who:'😈 Бибби Дун',text:'Я стала Ракшасой!'},
+    {who:'🌿 Тан Сан',text:'СИНИЙ СЕРЕБРЯНЫЙ ДРАКОН!'},
+    {who:'😈 Бибби Дун',text:'Невозможно...'}
+  ],choices:[{label:'Победить',effect:'good',gold:25000,exp:20000}]},
   {id:10,title:'Восхождение',req:95,slides:[
-    {who:'⭐ Небеса',text:'Смертный, прими титул Бога Души.'},
+    {who:'⭐ Небеса',text:'Прими титул Бога Души.'},
     {who:'🌿 Тан Сан',text:'Я поведу континент к свету.'}
-  ],choices:[
-    {label:'Стать богом',effect:'good',gold:50000,exp:50000}
-  ]}
+  ],choices:[{label:'Стать богом',effect:'good',gold:50000,exp:50000}]}
 ];
-
 const RANKS = [{min:1,name:'Ученик'},{min:10,name:'Мастер Души'},{min:20,name:'Мастер Души II'},{min:30,name:'Мастер Души III'},{min:40,name:'Доуло'},{min:50,name:'Доуло II'},{min:60,name:'Титулованный Доуло'},{min:70,name:'Венец Духа'},{min:80,name:'Богоподобный Дух'},{min:90,name:'Предельный Доуло'},{min:100,name:'Бог Души'}];
 const ARENA_RANKS = [{min:0,name:'Дерево'},{min:100,name:'Бронза'},{min:300,name:'Серебро'},{min:600,name:'Золото'},{min:1000,name:'Платина'},{min:1600,name:'Алмаз'},{min:2400,name:'Мастер'}];
 const RING_COLORS = {yellow:'#f7d24d',purple:'#a06bff',black:'#5a5a6a',red:'#ff4d5e'};
@@ -746,7 +726,7 @@ const HOMES = [
 ];
 
 /* ============ СОСТОЯНИЕ ============ */
-const SAVE_KEY = 'soul_land_v16';
+const SAVE_KEY = 'soul_land_v17';
 let state = loadState();
 
 function defaultState(){
@@ -783,6 +763,7 @@ function defaultState(){
     lastSeen:Date.now()
   };
 }
+
 function saveState(){
   try{
     state.lastSeen = Date.now();
@@ -792,9 +773,38 @@ function saveState(){
     localStorage.setItem(SAVE_KEY, JSON.stringify(state));
   }catch(e){}
 }
+
 function loadState(){
-  try{ const raw = localStorage.getItem(SAVE_KEY); if(raw) return Object.assign(defaultState(), JSON.parse(raw)); }catch(e){}
-  return defaultState();
+  try{
+    const raw = localStorage.getItem(SAVE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    const merged = Object.assign(defaultState(), parsed);
+    // Защита от повреждённых вложенных объектов
+    if(!merged.home || typeof merged.home !== 'object') merged.home = {level:0, lastIncome:Date.now()};
+    if(typeof merged.home.level !== 'number') merged.home.level = 0;
+    if(typeof merged.home.lastIncome !== 'number') merged.home.lastIncome = Date.now();
+    if(!Array.isArray(merged.souls)) merged.souls = [];
+    if(!merged.pets || typeof merged.pets !== 'object') merged.pets = {owned:[],active:null};
+    if(!Array.isArray(merged.pets.owned)) merged.pets.owned = [];
+    if(!merged.skins || typeof merged.skins !== 'object') merged.skins = {owned:['default'],active:'default'};
+    if(!Array.isArray(merged.skins.owned)) merged.skins.owned = ['default'];
+    if(!merged.enhancements || typeof merged.enhancements !== 'object') merged.enhancements = {};
+    if(!merged.resources || typeof merged.resources !== 'object') merged.resources = {herbs:10,crystals:5,ore:8};
+    if(!merged.talents || typeof merged.talents !== 'object') merged.talents = defaultState().talents;
+    if(!merged.stats || typeof merged.stats !== 'object') merged.stats = {totalDamage:0, ringsAbsorbed:0, chestsOpened:0};
+    if(!merged.dungeonAttempts || typeof merged.dungeonAttempts !== 'object') merged.dungeonAttempts = {date:null,left:3};
+    if(!merged.sect || typeof merged.sect !== 'object') merged.sect = {founded:false, name:null, disciples:[], prestige:0};
+    if(!Array.isArray(merged.sect.disciples)) merged.sect.disciples = [];
+    if(!merged.inventory || typeof merged.inventory !== 'object') merged.inventory = {};
+    if(!merged.equipped || typeof merged.equipped !== 'object') merged.equipped = {};
+    if(!merged.achievements || typeof merged.achievements !== 'object') merged.achievements = {};
+    if(!merged.permBonuses || typeof merged.permBonuses !== 'object') merged.permBonuses = {exp:0,atk:0,hp:0};
+    return merged;
+  }catch(e){
+    console.error('loadState error:', e);
+    return defaultState();
+  }
 }
 
 /* ============ УТИЛИТЫ ============ */
@@ -815,11 +825,13 @@ function todayEvent(){
   return EVENTS_DAILY.find(e => e.day === d) || EVENTS_DAILY[0];
 }
 function applyTheme(){
-  const h = getHero();
-  const skin = getSkin();
-  const themeColor = skin.theme || h.theme;
-  document.documentElement.style.setProperty('--theme', themeColor);
-  document.documentElement.style.setProperty('--border', themeColor + '40');
+  try{
+    const h = getHero();
+    const skin = getSkin();
+    const themeColor = skin.theme || h.theme;
+    document.documentElement.style.setProperty('--theme', themeColor);
+    document.documentElement.style.setProperty('--border', themeColor + '40');
+  }catch(e){}
 }
 function show(id){
   $$('.screen').forEach(s=>s.classList.remove('active'));
@@ -828,13 +840,15 @@ function show(id){
   const m = $('#main'); if(m) m.scrollTop = 0;
 }
 function toast(text, type='', ms=2400){
-  const el = document.createElement('div');
-  el.className = 'toast ' + type;
-  el.innerHTML = text;
-  const box = document.getElementById('toasts');
-  if(box) box.appendChild(el);
-  setTimeout(()=>{ el.style.transition='opacity .3s'; el.style.opacity='0'; }, ms-300);
-  setTimeout(()=>el.remove(), ms);
+  try{
+    const el = document.createElement('div');
+    el.className = 'toast ' + type;
+    el.innerHTML = text;
+    const box = document.getElementById('toasts');
+    if(box) box.appendChild(el);
+    setTimeout(()=>{ el.style.transition='opacity .3s'; el.style.opacity='0'; }, ms-300);
+    setTimeout(()=>el.remove(), ms);
+  }catch(e){}
 }
 let audioCtx = null;
 function beep(f=440,d=0.1,t='sine',v=0.15){
@@ -867,37 +881,45 @@ function vib(ms){
   }catch(e){}
 }
 function updateHUD(){
-  const a = $('#hud-age'); if(a) a.textContent = Math.min(state.age, 30);
-  const l = $('#hud-level'); if(l) l.textContent = state.level;
-  const g = $('#hud-gold'); if(g) g.textContent = state.gold;
-  const e = $('#hud-energy'); if(e) e.textContent = state.energy;
-  const bar = $('#exp-bar');
-  if(bar) bar.style.width = Math.min(100,(state.exp/state.expNext)*100)+'%';
-  applyTheme();
+  try{
+    const a = $('#hud-age'); if(a) a.textContent = Math.min(state.age, 30);
+    const l = $('#hud-level'); if(l) l.textContent = state.level;
+    const g = $('#hud-gold'); if(g) g.textContent = state.gold;
+    const e = $('#hud-energy'); if(e) e.textContent = state.energy;
+    const bar = $('#exp-bar');
+    if(bar) bar.style.width = Math.min(100,(state.exp/state.expNext)*100)+'%';
+    applyTheme();
+  }catch(e){}
 }
 function tickEnergy(){
-  const now = Date.now();
-  const elapsed = now - (state.lastEnergyTick||now);
-  const regen = Math.floor(elapsed/(5*60*1000));
-  if(regen > 0 && state.energy < state.maxEnergy){
-    state.energy = Math.min(state.maxEnergy, state.energy + regen);
-    state.lastEnergyTick = now;
-    saveState(); updateHUD();
-  }
+  try{
+    const now = Date.now();
+    const elapsed = now - (state.lastEnergyTick||now);
+    const regen = Math.floor(elapsed/(5*60*1000));
+    if(regen > 0 && state.energy < state.maxEnergy){
+      state.energy = Math.min(state.maxEnergy, state.energy + regen);
+      state.lastEnergyTick = now;
+      saveState(); updateHUD();
+    }
+  }catch(e){}
 }
 function tickHomeIncome(){
-  const now = Date.now();
-  const home = HOMES[state.home.level];
-  if(!home || home.income <= 0) return;
-  const elapsed = (now - (state.home.lastIncome || now)) / 1000;
-  const rate = home.income / 3600;
-  const earned = Math.floor(elapsed * rate);
-  if(earned > 0){
-    state.gold += earned;
-    state.home.lastIncome = now;
-    saveState(); updateHUD();
-    toast(`🏠 +${earned}💰`, 'gold', 1800);
-  }
+  try{
+    if(!state.home) state.home = {level:0, lastIncome:Date.now()};
+    if(typeof state.home.level !== 'number') state.home.level = 0;
+    const now = Date.now();
+    const home = HOMES[state.home.level];
+    if(!home || home.income <= 0) return;
+    const elapsed = (now - (state.home.lastIncome || now)) / 1000;
+    const rate = home.income / 3600;
+    const earned = Math.floor(elapsed * rate);
+    if(earned > 0){
+      state.gold += earned;
+      state.home.lastIncome = now;
+      saveState(); updateHUD();
+      toast(`🏠 +${earned}💰`, 'gold', 1800);
+    }
+  }catch(e){ console.error('home income error:', e); }
 }
 async function pushToServer(){
   try{
@@ -981,76 +1003,78 @@ function confirmSchool(){
 
 /* ============ МЕНЮ ============ */
 function goMenu(){
-  updateHUD(); refreshQuests(); resetDailyBoss();
-  if(!state.awakened){ const n = $('#nav'); if(n) n.classList.add('hidden'); show('screen-start'); return; }
-  const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
-  const hero = getHero();
-  const school = getSchool();
-  const skin = getSkin();
-  const stats = computeStats();
-  const auraColor = (skin.theme || hero.theme) + '80';
-  const pet = activePet();
-  const title = $('#menu-title'); if(title) title.textContent = state.playerName;
-  const sub = $('#menu-sub'); if(sub) sub.textContent = `${rankOf(state.level)} · ${school.name}`;
-  const soul = state.souls[state.activeSoulIndex];
-  const ringsHtml = (soul && soul.rings && soul.rings.length>0)
-    ? soul.rings.map(r=>`<span style="display:inline-block;width:16px;height:16px;border-radius:50%;margin:0 2px;background:${RING_COLORS[r.color]};box-shadow:0 0 8px ${RING_COLORS[r.color]}"></span>`).join('')
-    : '<span style="color:#5a6384;font-size:11px">нет колец</span>';
-  const card = $('#my-char-card');
-  if(card) card.innerHTML = `<div class="card" style="border:2px solid ${(skin.theme || hero.theme)}60">
-      <div style="display:flex;gap:12px;align-items:center">
-        <div style="position:relative">
-          <div class="aura" style="--aura-color:${auraColor}"></div>
-          <div style="font-size:56px;width:72px;height:72px;display:flex;align-items:center;justify-content:center">${skin.emoji || hero.svgTag}</div>
+  try{
+    updateHUD(); refreshQuests(); resetDailyBoss();
+    if(!state.awakened){ const n = $('#nav'); if(n) n.classList.add('hidden'); show('screen-start'); return; }
+    const nav = $('#nav'); if(nav) nav.classList.remove('hidden');
+    const hero = getHero();
+    const school = getSchool();
+    const skin = getSkin();
+    const stats = computeStats();
+    const auraColor = (skin.theme || hero.theme) + '80';
+    const pet = activePet();
+    const title = $('#menu-title'); if(title) title.textContent = state.playerName;
+    const sub = $('#menu-sub'); if(sub) sub.textContent = `${rankOf(state.level)} · ${school.name}`;
+    const soul = state.souls[state.activeSoulIndex];
+    const ringsHtml = (soul && soul.rings && soul.rings.length>0)
+      ? soul.rings.map(r=>`<span style="display:inline-block;width:16px;height:16px;border-radius:50%;margin:0 2px;background:${RING_COLORS[r.color]};box-shadow:0 0 8px ${RING_COLORS[r.color]}"></span>`).join('')
+      : '<span style="color:#5a6384;font-size:11px">нет колец</span>';
+    const card = $('#my-char-card');
+    if(card) card.innerHTML = `<div class="card" style="border:2px solid ${(skin.theme || hero.theme)}60">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="position:relative">
+            <div class="aura" style="--aura-color:${auraColor}"></div>
+            <div style="font-size:56px;width:72px;height:72px;display:flex;align-items:center;justify-content:center">${skin.emoji || hero.svgTag}</div>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:15px;font-weight:800;color:${skin.theme||hero.theme}">${state.playerName}</div>
+            <div style="font-size:11px;color:var(--dim);margin:2px 0 6px">${hero.short}</div>
+            <div style="font-size:11px;color:var(--dim)">Возраст: <b style="color:var(--theme)">${Math.min(state.age,30)}</b> · Кольца: ${ringsHtml}</div>
+            ${pet ? `<div style="font-size:11px;color:var(--theme);margin-top:3px">${pet.emoji} ${pet.name} · ${pet.desc}</div>` : ''}
+          </div>
         </div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:15px;font-weight:800;color:${skin.theme||hero.theme}">${state.playerName}</div>
-          <div style="font-size:11px;color:var(--dim);margin:2px 0 6px">${hero.short}</div>
-          <div style="font-size:11px;color:var(--dim)">Возраст: <b style="color:var(--theme)">${Math.min(state.age,30)}</b> · Кольца: ${ringsHtml}</div>
-          ${pet ? `<div style="font-size:11px;color:var(--theme);margin-top:3px">${pet.emoji} ${pet.name} · ${pet.desc}</div>` : ''}
+        <div class="stats" style="margin-top:12px">
+          <div>Сила<b>${stats.str}</b></div><div>Защита<b>${stats.def}</b></div>
+          <div>Скорость<b>${stats.spd}</b></div><div>Дух<b>${stats.spr}</b></div>
         </div>
-      </div>
-      <div class="stats" style="margin-top:12px">
-        <div>Сила<b>${stats.str}</b></div><div>Защита<b>${stats.def}</b></div>
-        <div>Скорость<b>${stats.spd}</b></div><div>Дух<b>${stats.spr}</b></div>
-      </div>
-      <div style="margin-top:10px;font-size:11px;color:#9aa6c8">
-        HP: <b style="color:var(--theme)">${stats.maxHp}</b> · ATK: <b style="color:var(--theme)">${stats.atk}</b>
-        · Опыт: <b>${state.exp}/${state.expNext}</b>
-      </div>
-    </div>`;
-  const ev = todayEvent();
-  const evContainer = $('#event-container');
-  if(evContainer){
-    evContainer.innerHTML = `<div class="event-card">
-      <h3>${ev.name}</h3>
-      <div class="desc">${ev.desc}</div>
-      <div style="font-size:11px;color:#a06bff;font-weight:800">×${ev.mult.toFixed(1)}</div>
-    </div>`;
-  }
-  const nextChap = STORY.find(c=>c.id === state.storyChapter + 1);
-  const storyEl = $('#story-menu');
-  if(storyEl){
-    if(nextChap && state.level >= nextChap.req){
-      storyEl.innerHTML = `<div class="card">
-        <div style="font-size:10px;color:#a06bff;text-transform:uppercase;letter-spacing:1.5px;font-weight:900;margin-bottom:6px">Глава ${nextChap.id}</div>
-        <h2 style="color:#d8b8ff">${nextChap.title}</h2>
-        <div style="font-size:12px;color:#c8d2ff;line-height:1.6;margin:8px 0">${nextChap.slides[0].text}</div>
-        <button class="btn" id="btn-story-start">НАЧАТЬ →</button>
+        <div style="margin-top:10px;font-size:11px;color:#9aa6c8">
+          HP: <b style="color:var(--theme)">${stats.maxHp}</b> · ATK: <b style="color:var(--theme)">${stats.atk}</b>
+          · Опыт: <b>${state.exp}/${state.expNext}</b>
+        </div>
       </div>`;
-      const b = $('#btn-story-start');
-      if(b) b.onclick = () => startStory(nextChap);
-    } else if(nextChap){
-      storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--dim);padding:14px">🔒 Глава ${nextChap.id} на ${nextChap.req} уровне</div>`;
-    } else {
-      storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--gold);padding:14px">✨ Сюжет завершён</div>`;
+    const ev = todayEvent();
+    const evContainer = $('#event-container');
+    if(evContainer){
+      evContainer.innerHTML = `<div class="event-card">
+        <h3>${ev.name}</h3>
+        <div class="desc">${ev.desc}</div>
+        <div style="font-size:11px;color:#a06bff;font-weight:800">×${ev.mult.toFixed(1)}</div>
+      </div>`;
     }
-  }
-  renderDailyBoss();
-  renderDailyStreak();
-  renderQuests();
-  updateEnergyHint();
-  show('screen-menu'); setNav('menu');
+    const nextChap = STORY.find(c=>c.id === state.storyChapter + 1);
+    const storyEl = $('#story-menu');
+    if(storyEl){
+      if(nextChap && state.level >= nextChap.req){
+        storyEl.innerHTML = `<div class="card">
+          <div style="font-size:10px;color:#a06bff;text-transform:uppercase;letter-spacing:1.5px;font-weight:900;margin-bottom:6px">Глава ${nextChap.id}</div>
+          <h2 style="color:#d8b8ff">${nextChap.title}</h2>
+          <div style="font-size:12px;color:#c8d2ff;line-height:1.6;margin:8px 0">${nextChap.slides[0].text}</div>
+          <button class="btn" id="btn-story-start">НАЧАТЬ →</button>
+        </div>`;
+        const b = $('#btn-story-start');
+        if(b) b.onclick = () => startStory(nextChap);
+      } else if(nextChap){
+        storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--dim);padding:14px">🔒 Глава ${nextChap.id} на ${nextChap.req} уровне</div>`;
+      } else {
+        storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--gold);padding:14px">✨ Сюжет завершён</div>`;
+      }
+    }
+    renderDailyBoss();
+    renderDailyStreak();
+    renderQuests();
+    updateEnergyHint();
+    show('screen-menu'); setNav('menu');
+  }catch(e){ console.error('goMenu error:', e); }
 }
 function updateEnergyHint(){
   const h = $('#energy-hint'); if(!h) return;
@@ -1061,62 +1085,62 @@ function updateEnergyHint(){
 
 /* ============ СЮЖЕТ ============ */
 function startStory(chap){
-  let idx = 0;
-  const mid = 'story_' + Date.now();
-  const ov = document.createElement('div');
-  ov.className = 'dialog-overlay';
-  ov.id = mid;
-  document.body.appendChild(ov);
-  function renderSlide(){
-    if(idx >= chap.slides.length){
-      // Финальный выбор
-      if(chap.choices && chap.choices.length > 0){
-        ov.innerHTML = `<div class="dialog-scene"></div><div class="dialog-box">
-          <div class="dialog-name">Судьба</div>
-          <div class="dialog-text">Выбери свой путь:</div>
-          ${chap.choices.map((c,i)=>`<button class="dialog-choice" data-i="${i}">${c.label}</button>`).join('')}
-        </div>`;
-        ov.querySelectorAll('.dialog-choice').forEach(btn=>{
-          btn.onclick = () => {
-            const c = chap.choices[parseInt(btn.dataset.i)];
-            sfx.level(); vib([50,50,50]);
-            state.gold += c.gold || 0;
-            gainExp(c.exp || 0, true);
-            state.storyChapter++;
-            if(chap.id === 9) state.demonKingDefeated = true;
-            saveState(); updateHUD(); pushToServer();
-            ov.remove();
-            toast(`📜 Глава ${chap.id}! +${c.gold}💰`, 'purple', 3000);
-            if(chap.id === 9) setTimeout(()=>toast('🏯 Секта Тан открыта!', 'purple', 4000), 1500);
-            setTimeout(()=>goMenu(), 800);
-          };
-        });
+  try{
+    let idx = 0;
+    const mid = 'story_' + Date.now();
+    const ov = document.createElement('div');
+    ov.className = 'dialog-overlay';
+    ov.id = mid;
+    document.body.appendChild(ov);
+    function renderSlide(){
+      if(idx >= chap.slides.length){
+        if(chap.choices && chap.choices.length > 0){
+          ov.innerHTML = `<div class="dialog-scene"></div><div class="dialog-box">
+            <div class="dialog-name">Судьба</div>
+            <div class="dialog-text">Выбери свой путь:</div>
+            ${chap.choices.map((c,i)=>`<button class="dialog-choice" data-i="${i}">${c.label}</button>`).join('')}
+          </div>`;
+          ov.querySelectorAll('.dialog-choice').forEach(btn=>{
+            btn.onclick = () => {
+              const c = chap.choices[parseInt(btn.dataset.i)];
+              sfx.level(); vib([50,50,50]);
+              state.gold += c.gold || 0;
+              gainExp(c.exp || 0, true);
+              state.storyChapter++;
+              if(chap.id === 9) state.demonKingDefeated = true;
+              saveState(); updateHUD(); pushToServer();
+              ov.remove();
+              toast(`📜 Глава ${chap.id}! +${c.gold}💰`, 'purple', 3000);
+              if(chap.id === 9) setTimeout(()=>toast('🏯 Секта Тан открыта!', 'purple', 4000), 1500);
+              setTimeout(()=>goMenu(), 800);
+            };
+          });
+          return;
+        }
+        sfx.level();
+        state.gold += (chap.choices && chap.choices[0] && chap.choices[0].gold) || 0;
+        gainExp((chap.choices && chap.choices[0] && chap.choices[0].exp) || 0, true);
+        state.storyChapter++;
+        if(chap.id === 9) state.demonKingDefeated = true;
+        saveState(); updateHUD(); pushToServer();
+        ov.remove();
+        setTimeout(()=>goMenu(), 600);
         return;
       }
-      // Без выбора
-      sfx.level();
-      state.gold += chap.choices?.[0]?.gold || 0;
-      gainExp(chap.choices?.[0]?.exp || 0, true);
-      state.storyChapter++;
-      if(chap.id === 9) state.demonKingDefeated = true;
-      saveState(); updateHUD(); pushToServer();
-      ov.remove();
-      setTimeout(()=>goMenu(), 600);
-      return;
+      const s = chap.slides[idx];
+      ov.innerHTML = `
+        <div class="dialog-scene"></div>
+        <div class="dialog-char">${s.who.split(' ')[0]}</div>
+        <div class="dialog-box">
+          <div class="dialog-name">${s.who}</div>
+          <div class="dialog-text">${s.text}</div>
+          <button class="btn" id="${mid}_next">ДАЛЕЕ →</button>
+        </div>`;
+      const btn = ov.querySelector('#'+mid+'_next');
+      if(btn) btn.onclick = () => { sfx.click(); idx++; renderSlide(); };
     }
-    const s = chap.slides[idx];
-    ov.innerHTML = `
-      <div class="dialog-scene"></div>
-      <div class="dialog-char">${s.who.split(' ')[0]}</div>
-      <div class="dialog-box">
-        <div class="dialog-name">${s.who}</div>
-        <div class="dialog-text">${s.text}</div>
-        <button class="btn" id="${mid}_next">ДАЛЕЕ →</button>
-      </div>`;
-    const btn = ov.querySelector('#'+mid+'_next');
-    if(btn) btn.onclick = () => { sfx.click(); idx++; renderSlide(); };
-  }
-  renderSlide();
+    renderSlide();
+  }catch(e){ console.error('story error:', e); }
 }
 
 /* ============ ДНЕВНОЙ БОСС ============ */
@@ -1144,7 +1168,7 @@ function renderDailyBoss(){
       <div style="font-size:11px;color:var(--dim);margin-top:4px">Новый завтра</div></div>`;
     return;
   }
-  c.innerHTML = `<div style="padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,30,40,.5),rgba(40,10,20,.9));border:1px solid rgba(255,80,80,.4);margin-bottom:10px">
+  c.innerHTML = `<div style="padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,30,40,.5),rgba(40,10,20,.9));border:1px solid rgba(255,80,80,.4)">
     <h3 style="color:#ff9aa2;margin-bottom:6px">${boss.em} ${boss.name}</h3>
     <div style="font-size:11px;color:#ffd0d6;margin-bottom:10px">HP ${boss.hp} · Награда: ${boss.gold}💰 + ${boss.exp}✦</div>
     <button class="btn danger" id="btn-daily-boss">⚔️ СРАЗИТЬСЯ (5 ⚡)</button>
@@ -1436,7 +1460,7 @@ function renderSect(){
       <h2 style="justify-content:center">Секта закрыта</h2>
       <p class="sub" style="margin:0">Победи Короля Демонов (глава 9, уровень 80)</p>
     </div>`;
-    return;
+    show('screen-sect'); setNav('sect'); return;
   }
   if(!state.sect.founded){
     c.innerHTML = `<div class="card" style="text-align:center">
@@ -1459,7 +1483,7 @@ function renderSect(){
         renderSect();
       };
     }
-    return;
+    show('screen-sect'); setNav('sect'); return;
   }
   c.innerHTML = `<div style="padding:16px;border-radius:18px;background:linear-gradient(135deg,rgba(247,201,72,.15),rgba(28,36,72,.95));border:2px solid var(--theme);text-align:center;margin-bottom:12px">
       <div style="font-size:64px;margin-bottom:8px">🏯</div>
@@ -1844,8 +1868,8 @@ function renderProfile(){
       div.className = 'equip-row' + (eq?' equipped':'');
       div.innerHTML = `<div class="slot-name">${names[slot]}</div>
         <div class="ico">${eq ? eq.ico : emojis[slot]}</div>
-        <divfont class="info"><-sizeb>${eq: ? eq.name :9 'Пусто'} ${lpxvl>0 ? '<span style="color:var(--theme)">+'+lvl+'</span>' : ''}</b>
-          <span>${;eq ? eq.desc : 'Создай в Кузнице'}</span>
+        <div class="info"><b>${eq ? eq.name : 'Пусто'} ${lvl>0 ? '<span style="color:var(--theme)">+'+lvl+'</span>' : ''}</b>
+          <span>${eq ? eq.desc : 'Создай в Кузнице'}</span>
         </div>
         ${eq ? '<button class="action">СНЯТЬ</button>' : ''}`;
       if(eq) div.querySelector('.action').onclick = () => {
@@ -1929,7 +1953,7 @@ function renderProfile(){
         const node = document.createElement('div');
         node.style.cssText = `display:flex;align-items:center;gap:6px;padding:8px;background:rgba(255,255,255,.03);border:1px solid ${lvl>0?'var(--theme)':'rgba(255,255,255,.06)'};border-radius:10px;margin-bottom:6px;font-size:11px;cursor:${canBuy?'pointer':'default'}`;
         node.innerHTML = `<div style="flex:1"><b style="font-size:11px;color:#fff">${n.name}</b>
-          <div style="color:var(--dim)">${n.desc}</div></div>
+          <div style="font-size:9px;color:var(--dim)">${n.desc}</div></div>
           <span style="font-weight:800;color:var(--theme);font-size:10px">${lvl}/${n.max}</span>`;
         if(canBuy) node.onclick = () => {
           state.talents[n.id]++; state.talentPoints--;
@@ -2093,7 +2117,7 @@ function handleTab(tab){
   else if(tab === 'dungeons') renderDungeons();
   else if(tab === 'tower') renderTower();
   else if(tab === 'arena') renderArena();
-  else if(tab === 'sect'){ renderSect(); setNav('sect'); }
+  else if(tab === 'sect'){ renderSect(); }
   else if(tab === 'home') renderHome();
   else if(tab === 'enhance') renderEnhance();
   else if(tab === 'forge') renderForge();
@@ -2622,58 +2646,60 @@ function endBattle(result){
 
 /* ============ МИНИ-ИГРА КОЛЬЦА ============ */
 function offerAbsorb(skill, color){
-  const mid = 'absorb_' + Date.now();
-  const ov = document.createElement('div');
-  ov.className = 'modal-overlay';
-  ov.innerHTML = `<div class="modal-content">
-    <div class="big-em">💫</div>
-    <h2>Поглощение кольца</h2>
-    <div style="font-size:13px;margin-bottom:8px">
-      <b style="color:${RING_COLORS[color]}">${RING_NAMES[color]}</b><br>
-      <span style="color:var(--dim);font-size:11px">Навык: ${skill.name}</span>
-    </div>
-    <p style="font-size:12px;color:var(--dim);margin-bottom:10px">Тапни, когда курсор в зелёной зоне</p>
-    <div class="absorb-zone">
-      <div class="target" id="${mid}_target"></div>
-      <div class="cursor" id="${mid}_cursor"></div>
-    </div>
-    <button class="btn" id="${mid}_go">ПОГЛОТИТЬ</button>
-  </div>`;
-  document.body.appendChild(ov);
-  let pos = 0, dir = 1, running = true;
-  const cursor = ov.querySelector('#'+mid+'_cursor');
-  const target = ov.querySelector('#'+mid+'_target');
-  const speed = 0.6 + Math.random() * 0.4;
-  const halfW = 0.11;
-  target.style.width = (halfW * 200) + '%';
-  let lastT = performance.now();
-  function loop(t){
-    if(!running) return;
-    const dt = (t - lastT) / 1000;
-    lastT = t;
-    pos += dir * speed * dt;
-    if(pos >= 1){ pos = 1; dir = -1; }
-    if(pos <= 0){ pos = 0; dir = 1; }
-    cursor.style.left = (pos * 100) + '%';
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-  ov.querySelector('#'+mid+'_go').onclick = () => {
-    if(!running) return;
-    running = false;
-    const inTarget = pos >= (0.5 - halfW) && pos <= (0.5 + halfW);
-    if(inTarget){
-      sfx.treasure(); vib([50,30,50]);
-      toast(`✅ ${skill.name} поглощён!`, 'purple', 2500);
-    } else {
-      sfx.lose(); vib(100);
-      toast('💨 Провал! Кольцо потеряно', 'red', 2500);
-      const soul = state.souls[state.activeSoulIndex];
-      if(soul && soul.rings && soul.rings.length > 0) soul.rings.pop();
-      saveState();
+  try{
+    const mid = 'absorb_' + Date.now();
+    const ov = document.createElement('div');
+    ov.className = 'modal-overlay';
+    ov.innerHTML = `<div class="modal-content">
+      <div class="big-em">💫</div>
+      <h2>Поглощение кольца</h2>
+      <div style="font-size:13px;margin-bottom:8px">
+        <b style="color:${RING_COLORS[color]}">${RING_NAMES[color]}</b><br>
+        <span style="color:var(--dim);font-size:11px">Навык: ${skill.name}</span>
+      </div>
+      <p style="font-size:12px;color:var(--dim);margin-bottom:10px">Тапни, когда курсор в зелёной зоне</p>
+      <div class="absorb-zone">
+        <div class="target" id="${mid}_target"></div>
+        <div class="cursor" id="${mid}_cursor"></div>
+      </div>
+      <button class="btn" id="${mid}_go">ПОГЛОТИТЬ</button>
+    </div>`;
+    document.body.appendChild(ov);
+    let pos = 0, dir = 1, running = true;
+    const cursor = ov.querySelector('#'+mid+'_cursor');
+    const target = ov.querySelector('#'+mid+'_target');
+    const speed = 0.6 + Math.random() * 0.4;
+    const halfW = 0.11;
+    target.style.width = (halfW * 200) + '%';
+    let lastT = performance.now();
+    function loop(t){
+      if(!running) return;
+      const dt = (t - lastT) / 1000;
+      lastT = t;
+      pos += dir * speed * dt;
+      if(pos >= 1){ pos = 1; dir = -1; }
+      if(pos <= 0){ pos = 0; dir = 1; }
+      cursor.style.left = (pos * 100) + '%';
+      requestAnimationFrame(loop);
     }
-    ov.remove();
-  };
+    requestAnimationFrame(loop);
+    ov.querySelector('#'+mid+'_go').onclick = () => {
+      if(!running) return;
+      running = false;
+      const inTarget = pos >= (0.5 - halfW) && pos <= (0.5 + halfW);
+      if(inTarget){
+        sfx.treasure(); vib([50,30,50]);
+        toast(`✅ ${skill.name} поглощён!`, 'purple', 2500);
+      } else {
+        sfx.lose(); vib(100);
+        toast('💨 Провал! Кольцо потеряно', 'red', 2500);
+        const soul = state.souls[state.activeSoulIndex];
+        if(soul && soul.rings && soul.rings.length > 0) soul.rings.pop();
+        saveState();
+      }
+      ov.remove();
+    };
+  }catch(e){ console.error('absorb error:', e); }
 }
 
 /* ============ ЧЕСТ ============ */
@@ -2723,32 +2749,34 @@ function gainExp(amount, silent=false){
   return leveled;
 }
 function showLevelUp(){
-  const mid = 'lvlup_' + Date.now();
-  const ov = document.createElement('div');
-  ov.className = 'modal-overlay';
-  ov.style.background = 'rgba(0,0,0,.75)';
-  ov.innerHTML = `<div style="text-align:center;animation:zoomIn .4s ease">
-    <div style="font-size:64px;animation:pulse 1s infinite">⭐</div>
-    <div style="font-size:42px;font-weight:900;background:linear-gradient(135deg,#ffe9a8,${getHero().theme},#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent">УР. ${state.level}</div>
-    <div style="color:var(--theme);margin-top:8px;font-size:14px;letter-spacing:2px">${rankOf(state.level)}</div>
-    <button class="btn" id="${mid}" style="margin-top:20px;width:200px">ОК</button>
-  </div>`;
-  document.body.appendChild(ov);
-  for(let i=0;i<20;i++){
-    const p = document.createElement('div');
-    p.style.cssText = `position:fixed;left:50%;top:50%;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#ffe9a8,${getHero().theme});pointer-events:none;z-index:99999`;
-    const angle = (i/20)*Math.PI*2;
-    const dist = 120 + Math.random()*100;
-    p.animate([
-      {transform:'translate(-50%,-50%) scale(1)',opacity:1},
-      {transform:`translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(0)`,opacity:0}
-    ], {duration:1300, easing:'cubic-bezier(.2,.7,.3,1)', fill:'forwards'});
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(), 1400);
-  }
-  const btn = ov.querySelector('#'+mid);
-  if(btn) btn.onclick = () => ov.remove();
-  setTimeout(()=>{ if(ov.parentNode) ov.remove(); }, 3000);
+  try{
+    const mid = 'lvlup_' + Date.now();
+    const ov = document.createElement('div');
+    ov.className = 'modal-overlay';
+    ov.style.background = 'rgba(0,0,0,.75)';
+    ov.innerHTML = `<div style="text-align:center;animation:zoomIn .4s ease">
+      <div style="font-size:64px;animation:pulse 1s infinite">⭐</div>
+      <div style="font-size:42px;font-weight:900;background:linear-gradient(135deg,#ffe9a8,${getHero().theme},#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent">УР. ${state.level}</div>
+      <div style="color:var(--theme);margin-top:8px;font-size:14px;letter-spacing:2px">${rankOf(state.level)}</div>
+      <button class="btn" id="${mid}" style="margin-top:20px;width:200px">ОК</button>
+    </div>`;
+    document.body.appendChild(ov);
+    for(let i=0;i<20;i++){
+      const p = document.createElement('div');
+      p.style.cssText = `position:fixed;left:50%;top:50%;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#ffe9a8,${getHero().theme});pointer-events:none;z-index:99999`;
+      const angle = (i/20)*Math.PI*2;
+      const dist = 120 + Math.random()*100;
+      p.animate([
+        {transform:'translate(-50%,-50%) scale(1)',opacity:1},
+        {transform:`translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(0)`,opacity:0}
+      ], {duration:1300, easing:'cubic-bezier(.2,.7,.3,1)', fill:'forwards'});
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(), 1400);
+    }
+    const btn = ov.querySelector('#'+mid);
+    if(btn) btn.onclick = () => ov.remove();
+    setTimeout(()=>{ if(ov.parentNode) ov.remove(); }, 3000);
+  }catch(e){}
 }
 
 /* ============ ДЕЙСТВИЯ ============ */
@@ -2773,6 +2801,12 @@ function rest(){
 
 /* ============ ИНИЦИАЛИЗАЦИЯ ============ */
 async function init(){
+  // Защита: принудительно убираем splash через 4 секунды что бы ни случилось
+  const splashGuard = setTimeout(()=>{
+    const sp = document.getElementById('splash');
+    if(sp){ sp.classList.add('hide'); setTimeout(()=>sp.remove(), 700); }
+  }, 4000);
+
   try{
     const pc = document.getElementById('particles');
     if(pc){
@@ -2787,18 +2821,20 @@ async function init(){
       }
     }
     if(window.Telegram && Telegram.WebApp){
-      Telegram.WebApp.ready();
-      Telegram.WebApp.expand();
-      Telegram.WebApp.setHeaderColor('#070914');
       try{
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
+        Telegram.WebApp.setHeaderColor('#070914');
         Telegram.WebApp.enableClosingConfirmation();
         if(Telegram.WebApp.disableVerticalSwipes) Telegram.WebApp.disableVerticalSwipes();
       }catch(e){}
       function fixViewport(){
-        const app = document.getElementById('app');
-        if(!app) return;
-        const h = Telegram.WebApp.viewportStableHeight || window.innerHeight;
-        app.style.height = h + 'px';
+        try{
+          const app = document.getElementById('app');
+          if(!app) return;
+          const h = Telegram.WebApp.viewportStableHeight || window.innerHeight;
+          if(h && h > 200) app.style.height = h + 'px';
+        }catch(e){}
       }
       fixViewport();
       window.addEventListener('resize', fixViewport);
@@ -2842,13 +2878,17 @@ async function init(){
       }
     };
 
-    try{ await pullFromServer(); }catch(e){}
+    // Не блокируем UI
+    pullFromServer().then(loaded => {
+      if(loaded){ try{ updateHUD(); goMenu(); }catch(e){} }
+    }).catch(()=>{});
 
-    setInterval(()=>{ tickEnergy(); tickHomeIncome(); updateHUD(); }, 30000);
+    setInterval(()=>{ try{ tickEnergy(); tickHomeIncome(); updateHUD(); }catch(e){} }, 30000);
     setInterval(saveState, 30000);
     setInterval(pushToServer, 60000);
-    tickEnergy();
-    tickHomeIncome();
+
+    try{ tickEnergy(); }catch(e){}
+    try{ tickHomeIncome(); }catch(e){}
 
     const now = Date.now();
     if(now - (state.treasureLastReset||0) > 24*60*60*1000){
@@ -2857,7 +2897,7 @@ async function init(){
       saveState();
     }
 
-    renderQuickHeroes();
+    try{ renderQuickHeroes(); }catch(e){}
 
     if(!state.playerName || !state.heroId){
       const nav = $('#nav'); if(nav) nav.classList.add('hidden');
@@ -2872,20 +2912,25 @@ async function init(){
       goMenu();
     }
 
+    clearTimeout(splashGuard);
     const sp = document.getElementById('splash');
     if(sp){ sp.classList.add('hide'); setTimeout(()=>sp.remove(), 700); }
   }catch(err){
     console.error('Init error:', err);
+    clearTimeout(splashGuard);
+    const sp = document.getElementById('splash');
+    if(sp){ sp.classList.add('hide'); setTimeout(()=>sp.remove(), 500); }
     const el = document.createElement('div');
-    el.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#ff4d5e;color:#fff;padding:8px;z-index:99999;font-size:12px;font-family:monospace';
-    el.textContent = 'Ошибка: ' + err.message;
+    el.style.cssText = 'position:fixed;bottom:20px;left:10px;right:10px;background:#ff4d5e;color:#fff;padding:8px;z-index:99999;font-size:11px;font-family:monospace;border-radius:8px';
+    el.textContent = 'Ошибка: ' + (err.message || err);
     document.body.appendChild(el);
+    try{ show('screen-start'); }catch(e){}
   }
 }
 
 document.addEventListener('visibilitychange', () => {
   if(document.hidden){ saveState(); pushToServer(); }
-  else { tickEnergy(); tickHomeIncome(); updateHUD(); }
+  else { try{ tickEnergy(); tickHomeIncome(); updateHUD(); }catch(e){} }
 });
 window.addEventListener('beforeunload', ()=>{ saveState(); pushToServer(); });
 
