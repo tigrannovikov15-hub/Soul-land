@@ -7,9 +7,6 @@ const { Telegraf, Markup } = require('telegraf');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ============================================================
-// СТАТИКА БЕЗ КЭША
-// ============================================================
 app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders: (res, filePath) => {
     if(filePath.endsWith('.html')){
@@ -28,9 +25,6 @@ app.get('/', (req, res) => {
 
 app.get('/health', (req, res) => res.json({ ok: true, ts: Date.now() }));
 
-// ============================================================
-// ВАЛИДАЦИЯ TELEGRAM INITDATA
-// ============================================================
 function validateInitData(initData){
   if(!initData || !process.env.BOT_TOKEN) return null;
   try{
@@ -51,14 +45,8 @@ function validateInitData(initData){
   }catch(e){ return null; }
 }
 
-// ============================================================
-// ХРАНИЛИЩЕ (в памяти, если нет PostgreSQL)
-// ============================================================
 const saves = new Map();
 
-// ============================================================
-// SAVE / LOAD
-// ============================================================
 app.get('/api/save', (req, res) => {
   const user = validateInitData(req.headers['x-telegram-init-data']);
   if(!user) return res.status(401).json({ error: 'unauthorized' });
@@ -70,7 +58,6 @@ app.post('/api/save', (req, res) => {
   if(!user) return res.status(401).json({ error: 'unauthorized' });
   const { data } = req.body || {};
   if(!data) return res.status(400).json({ error: 'no data' });
-  // Античит: проверки
   const safe = JSON.parse(JSON.stringify(data));
   if(typeof safe.level !== 'number' || safe.level < 1 || safe.level > 500) safe.level = 1;
   if(typeof safe.gold !== 'number' || safe.gold < 0 || safe.gold > 1e9) safe.gold = 0;
@@ -80,9 +67,6 @@ app.post('/api/save', (req, res) => {
   res.json({ ok: true });
 });
 
-// ============================================================
-// МАГАЗИН
-// ============================================================
 const PRICES = {
   energy_pill: { title:'Пилюля энергии', description:'+50 энергии', price:30 },
   gold_pack:   { title:'Мешок золота', description:'+1000 золота', price:50 },
@@ -107,14 +91,8 @@ app.post('/api/shop/invoice', (req, res) => {
     .catch(e => res.status(500).json({ error: e.message }));
 });
 
-// ============================================================
-// СТАРТ СЕРВЕРА
-// ============================================================
 app.listen(PORT, () => console.log(`🌐 Сервер запущен: ${PORT}`));
 
-// ============================================================
-// БОТ
-// ============================================================
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const WEBAPP_URL = process.env.WEBAPP_URL || (process.env.RENDER_EXTERNAL_HOSTNAME
   ? `https://${process.env.RENDER_EXTERNAL_HOSTNAME}` : 'https://example.com');
@@ -127,7 +105,7 @@ if(BOT_TOKEN){
     const name = ctx.from.first_name || 'Мастер Души';
     ctx.replyWithMarkdown(
       `🐉 *Путь к Бессмертию*\n\nПривет, *${name}*!\n\n` +
-      `• 10 локаций мира\n• 4 клана\n• Своя секта\n• Питомцы и таланты\n• Сезонные события`,
+      `• 100 уровней\n• 12 локаций\n• 10 глав сюжета\n• Секта Тан после победы над Королём Демонов`,
       Markup.inlineKeyboard([
         [Markup.button.webApp('🎮 Играть', WEBAPP_URL)],
         [Markup.button.callback('📜 Помощь', 'help'), Markup.button.callback('👥 Пригласить', 'invite')]
@@ -136,7 +114,7 @@ if(BOT_TOKEN){
   });
 
   bot.help((ctx) => ctx.replyWithMarkdown(
-    `📜 *Как играть*\n\n1️⃣ Создай героя\n2️⃣ Исследуй карту\n3️⃣ Побеждай зверей\n4️⃣ Поглощай кольца\n5️⃣ Оснуй секту`,
+    `📜 *Как играть*\n\n1️⃣ Создай героя\n2️⃣ Исследуй карту\n3️⃣ Пройди 10 глав сюжета\n4️⃣ Победи Короля Демонов\n5️⃣ Оснуй Секту Тан`,
     Markup.inlineKeyboard([[Markup.button.webApp('🎮 Играть', WEBAPP_URL)]])
   ));
   bot.action('help', (ctx) => { ctx.answerCbQuery(); ctx.replyWithMarkdown('📜 Жми «Играть»!', Markup.inlineKeyboard([[Markup.button.webApp('🎮 Играть', WEBAPP_URL)]])); });
@@ -171,9 +149,6 @@ if(BOT_TOKEN){
   process.once('SIGINT', () => bot.stop('SIGINT'));
   process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
-  // ============================================================
-  // ПУШ-УВЕДОМЛЕНИЯ
-  // ============================================================
   const lastPushes = new Map();
   setInterval(async () => {
     try{
@@ -181,9 +156,7 @@ if(BOT_TOKEN){
         if(!save || !save.awakened) continue;
         const now = Date.now();
         const lastPush = lastPushes.get(uid) || 0;
-        // 1 пуш в 4 часа
         if(now - lastPush < 4*60*60*1000) continue;
-        // Проверяем: полная ли энергия
         if(save.energy >= save.maxEnergy){
           try{
             await bot.telegram.sendMessage(uid,
@@ -195,7 +168,7 @@ if(BOT_TOKEN){
         }
       }
     }catch(e){}
-  }, 60*60*1000); // каждый час
+  }, 60*60*1000);
 } else {
   console.error('❌ BOT_TOKEN не задан');
 }
