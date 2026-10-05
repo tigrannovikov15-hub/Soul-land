@@ -24,27 +24,26 @@ header{padding:10px 12px 8px;display:flex;gap:5px;align-items:center;background:
 header .stat{flex:1;text-align:center;font-size:9px;color:var(--dim);letter-spacing:.3px;text-transform:uppercase}
 header .stat b{display:block;font-size:13px;color:var(--theme);margin-top:1px;text-shadow:0 0 10px var(--theme)}
 .exp-bar{position:absolute;bottom:-1px;left:0;height:2px;background:linear-gradient(90deg,var(--theme),#a06bff);transition:width .4s}
-main{flex:1;overflow-y:auto;padding:14px 14px 84px;position:relative;scroll-behavior:smooth}
+main{flex:1;overflow-y:auto;padding:14px 14px 84px;position:relative}
 .screen{display:none}
 .screen.active{display:block;animation:fadeUp .35s cubic-bezier(.22,.8,.3,1)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-h1{font-size:21px;margin-bottom:4px;text-align:center;font-weight:800;background:linear-gradient(135deg,#ffe9a8,var(--theme) 40%,#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.5px}
+h1{font-size:21px;margin-bottom:4px;text-align:center;font-weight:800;background:linear-gradient(135deg,#ffe9a8,var(--theme) 40%,#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent}
 h2{font-size:15px;color:var(--theme);margin-bottom:10px;font-weight:700;display:flex;align-items:center;gap:6px}
 h3{font-size:14px;color:var(--theme);font-weight:800;margin-bottom:8px}
 .sub{font-size:12px;color:var(--dim);text-align:center;margin-bottom:12px}
-.card{background:linear-gradient(160deg,rgba(28,36,72,.88),rgba(14,19,48,.88));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
-.btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;transition:all .15s;box-shadow:0 4px 18px var(--border);position:relative;overflow:hidden;letter-spacing:.3px}
+.card{background:linear-gradient(160deg,rgba(28,36,72,.88),rgba(14,19,48,.88));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;margin-bottom:10px;backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+.btn{width:100%;padding:13px;border:none;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;transition:all .15s;box-shadow:0 4px 18px var(--border)}
 .btn:active{transform:scale(.97)}
-.btn.sec{background:linear-gradient(135deg,#3a4488,#242a55);color:#eaf0ff;box-shadow:0 4px 18px rgba(74,124,255,.25)}
+.btn.sec{background:linear-gradient(135deg,#3a4488,#242a55);color:#eaf0ff;box-shadow:none}
 .btn.danger{background:linear-gradient(135deg,#ff5566,#b62030);color:#fff}
-.btn.ghost{background:rgba(255,255,255,.06);color:#eaf0ff;box-shadow:none;border:1px solid rgba(255,255,255,.1)}
 .btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
 .row{display:flex;gap:8px}
 .row .btn{flex:1}
 input[type=text]{width:100%;padding:13px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:rgba(0,0,0,.35);color:#fff;font-size:16px;font-weight:700;font-family:inherit;outline:none;text-align:center}
 input[type=text]:focus{border-color:var(--theme)}
-input[type=range]{width:100%;-webkit-appearance:none;height:8px;border-radius:4px;background:rgba(255,255,255,.1);outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#ffd75e,var(--theme));cursor:pointer;box-shadow:0 0 12px var(--border)}
+input[type=range]{width:100%;-webkit-appearance:none;height:8px;border-radius:4px;background:rgba(255,255,255,.1)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#ffd75e,var(--theme));cursor:pointer}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:10px}
 .stats div{background:rgba(255,255,255,.04);padding:6px 4px;border-radius:8px;text-align:center;color:var(--dim);text-transform:uppercase;border:1px solid rgba(255,255,255,.04)}
 .stats b{color:var(--theme);display:block;font-size:14px;margin-top:2px}
@@ -52,17 +51,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 @keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
 .world-map{position:relative;width:100%;height:480px;background:radial-gradient(ellipse at center,#1a2350,#070914);border-radius:20px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
 .map-node{position:absolute;width:64px;height:64px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;background:radial-gradient(circle,rgba(28,36,72,.95),rgba(14,19,48,.95));border:2px solid var(--border);cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(0,0,0,.5)}
-.map-node:active{transform:scale(.92)}
 .map-node.discovered{border-color:var(--theme);box-shadow:0 0 20px var(--border)}
 .map-node.current{background:radial-gradient(circle,#ffd75e,#e09b1b);border-color:#fff;animation:nodeBob 1.5s ease-in-out infinite}
 .map-node.locked{opacity:.35;filter:grayscale(1)}
-.map-node.secret{border-color:#a06bff;box-shadow:0 0 20px rgba(160,107,255,.6);animation:secretGlow 2s infinite}
-@keyframes secretGlow{0%,100%{filter:drop-shadow(0 0 8px #a06bff)}50%{filter:drop-shadow(0 0 20px #a06bff)}}
+.map-node.secret{border-color:#a06bff;box-shadow:0 0 20px rgba(160,107,255,.6)}
 @keyframes nodeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .map-node .lbl{font-size:8px;font-weight:800;color:#fff;margin-top:2px;text-shadow:0 1px 3px rgba(0,0,0,.9);max-width:62px;text-align:center;line-height:1}
 .map-node.current .lbl{color:#1a1400;text-shadow:none}
 .loc-header{display:flex;gap:12px;align-items:center;margin-bottom:14px;padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border:1px solid var(--border)}
-.loc-header .em{font-size:52px;filter:drop-shadow(0 0 12px var(--theme))}
+.loc-header .em{font-size:52px}
 .loc-header .info{flex:1}
 .loc-header .name{font-size:17px;font-weight:900;color:var(--theme)}
 .loc-header .desc{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.4}
@@ -77,9 +74,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 .sect-card .em{font-size:64px;margin-bottom:8px}
 .sect-card h2{justify-content:center;font-size:20px}
 .disciple-row{display:flex;gap:8px;align-items:center;padding:10px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,.05);font-size:12px}
-.disciple-row .em{font-size:24px}
 .treasure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.treasure-slot{aspect-ratio:1;background:linear-gradient(160deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.06);position:relative;font-size:11px;text-align:center;padding:6px}
+.treasure-slot{aspect-ratio:1;background:linear-gradient(160deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.06);font-size:11px;text-align:center;padding:6px}
 .treasure-slot.opened{opacity:.4}
 .treasure-slot.ready{border-color:var(--theme);box-shadow:0 0 16px var(--border);animation:pulse 2s infinite}
 .treasure-slot .em{font-size:32px;margin-bottom:4px}
@@ -92,7 +88,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 .battle-scene .stars span{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 3s infinite}
 @keyframes twinkle{0%,100%{opacity:.3}50%{opacity:1}}
 .battle-scene .moon{position:absolute;top:18px;right:26px;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fff6d8,#c8a860);box-shadow:0 0 50px rgba(255,240,200,.7);opacity:.85}
-.battle-scene .mountains-svg{position:absolute;bottom:0;left:0;right:0;width:100%;height:70%;opacity:.7}
+.battle-scene .mountains{position:absolute;bottom:0;left:0;right:0;width:100%;height:70%;opacity:.7}
 .battle-scene .ground{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,rgba(15,20,50,.95) 0%,rgba(5,8,20,1) 100%)}
 .fighter{display:flex;justify-content:space-between;gap:8px;position:relative;z-index:2;padding:36px 16px 70px;align-items:flex-end}
 .fighter .unit{flex:1;text-align:center;position:relative;padding-bottom:16px}
@@ -102,7 +98,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .fighter .unit .statuses{display:flex;justify-content:center;gap:3px;margin-top:4px;min-height:16px;flex-wrap:wrap}
 .status-ico{font-size:11px;background:rgba(0,0,0,.6);border-radius:6px;padding:1px 4px;border:1px solid rgba(255,255,255,.15)}
-.hpbar{height:12px;background:#0a0e20;border-radius:8px;overflow:hidden;margin-top:6px;border:1px solid rgba(255,255,255,.15);box-shadow:inset 0 2px 4px rgba(0,0,0,.5)}
+.hpbar{height:12px;background:#0a0e20;border-radius:8px;overflow:hidden;margin-top:6px;border:1px solid rgba(255,255,255,.15)}
 .hpbar>div{height:100%;background:linear-gradient(90deg,#3ddc84,#22a05a);transition:width .4s}
 .hpbar.enemy>div{background:linear-gradient(90deg,#ff4d5e,#a01828)}
 .hp-text{font-size:10px;color:var(--dim);margin-top:3px;font-weight:700}
@@ -130,43 +126,22 @@ nav.hidden{display:none}
 .toast.green{border-color:rgba(61,220,132,.5)}
 .toast.red{border-color:rgba(255,85,102,.5)}
 .toast.purple{border-color:rgba(160,107,255,.5)}
-.badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:9px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
-.badge.legendary{background:linear-gradient(135deg,#ffe9a8,#e09b1b);color:#1a1400}
-.badge.epic{background:linear-gradient(135deg,#c49aff,#7a3ee0);color:#fff}
-.badge.rare{background:linear-gradient(135deg,#7ac8ff,#3a68c0);color:#fff}
-.badge.common{background:#3a4488;color:#c8d2ff}
-.levelup-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:none}
-.levelup-overlay .txt{font-size:42px;font-weight:900;background:linear-gradient(135deg,#ffe9a8,var(--theme),#e09b1b);-webkit-background-clip:text;background-clip:text;color:transparent}
-.levelup-overlay .sub2{color:var(--theme);margin-top:8px;font-size:14px;letter-spacing:2px}
 .tabs{display:flex;gap:4px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px}
 .tabs button{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--dim);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
 .tabs button.on{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;border-color:transparent}
-.school-pick{padding:14px;border-radius:14px;margin-bottom:10px;border:2px solid rgba(255,255,255,.08);position:relative;overflow:hidden}
+.school-pick{padding:14px;border-radius:14px;margin-bottom:10px;border:2px solid rgba(255,255,255,.08)}
 .school-pick.selected{border-color:var(--school-color);box-shadow:0 0 25px var(--school-color)}
-.school-pick .bg{position:absolute;inset:0;opacity:.15;background:radial-gradient(circle at 80% 20%,var(--school-color),transparent 60%)}
-.school-pick .inner{position:relative;z-index:1}
-.school-pick .head{display:flex;gap:12px;align-items:center;margin-bottom:10px}
-.school-pick .emblem{font-size:36px}
 .school-pick .name{font-size:15px;font-weight:900;color:var(--school-color)}
-.school-pick .motto{font-size:10px;color:var(--dim);font-style:italic}
-.school-pick .bonus{font-size:11px;color:#c8d2ff;line-height:1.5;background:rgba(0,0,0,.25);padding:8px 10px;border-radius:8px}
-.school-pick .bonus b{color:var(--school-color)}
 .hero-pick{display:flex;gap:12px;padding:12px;border-radius:14px;margin-bottom:8px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border:2px solid rgba(255,255,255,.08)}
-.hero-pick.selected{border-color:var(--theme);box-shadow:0 0 25px var(--border)}
+.hero-pick.selected{border-color:var(--theme)}
 .hero-pick .art{font-size:40px;width:52px;text-align:center;flex-shrink:0}
 .hero-pick .info{flex:1;min-width:0;font-size:11px}
 .hero-pick .info b{color:var(--theme);font-size:13px;display:block}
-.hero-pick .info .desc{color:#9aa6c8;line-height:1.4;margin:3px 0}
 .prologue-act{padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin-bottom:8px;display:flex;gap:12px;align-items:center}
-.prologue-act .em{font-size:36px}
-.prologue-act .info{flex:1;font-size:12px}
-.prologue-act .info b{color:#fff;display:block;margin-bottom:2px}
-.prologue-act .info span{color:var(--dim);font-size:11px}
 .prologue-act.done{opacity:.5;border-color:rgba(61,220,132,.5)}
 main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
-.modal-overlay{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeUp .3s}
+.modal-overlay{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px}
 .modal-content{background:linear-gradient(160deg,rgba(28,36,72,.98),rgba(14,19,48,.98));border:1px solid var(--border);border-radius:20px;padding:20px;max-width:400px;width:100%;max-height:85vh;overflow-y:auto;text-align:center}
-.modal-content h2{justify-content:center}
 .modal-content .big-em{font-size:64px;margin:8px 0}
 .tower-vis{width:100%;height:180px;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,rgba(20,30,70,.6),rgba(8,10,30,.95));border:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column-reverse;padding:8px 12px;gap:4px;margin-bottom:14px}
 .tower-floor{height:12px;background:linear-gradient(90deg,rgba(74,124,255,.2),rgba(74,124,255,.05));border-radius:4px;border-left:3px solid rgba(74,124,255,.4);position:relative}
@@ -224,15 +199,38 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 .ach-card .info span{color:var(--dim);font-size:10px}
 .ach-card .bar{height:4px;background:#0a0e20;border-radius:2px;overflow:hidden;margin-top:5px}
 .ach-card .bar>div{height:100%;background:linear-gradient(90deg,#3ddc84,#22a05a)}
-.rank-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:4px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}
-.rank-row .place{font-weight:900;width:28px;text-align:center;font-size:14px}
-.rank-row.me{background:linear-gradient(135deg,rgba(247,201,72,.15),transparent);border-color:var(--theme)}
-.rank-row .info{flex:1;font-size:12px}
-.rank-row .info b{color:#fff;display:block}
-.rank-row .info span{color:var(--dim);font-size:10px}
-.rank-row .rating{color:var(--theme);font-weight:800;font-size:14px}
-.energy-hint{font-size:11px;color:var(--dim);text-align:center;margin-top:6px}
-.energy-hint b{color:var(--theme)}
+.pet-card{display:flex;gap:10px;align-items:center;padding:12px;background:linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9));border-radius:14px;margin-bottom:8px;border:2px solid rgba(255,255,255,.06)}
+.pet-card.active{border-color:var(--theme);box-shadow:0 0 20px var(--border)}
+.pet-card .em{font-size:40px}
+.pet-card .info{flex:1;font-size:12px}
+.pet-card .info b{color:var(--theme);display:block;margin-bottom:2px;font-size:14px}
+.pet-card .info span{color:var(--dim);font-size:11px}
+.auction-row{display:flex;gap:10px;align-items:center;padding:10px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,.05);font-size:12px}
+.auction-row .em{font-size:24px;width:36px;text-align:center}
+.auction-row .info{flex:1}
+.auction-row .info b{color:#fff;display:block}
+.auction-row .info span{color:var(--dim);font-size:10px}
+.auction-row .price{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400;border:none;padding:6px 12px;border-radius:8px;font-weight:800;font-size:11px}
+.npc-row{display:flex;gap:10px;align-items:center;padding:12px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,.05);font-size:12px}
+.npc-row .em{font-size:36px}
+.npc-row .info{flex:1}
+.npc-row .info b{color:#fff;display:block;margin-bottom:2px}
+.npc-row .info span{color:var(--dim);font-size:10px}
+.npc-row .hearts{color:#ff6ab3;font-size:14px;letter-spacing:2px}
+.daily-boss-card{padding:14px;border-radius:16px;background:linear-gradient(135deg,rgba(160,30,40,.5),rgba(40,10,20,.9));border:1px solid rgba(255,80,80,.4);margin-bottom:10px}
+.daily-boss-card h3{color:#ff9aa2;margin-bottom:6px}
+.daily-boss-card .desc{font-size:11px;color:#ffd0d6;margin-bottom:10px}
+.daily-boss-card .hp-bar{height:12px;background:#0a0e20;border-radius:6px;overflow:hidden;margin-bottom:8px;border:1px solid rgba(255,80,80,.3)}
+.daily-boss-card .hp-bar>div{height:100%;background:linear-gradient(90deg,#ff5566,#ff9aa2)}
+.daily-boss-card .fight-btn{width:100%;background:linear-gradient(135deg,#ff5566,#a01828);color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;font-size:14px}
+.skin-card{padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.06);margin-bottom:8px;display:flex;gap:12px;align-items:center}
+.skin-card.active{border-color:var(--theme);box-shadow:0 0 20px var(--border)}
+.skin-card .em{font-size:44px}
+.skin-card .info{flex:1;font-size:12px}
+.skin-card .info b{color:#fff;display:block;margin-bottom:2px}
+.skin-card .info span{color:var(--dim);font-size:11px}
+.skin-card .act{background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px}
+.skin-card .act.owned{background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400}
 </style>
 </head>
 <body>
@@ -250,30 +248,23 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 </header>
 <main id="main">
 
-<!-- СОЗДАНИЕ -->
 <section class="screen active" id="screen-create">
   <h1>Новая жизнь</h1>
   <p class="sub">Твоя история начинается здесь</p>
   <div class="card">
     <h2>📛 Имя</h2>
-    <input type="text" id="inp-name" placeholder="Введи имя..." maxlength="16"/>
-    <div style="font-size:11px;color:var(--dim);margin-top:8px;text-align:center">
-      Случайно: <span id="rand-name" style="color:var(--theme);cursor:pointer;font-weight:700;text-decoration:underline">—</span>
-    </div>
+    <input type="text" id="inp-name" maxlength="16"/>
+    <div style="font-size:11px;color:var(--dim);margin-top:8px;text-align:center">Случайно: <span id="rand-name" style="color:var(--theme);cursor:pointer;font-weight:700;text-decoration:underline">—</span></div>
   </div>
   <div class="card">
     <h2>🎂 Возраст</h2>
-    <div style="text-align:center;margin:10px 0">
-      <span id="age-display" style="font-size:42px;font-weight:900;color:var(--theme)">6</span>
-      <span style="font-size:14px;color:var(--dim)"> лет</span>
-    </div>
+    <div style="text-align:center;margin:10px 0"><span id="age-display" style="font-size:42px;font-weight:900;color:var(--theme)">6</span><span style="font-size:14px;color:var(--dim)"> лет</span></div>
     <input type="range" id="inp-age" min="6" max="10" value="6"/>
     <div id="age-desc" style="font-size:11px;color:var(--dim);margin-top:10px;text-align:center;min-height:32px"></div>
   </div>
-  <button class="btn" id="btn-create" style="margin-top:8px">НАЧАТЬ ПУТЬ →</button>
+  <button class="btn" id="btn-create">НАЧАТЬ ПУТЬ →</button>
 </section>
 
-<!-- ВЫБОР ГЕРОЯ -->
 <section class="screen" id="screen-hero">
   <h1>Врождённая Душа</h1>
   <p class="sub">Какой дар пробудился в тебе?</p>
@@ -281,21 +272,14 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <button class="btn" id="btn-hero-next" style="margin-top:8px">ДАЛЕЕ →</button>
 </section>
 
-<!-- ПРОЛОГ -->
 <section class="screen" id="screen-prologue">
   <h1>🏠 Дом</h1>
   <p class="sub" id="prologue-sub">3 дня подготовки</p>
-  <div class="card" style="background:linear-gradient(160deg,rgba(255,215,100,.1),rgba(28,36,72,.9))">
-    <div style="font-size:12px;color:#c8d2ff;line-height:1.6">
-      Ты живёшь в деревне. Родители наняли учителя на <b>3 дня</b>. Используй их мудро —
-      от твоих решений зависит, куда ты попадёшь.
-    </div>
-  </div>
+  <div class="card"><div style="font-size:12px;color:#c8d2ff;line-height:1.6">Родители наняли учителя на <b>3 дня</b>. От твоих решений зависит, куда ты попадёшь.</div></div>
   <div id="prologue-actions"></div>
   <button class="btn" id="btn-prologue-exam" disabled style="margin-top:8px">🎓 Сдать экзамен</button>
 </section>
 
-<!-- ЭКЗАМЕН -->
 <section class="screen" id="screen-exam">
   <h1>🎓 Экзамен</h1>
   <p class="sub">Мастер оценивает твои способности</p>
@@ -306,7 +290,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <button class="btn" id="btn-exam-next">ПРОДОЛЖИТЬ →</button>
 </section>
 
-<!-- ВЫБОР ШКОЛЫ -->
 <section class="screen" id="screen-school">
   <h1>Выбор пути</h1>
   <p class="sub" id="school-sub">Тебе доступны следующие школы</p>
@@ -314,7 +297,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <button class="btn" id="btn-school-start" style="margin-top:8px">ВСТУПИТЬ →</button>
 </section>
 
-<!-- ПРОБУЖДЕНИЕ -->
 <section class="screen" id="screen-awaken">
   <h1>Пробуждение Души</h1>
   <p class="sub">Алтарь Святого Духа готов</p>
@@ -325,7 +307,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <button class="btn" id="btn-awaken">✨ ПРОБУДИТЬ</button>
 </section>
 
-<!-- МЕНЮ -->
 <section class="screen" id="screen-menu">
   <h1 id="menu-title">Персонаж</h1>
   <p class="sub" id="menu-sub">—</p>
@@ -337,31 +318,24 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
       <button class="btn sec" id="btn-train">🧘 Медитация</button>
       <button class="btn sec" id="btn-rest">💤 Отдых</button>
     </div>
-    <div class="energy-hint" id="energy-hint"></div>
+    <div class="energy-hint" id="energy-hint" style="font-size:11px;color:var(--dim);text-align:center;margin-top:6px"></div>
   </div>
-  <div class="card">
-    <h2>📜 Сюжет</h2>
-    <div id="story-menu"></div>
-  </div>
+  <div class="card"><h2>👑 Ежедневный босс</h2><div id="daily-boss-card"></div></div>
+  <div class="card"><h2>📜 Сюжет</h2><div id="story-menu"></div></div>
   <div class="card">
     <h2>🎁 Ежедневная награда</h2>
     <div id="daily-streak" style="display:flex;justify-content:space-between;gap:6px;margin-bottom:10px"></div>
     <button class="btn" id="btn-daily">Получить</button>
   </div>
-  <div class="card">
-    <h2>📋 Квесты дня</h2>
-    <div id="quests-list"></div>
-  </div>
+  <div class="card"><h2>📋 Квесты дня</h2><div id="quests-list"></div></div>
 </section>
 
-<!-- КАРТА -->
 <section class="screen" id="screen-map">
   <h1>🗺️ Карта мира</h1>
   <p class="sub">Путешествуй и исследуй</p>
   <div class="world-map" id="world-map"></div>
 </section>
 
-<!-- ЛОКАЦИЯ -->
 <section class="screen" id="screen-location">
   <div id="loc-header"></div>
   <div class="tabs" id="loc-tabs">
@@ -373,28 +347,46 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="loc-content"></div>
 </section>
 
-<!-- КЛАНЫ -->
 <section class="screen" id="screen-clans">
   <h1>⚔️ Кланы</h1>
   <p class="sub">Союзники и враги</p>
   <div id="clans-list"></div>
 </section>
 
-<!-- СЕКТА -->
 <section class="screen" id="screen-sect">
   <h1>🏯 Секта</h1>
   <p class="sub">Твоё наследие</p>
   <div id="sect-content"></div>
 </section>
 
-<!-- ПОДЗЕМЕЛЬЯ -->
+<section class="screen" id="screen-pets">
+  <h1>🐾 Питомцы</h1>
+  <p class="sub">Верные спутники дают бонусы</p>
+  <div id="pets-list"></div>
+</section>
+
+<section class="screen" id="screen-auction">
+  <h1>🏪 Аукцион</h1>
+  <p class="sub">Купить и продать</p>
+  <div class="tabs" id="auction-tabs">
+    <button data-tab="buy" class="on">🛒 Купить</button>
+    <button data-tab="sell">💰 Продать</button>
+  </div>
+  <div id="auction-content"></div>
+</section>
+
+<section class="screen" id="screen-npc">
+  <h1>💞 Наставники</h1>
+  <p class="sub">Развивай отношения</p>
+  <div id="npc-list"></div>
+</section>
+
 <section class="screen" id="screen-dungeons">
   <h1>🗝️ Подземелья</h1>
   <p class="sub">Попыток сегодня: <b id="dungeon-attempts" style="color:var(--theme)">3/3</b></p>
   <div id="dungeons-list"></div>
 </section>
 
-<!-- БАШНЯ -->
 <section class="screen" id="screen-tower">
   <h1>🗼 Башня Испытаний</h1>
   <p class="sub">Рекорд: этаж <b id="tower-best" style="color:var(--theme)">1</b></p>
@@ -406,7 +398,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   </div>
 </section>
 
-<!-- АРЕНА -->
 <section class="screen" id="screen-arena">
   <h1>⚔️ Арена</h1>
   <p class="sub">Сезон: <b id="arena-season" style="color:var(--theme)">14 дней</b></p>
@@ -420,7 +411,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div class="card"><h2>🏆 Топ игроков</h2><div id="arena-leaderboard"></div></div>
 </section>
 
-<!-- КУЗНИЦА -->
 <section class="screen" id="screen-forge">
   <h1>🔨 Кузница</h1>
   <p class="sub">Создавай предметы</p>
@@ -434,7 +424,6 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
   <div id="forge-content"></div>
 </section>
 
-<!-- ПРОФИЛЬ -->
 <section class="screen" id="screen-profile">
   <h1>👤 Профиль</h1>
   <p class="sub" id="profile-school">—</p>
@@ -443,20 +432,17 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
     <button data-tab="bag">🎒 Сумка</button>
     <button data-tab="talents">🌳 Таланты</button>
     <button data-tab="ach">🏅 Награды</button>
+    <button data-tab="skins">🎨 Скины</button>
     <button data-tab="shop">💎 Магазин</button>
   </div>
   <div id="profile-content"></div>
 </section>
 
-<!-- БОЙ -->
 <section class="screen" id="screen-battle">
   <div class="battle-scene">
     <div class="stars" id="stars"></div>
     <div class="moon"></div>
-    <svg class="mountains-svg" viewBox="0 0 400 200" preserveAspectRatio="none">
-      <polygon points="0,200 60,90 120,140 180,80 240,130 300,70 400,160 400,200" fill="#0a1030" opacity=".7"/>
-      <polygon points="0,200 40,140 100,170 160,130 220,160 280,120 360,170 400,140 400,200" fill="#050814" opacity=".9"/>
-    </svg>
+    <svg class="mountains" viewBox="0 0 400 200" preserveAspectRatio="none"><polygon points="0,200 60,90 120,140 180,80 240,130 300,70 400,160 400,200" fill="#0a1030" opacity=".7"/><polygon points="0,200 40,140 100,170 160,130 220,160 280,120 360,170 400,140 400,200" fill="#050814" opacity=".9"/></svg>
     <div class="ground"></div>
     <div class="fighter">
       <div class="unit" id="p-unit">
@@ -489,9 +475,11 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 <nav id="nav" class="hidden">
   <button data-tab="menu" class="on"><span class="ico">👤</span>Герой</button>
   <button data-tab="map"><span class="ico">🗺️</span>Карта</button>
+  <button data-tab="pets"><span class="ico">🐾</span>Питомцы</button>
   <button data-tab="dungeons"><span class="ico">🗝️</span>Подзем.</button>
   <button data-tab="tower"><span class="ico">🗼</span>Башня</button>
   <button data-tab="arena"><span class="ico">⚔️</span>Арена</button>
+  <button data-tab="auction"><span class="ico">🏪</span>Аукцион</button>
   <button data-tab="sect"><span class="ico">🏯</span>Секта</button>
   <button data-tab="forge"><span class="ico">🔨</span>Кузня</button>
   <button data-tab="profile"><span class="ico">🎒</span>Профиль</button>
@@ -499,122 +487,44 @@ main::-webkit-scrollbar,.logbox::-webkit-scrollbar{width:0;height:0}
 </div>
 
 <script>
-/* ==================== ДАННЫЕ ==================== */
+/* ==================== КОНСТАНТЫ ==================== */
 const RANDOM_NAMES = ['Тан Сан','Сяо Ву','Дай Мубай','Чжу Чжуцин','Оскар','Ма Хунцзюнь','Нин Жунжун','Сю-Лао','Бибби Дун','Тан Хао','Лю Эрлун','Вэй Усянь'];
 
 const HEROES = [
-  { id:'tang_san', name:'Синий Серебряный Дракон', emoji:'🌿', theme:'#4a7cff',
-    role:'Баланс', desc:'Травяная душа.', stats:{str:7,def:7,spd:7,spr:9},
-    uniqueSkill:{name:'Ядовитая Трава',type:'damage',mult:1.9,pierce:0.3,desc:'Игнорирует 30% защиты'},
-    passive:'+10% урона' },
-  { id:'xiao_wu', name:'Мягкая Кость', emoji:'🐰', theme:'#ff6ab3',
-    role:'Скорость', desc:'Неуловимая.', stats:{str:8,def:5,spd:11,spr:6},
-    uniqueSkill:{name:'Восьмикратный Прыжок',type:'damage',mult:1.4,crit:0.6,desc:'60% крит'},
-    passive:'15% двойная атака' },
-  { id:'dai_mubai', name:'Белый Тигр', emoji:'🐯', theme:'#e0a020',
-    role:'Танк', desc:'Броня.', stats:{str:8,def:11,spd:5,spr:4},
-    uniqueSkill:{name:'Тигриная Броня',type:'shield',shield:0.5,desc:'Щит 50%'},
-    passive:'-20% урона' },
-  { id:'ma_hongjun', name:'Пламенный Феникс', emoji:'🔥', theme:'#ff6a2a',
-    role:'Урон', desc:'Огонь.', stats:{str:11,def:4,spd:6,spr:8},
-    uniqueSkill:{name:'Пламенный Шторм',type:'damage_aoe',mult:1.7,desc:'AoE'},
-    passive:'+25% AoE' },
-  { id:'oscar', name:'Пищевая Душа', emoji:'🍜', theme:'#3ddc84',
-    role:'Поддержка', desc:'Еда.', stats:{str:4,def:6,spd:7,spr:11},
-    uniqueSkill:{name:'Пища Богов',type:'heal',heal:0.5,desc:'+50% HP'},
-    passive:'+5% реген/ход' },
-  { id:'zhu_zhuqing', name:'Тень-Циветта', emoji:'🐈', theme:'#a06bff',
-    role:'Крит', desc:'Убийца.', stats:{str:10,def:5,spd:9,spr:5},
-    uniqueSkill:{name:'Удар Тени',type:'damage',mult:1.6,crit:0.5,desc:'50% крит'},
-    passive:'100% крит при HP<30%' }
+  { id:'tang_san', name:'Синий Серебряный Дракон', emoji:'🌿', theme:'#4a7cff', role:'Баланс', desc:'Травяная душа.', stats:{str:7,def:7,spd:7,spr:9}, uniqueSkill:{name:'Ядовитая Трава',type:'damage',mult:1.9,pierce:0.3,desc:'Игнорирует 30% защиты'}, passive:'+10% урона' },
+  { id:'xiao_wu', name:'Мягкая Кость', emoji:'🐰', theme:'#ff6ab3', role:'Скорость', desc:'Неуловимая.', stats:{str:8,def:5,spd:11,spr:6}, uniqueSkill:{name:'Восьмикратный Прыжок',type:'damage',mult:1.4,crit:0.6,desc:'60% крит'}, passive:'15% двойная атака' },
+  { id:'dai_mubai', name:'Белый Тигр', emoji:'🐯', theme:'#e0a020', role:'Танк', desc:'Броня.', stats:{str:8,def:11,spd:5,spr:4}, uniqueSkill:{name:'Тигриная Броня',type:'shield',shield:0.5,desc:'Щит 50%'}, passive:'-20% урона' },
+  { id:'ma_hongjun', name:'Пламенный Феникс', emoji:'🔥', theme:'#ff6a2a', role:'Урон', desc:'Огонь.', stats:{str:11,def:4,spd:6,spr:8}, uniqueSkill:{name:'Пламенный Шторм',type:'damage_aoe',mult:1.7,desc:'AoE'}, passive:'+25% AoE' },
+  { id:'oscar', name:'Пищевая Душа', emoji:'🍜', theme:'#3ddc84', role:'Поддержка', desc:'Еда.', stats:{str:4,def:6,spd:7,spr:11}, uniqueSkill:{name:'Пища Богов',type:'heal',heal:0.5,desc:'+50% HP'}, passive:'+5% реген/ход' },
+  { id:'zhu_zhuqing', name:'Тень-Циветта', emoji:'🐈', theme:'#a06bff', role:'Крит', desc:'Убийца.', stats:{str:10,def:5,spd:9,spr:5}, uniqueSkill:{name:'Удар Тени',type:'damage',mult:1.6,crit:0.5,desc:'50% крит'}, passive:'100% крит при HP<30%' }
 ];
 
 const SCHOOLS = [
-  { id:'shrek', name:'Академия Шрека', emblem:'🐲', color:'#f7c948',
-    motto:'«Мы — монстры!»', bonus:'+12% ко всем статам',
-    stats:{str:1.12,def:1.12,spd:1.12,spr:1.12}, startGold:300, startEnergy:60,
-    minScore:30, passiveDesc:'+12% ко всему' },
-  { id:'tang', name:'Врата Тан', emblem:'⚔️', color:'#ff4d5e',
-    motto:'«Сила — в оружии»', bonus:'+25% ATK · агрессия',
-    stats:{str:1.25,def:0.9,spd:1.05,spr:1.05}, startGold:200, startEnergy:50,
-    minScore:20, passiveDesc:'20% усиленная атака' },
-  { id:'star', name:'Империя Звёзд', emblem:'⭐', color:'#7ac8ff',
-    motto:'«Защита — основа»', bonus:'+25% DEF · +20% HP',
-    stats:{str:1.0,def:1.25,spd:0.9,spr:1.0}, startGold:250, startEnergy:55,
-    minScore:20, passiveDesc:'+25% DEF, +20% HP' },
-  { id:'blue_lightning', name:'Секта Синей Молнии', emblem:'⚡', color:'#4a7cff',
-    motto:'«Дух превыше плоти»', bonus:'+30% духа · магия',
-    stats:{str:0.95,def:0.95,spd:1.15,spr:1.3}, startGold:180, startEnergy:70,
-    minScore:20, passiveDesc:'-5% HP врагу/ход' },
-  { id:'shadow_sect', name:'Теневая Секта', emblem:'🌑', color:'#5a3a8a',
-    motto:'«Выживает хитрейший»', bonus:'Ассасины · сложный старт',
-    stats:{str:1.15,def:0.85,spd:1.2,spr:0.9}, startGold:50, startEnergy:40,
-    minScore:0, passiveDesc:'+50% золота, -30% HP' }
+  { id:'shrek', name:'Академия Шрека', emblem:'🐲', color:'#f7c948', motto:'«Мы — монстры!»', bonus:'+12% ко всем статам', stats:{str:1.12,def:1.12,spd:1.12,spr:1.12}, startGold:300, startEnergy:60, passiveDesc:'+12% ко всему' },
+  { id:'tang', name:'Врата Тан', emblem:'⚔️', color:'#ff4d5e', motto:'«Сила — в оружии»', bonus:'+25% ATK · агрессия', stats:{str:1.25,def:0.9,spd:1.05,spr:1.05}, startGold:200, startEnergy:50, passiveDesc:'20% усиленная атака' },
+  { id:'star', name:'Империя Звёзд', emblem:'⭐', color:'#7ac8ff', motto:'«Защита — основа»', bonus:'+25% DEF · +20% HP', stats:{str:1.0,def:1.25,spd:0.9,spr:1.0}, startGold:250, startEnergy:55, passiveDesc:'+25% DEF, +20% HP' },
+  { id:'blue_lightning', name:'Секта Синей Молнии', emblem:'⚡', color:'#4a7cff', motto:'«Дух превыше плоти»', bonus:'+30% духа · магия', stats:{str:0.95,def:0.95,spd:1.15,spr:1.3}, startGold:180, startEnergy:70, passiveDesc:'-5% HP врагу/ход' },
+  { id:'shadow_sect', name:'Теневая Секта', emblem:'🌑', color:'#5a3a8a', motto:'«Выживает хитрейший»', bonus:'Ассасины · сложный старт', stats:{str:1.15,def:0.85,spd:1.2,spr:0.9}, startGold:50, startEnergy:40, passiveDesc:'+50% золота, -30% HP' }
 ];
 
 const LOCATIONS = [
-  { id:'village', name:'Родная Деревня', emoji:'🏠', minLevel:1, x:12, y:80,
-    desc:'Тихая деревня.', enemies:['Древесный Волк','Каменный Скорпион'],
-    treasures:['family_chest','old_well','grandma_box'],
-    lore:'Старшее поколение говорит о лагере мастеров души.',
-    drops:{herbs:0.6,ore:0.3,crystals:0.1} },
-  { id:'forest', name:'Лес Духов', emoji:'🌲', minLevel:1, x:30, y:35,
-    desc:'Густой лес.', enemies:['Пламенный Лис','Ледяной Скорпион'],
-    treasures:['herb_patch','hidden_grove','ancient_tree'],
-    lore:'В чаще спит древний зверь.',
-    drops:{herbs:0.5,ore:0.3,crystals:0.2} },
-  { id:'academy', name:'Академия', emoji:'🏫', minLevel:5, x:50, y:55,
-    desc:'Твоя школа.', enemies:['Тень Сокурсника','Тень Наставника'],
-    treasures:['academy_vault','headmaster_gift'],
-    lore:'В подвалах спрятана библиотека древних техник.',
-    drops:{herbs:0.3,ore:0.3,crystals:0.4} },
-  { id:'mountains', name:'Ледяные Горы', emoji:'🏔️', minLevel:8, x:75, y:20,
-    desc:'Суровые горы.', enemies:['Ледяной Император','Каменный Голем'],
-    treasures:['ice_crystal','frozen_chest','dragon_egg'],
-    lore:'Легенды о драконе под ледником.',
-    drops:{herbs:0.1,ore:0.5,crystals:0.4} },
-  { id:'city', name:'Имперский Город', emoji:'🏛️', minLevel:10, x:55, y:80,
-    desc:'Столица.', enemies:['Наёмный Убийца','Стражник Империи'],
-    treasures:['merchant_gift','imperial_seal','library_scroll'],
-    lore:'Здесь правит император.',
-    drops:{herbs:0.2,ore:0.3,crystals:0.5} },
-  { id:'ruins', name:'Древние Руины', emoji:'🏛️', minLevel:15, x:25, y:65,
-    desc:'Остатки цивилизации.', enemies:['Стражник Руин','Проклятый Жрец'],
-    treasures:['ancient_relic','forgotten_tome','soul_altar'],
-    lore:'Секреты павших мастеров.',
-    drops:{herbs:0.2,ore:0.3,crystals:0.5} },
-  { id:'abyss', name:'Тёмная Бездна', emoji:'🕳️', minLevel:20, x:85, y:70,
-    desc:'Земля тёмных культиваторов.', enemies:['Демон Бездны','Тёмный Лорд'],
-    treasures:['demonic_crystal','dark_relic','void_shard'],
-    lore:'Здесь не действуют законы мира.',
-    drops:{herbs:0.1,ore:0.2,crystals:0.7} },
-  { id:'dragon_lair', name:'Логово Дракона', emoji:'🐲', minLevel:25, x:70, y:50,
-    desc:'Дом Красного Дракона.', enemies:['Красный Дракон','Императорский Феникс'],
-    treasures:['dragon_heart','phoenix_feather','dragon_hoard'],
-    lore:'Только мастер с 9 кольцами победит.',
-    drops:{herbs:0.1,ore:0.2,crystals:0.7} },
-  // Секретные локации
-  { id:'secret_grove', name:'Забытая Роща', emoji:'🌸', minLevel:12, x:50, y:12, secret:true,
-    desc:'Скрытая роща духов.', enemies:['Дух Цветка','Хранитель Рощи'],
-    treasures:['blossom_chest','spirit_pool'],
-    lore:'Здесь цветут души павших воинов.',
-    drops:{herbs:0.8,ore:0,crystals:0.2} },
-  { id:'sky_temple', name:'Небесный Храм', emoji:'☁️', minLevel:30, x:88, y:10, secret:true,
-    desc:'Храм в облаках.', enemies:['Небесный Страж','Ангел-Хранитель'],
-    treasures:['celestial_relic','divine_tome'],
-    lore:'Предание говорит, тут живут боги.',
-    drops:{herbs:0,ore:0,crystals:1} }
+  { id:'village', name:'Родная Деревня', emoji:'🏠', minLevel:1, x:12, y:80, desc:'Тихая деревня.', enemies:['Древесный Волк','Каменный Скорпион'], treasures:['family_chest','old_well','grandma_box'], lore:'Старшее поколение говорит о лагере мастеров души.', drops:{herbs:0.6,ore:0.3,crystals:0.1} },
+  { id:'forest', name:'Лес Духов', emoji:'🌲', minLevel:1, x:30, y:35, desc:'Густой лес.', enemies:['Пламенный Лис','Ледяной Скорпион'], treasures:['herb_patch','hidden_grove','ancient_tree'], lore:'В чаще спит древний зверь.', drops:{herbs:0.5,ore:0.3,crystals:0.2} },
+  { id:'academy', name:'Академия', emoji:'🏫', minLevel:5, x:50, y:55, desc:'Твоя школа.', enemies:['Тень Сокурсника','Тень Наставника'], treasures:['academy_vault','headmaster_gift'], lore:'В подвалах библиотека древних техник.', drops:{herbs:0.3,ore:0.3,crystals:0.4} },
+  { id:'mountains', name:'Ледяные Горы', emoji:'🏔️', minLevel:8, x:75, y:20, desc:'Суровые горы.', enemies:['Ледяной Император','Каменный Голем'], treasures:['ice_crystal','frozen_chest','dragon_egg'], lore:'Легенды о драконе под ледником.', drops:{herbs:0.1,ore:0.5,crystals:0.4} },
+  { id:'city', name:'Имперский Город', emoji:'🏛️', minLevel:10, x:55, y:80, desc:'Столица.', enemies:['Наёмный Убийца','Стражник Империи'], treasures:['merchant_gift','imperial_seal','library_scroll'], lore:'Здесь правит император.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
+  { id:'ruins', name:'Древние Руины', emoji:'🏛️', minLevel:15, x:25, y:65, desc:'Остатки цивилизации.', enemies:['Стражник Руин','Проклятый Жрец'], treasures:['ancient_relic','forgotten_tome','soul_altar'], lore:'Секреты павших мастеров.', drops:{herbs:0.2,ore:0.3,crystals:0.5} },
+  { id:'abyss', name:'Тёмная Бездна', emoji:'🕳️', minLevel:20, x:85, y:70, desc:'Земля тёмных культиваторов.', enemies:['Демон Бездны','Тёмный Лорд'], treasures:['demonic_crystal','dark_relic','void_shard'], lore:'Здесь не действуют законы мира.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
+  { id:'dragon_lair', name:'Логово Дракона', emoji:'🐲', minLevel:25, x:70, y:50, desc:'Дом Красного Дракона.', enemies:['Красный Дракон','Императорский Феникс'], treasures:['dragon_heart','phoenix_feather','dragon_hoard'], lore:'Только мастер с 9 кольцами победит.', drops:{herbs:0.1,ore:0.2,crystals:0.7} },
+  { id:'secret_grove', name:'Забытая Роща', emoji:'🌸', minLevel:12, x:50, y:12, secret:true, desc:'Скрытая роща духов.', enemies:['Дух Цветка','Хранитель Рощи'], treasures:['blossom_chest','spirit_pool'], lore:'Здесь цветут души павших воинов.', drops:{herbs:0.8,ore:0,crystals:0.2} },
+  { id:'sky_temple', name:'Небесный Храм', emoji:'☁️', minLevel:30, x:88, y:10, secret:true, desc:'Храм в облаках.', enemies:['Небесный Страж','Ангел-Хранитель'], treasures:['celestial_relic','divine_tome'], lore:'Предание говорит, тут живут боги.', drops:{herbs:0,ore:0,crystals:1} }
 ];
 
 const CLANS = [
-  { id:'blue_electric', name:'Клан Синей Молнии', emoji:'⚡', color:'#4a7cff',
-    desc:'Мастера молнии.', bonusAlly:'+10% скорости в бою', bonusEnemy:'-10% духа' },
-  { id:'seven_treasure', name:'Клан Семи Сокровищ', emoji:'💎', color:'#3ddc84',
-    desc:'Богатейший клан.', bonusAlly:'-20% цены', bonusEnemy:'+30% цены' },
-  { id:'clear_sky', name:'Клан Чистого Неба', emoji:'☁️', color:'#a06bff',
-    desc:'Аристократы.', bonusAlly:'+15% опыта', bonusEnemy:'-15% золота' },
-  { id:'body_sect', name:'Секта Тела', emoji:'💪', color:'#ff4d5e',
-    desc:'Культиваторы тела.', bonusAlly:'+15% HP', bonusEnemy:'-15% защиты' }
+  { id:'blue_electric', name:'Клан Синей Молнии', emoji:'⚡', color:'#4a7cff', desc:'Мастера молнии.', bonusAlly:'+10% скорости в бою', bonusEnemy:'-10% духа' },
+  { id:'seven_treasure', name:'Клан Семи Сокровищ', emoji:'💎', color:'#3ddc84', desc:'Богатейший клан.', bonusAlly:'-20% цены', bonusEnemy:'+30% цены' },
+  { id:'clear_sky', name:'Клан Чистого Неба', emoji:'☁️', color:'#a06bff', desc:'Аристократы.', bonusAlly:'+15% опыта', bonusEnemy:'-15% золота' },
+  { id:'body_sect', name:'Секта Тела', emoji:'💪', color:'#ff4d5e', desc:'Культиваторы тела.', bonusAlly:'+15% HP', bonusEnemy:'-15% защиты' }
 ];
 
 const TREASURES = {
@@ -649,49 +559,23 @@ const TREASURES = {
 
 const STORY_CHAPTERS = [
   {id:1,title:'Начало пути',req:1,text:'Ты родился в деревне. Родители верили — в тебе есть дар.',
-   choices:[
-     {label:'Следовать традициям',effect:'good',gold:200,exp:50,desc:'Получишь благословение семьи'},
-     {label:'Идти своим путём',effect:'neutral',gold:300,exp:30,desc:'Больше золота, меньше опыта'}
-   ]},
+   choices:[{label:'Следовать традициям',effect:'good',gold:200,exp:50,desc:'Получишь благословение семьи'},{label:'Идти своим путём',effect:'neutral',gold:300,exp:30,desc:'Больше золота'}]},
   {id:2,title:'Первое испытание',req:5,text:'Слухи о твоих способностях дошли до соседних деревень.',
-   choices:[
-     {label:'Защитить деревню',effect:'good',gold:500,exp:150,rep:{body_sect:20},desc:'+20 репутации Секте Тела'},
-     {label:'Отправиться в город',effect:'neutral',gold:800,exp:80,rep:{seven_treasure:20},desc:'+20 репутации Семи Сокровищ'}
-   ]},
+   choices:[{label:'Защитить деревню',effect:'good',gold:500,exp:150,rep:{body_sect:20},desc:'+20 репутации'},{label:'Отправиться в город',effect:'neutral',gold:800,exp:80,rep:{seven_treasure:20},desc:'+20 репутации'}]},
   {id:3,title:'Кланы пробуждаются',req:10,text:'Кланы обратили на тебя внимание.',
-   choices:[
-     {label:'Союз с Синей Молнией',effect:'good',gold:1000,exp:400,rep:{blue_electric:30},desc:'+30 репутации Синей Молнии'},
-     {label:'Союз с Чистым Небом',effect:'evil',gold:1500,exp:200,rep:{clear_sky:30},desc:'+30 репутации Чистого Неба'}
-   ]},
-  {id:4,title:'Тени прошлого',req:15,text:'Руины раскрывают тайну рождения. Ты — не тот, кем себя считал.',
-   choices:[
-     {label:'Принять правду',effect:'good',gold:2000,exp:800,desc:'Получишь артефакт'},
-     {label:'Отрицать',effect:'evil',gold:3000,exp:500,desc:'Золото от продажи тайны'}
-   ]},
+   choices:[{label:'Союз с Синей Молнией',effect:'good',gold:1000,exp:400,rep:{blue_electric:30},desc:'+30 репутации'},{label:'Союз с Чистым Небом',effect:'evil',gold:1500,exp:200,rep:{clear_sky:30},desc:'+30 репутации'}]},
+  {id:4,title:'Тени прошлого',req:15,text:'Руины раскрывают тайну рождения.',
+   choices:[{label:'Принять правду',effect:'good',gold:2000,exp:800,desc:'+опыт'},{label:'Отрицать',effect:'evil',gold:3000,exp:500,desc:'+золото'}]},
   {id:5,title:'Восхождение',req:25,text:'Ты готов основать свою секту.',
-   choices:[
-     {label:'Секта Света',effect:'good',gold:5000,exp:2000,sect:'light',desc:'Секта защитников'},
-     {label:'Секта Тьмы',effect:'evil',gold:5000,exp:2000,sect:'dark',desc:'Секта теней'}
-   ]}
+   choices:[{label:'Секта Света',effect:'good',gold:5000,exp:2000,sect:'light',desc:'Секта защитников'},{label:'Секта Тьмы',effect:'evil',gold:5000,exp:2000,sect:'dark',desc:'Секта теней'}]}
 ];
 
-const RANKS = [
-  {min:1,name:'Ученик'},{min:10,name:'Мастер Души'},{min:20,name:'Мастер Души II'},
-  {min:30,name:'Мастер Души III'},{min:40,name:'Доуло'},{min:50,name:'Доуло II'},
-  {min:60,name:'Титулованный Доуло'},{min:70,name:'Бог Души'}
-];
-const ARENA_RANKS = [
-  {min:0,name:'Дерево'},{min:100,name:'Бронза'},{min:300,name:'Серебро'},
-  {min:600,name:'Золото'},{min:1000,name:'Платина'},{min:1600,name:'Алмаз'},
-  {min:2400,name:'Мастер'},{min:3400,name:'Грандмастер'}
-];
+const RANKS = [{min:1,name:'Ученик'},{min:10,name:'Мастер Души'},{min:20,name:'Мастер Души II'},{min:30,name:'Мастер Души III'},{min:40,name:'Доуло'},{min:50,name:'Доуло II'},{min:60,name:'Титулованный Доуло'},{min:70,name:'Бог Души'}];
+const ARENA_RANKS = [{min:0,name:'Дерево'},{min:100,name:'Бронза'},{min:300,name:'Серебро'},{min:600,name:'Золото'},{min:1000,name:'Платина'},{min:1600,name:'Алмаз'},{min:2400,name:'Мастер'},{min:3400,name:'Грандмастер'}];
 const RING_COLORS = {yellow:'#f7d24d',purple:'#a06bff',black:'#5a5a6a',red:'#ff4d5e'};
 const RING_NAMES = {yellow:'Жёлтое',purple:'Фиолетовое',black:'Чёрное',red:'Красное'};
 
-const DAILY_REWARDS = [
-  {gold:100,energy:20},{gold:150,energy:30},{gold:200,energy:40},
-  {gold:300,energy:50},{gold:400,energy:60},{gold:500,energy:70},{gold:1000,energy:100}
-];
+const DAILY_REWARDS = [{gold:100,energy:20},{gold:150,energy:30},{gold:200,energy:40},{gold:300,energy:50},{gold:400,energy:60},{gold:500,energy:70},{gold:1000,energy:100}];
 const QUEST_POOL = [
   {id:'q_kill3',ico:'⚔️',title:'Победи 3 зверя',type:'kill',target:3,gold:100,exp:50},
   {id:'q_dungeon',ico:'🗝️',title:'Пройди подземелье',type:'dungeon',target:1,gold:250,exp:120},
@@ -702,24 +586,9 @@ const QUEST_POOL = [
 ];
 
 const DUNGEONS = [
-  {id:'forest',name:'Лес Духов',emoji:'🌲',minLevel:1,theme:'#3ddc84',
-   desc:'Простые звери',
-   floors:[
-     {name:'Альфа-Волк',hp:150,atk:18,def:8,spd:7,exp:80,gold:120,ring:'yellow',age:100},
-     {name:'Древесный Страж',hp:280,atk:26,def:14,spd:9,exp:180,gold:250,ring:'purple',age:600}
-   ]},
-  {id:'cave',name:'Пещера Теней',emoji:'🕳️',minLevel:8,theme:'#a06bff',
-   desc:'Полу-боссы',
-   floors:[
-     {name:'Тёмный Скорпион',hp:450,atk:40,def:22,spd:12,exp:280,gold:400,ring:'purple',age:1500},
-     {name:'Ледяной Император',hp:700,atk:55,def:30,spd:14,exp:450,gold:700,ring:'black',age:8000}
-   ]},
-  {id:'dragon_lair',name:'Логово Дракона',emoji:'🐲',minLevel:15,theme:'#ff4d5e',
-   desc:'Только для опытных',
-   floors:[
-     {name:'Красный Дракон',hp:900,atk:70,def:42,spd:16,exp:700,gold:1200,ring:'black',age:15000},
-     {name:'Императорский Феникс',hp:1300,atk:95,def:55,spd:20,exp:1200,gold:2000,ring:'red',age:100000}
-   ]}
+  {id:'forest',name:'Лес Духов',emoji:'🌲',minLevel:1,theme:'#3ddc84',desc:'Простые звери',floors:[{name:'Альфа-Волк',hp:150,atk:18,def:8,spd:7,exp:80,gold:120,ring:'yellow',age:100},{name:'Древесный Страж',hp:280,atk:26,def:14,spd:9,exp:180,gold:250,ring:'purple',age:600}]},
+  {id:'cave',name:'Пещера Теней',emoji:'🕳️',minLevel:8,theme:'#a06bff',desc:'Полу-боссы',floors:[{name:'Тёмный Скорпион',hp:450,atk:40,def:22,spd:12,exp:280,gold:400,ring:'purple',age:1500},{name:'Ледяной Император',hp:700,atk:55,def:30,spd:14,exp:450,gold:700,ring:'black',age:8000}]},
+  {id:'dragon_lair',name:'Логово Дракона',emoji:'🐲',minLevel:15,theme:'#ff4d5e',desc:'Только для опытных',floors:[{name:'Красный Дракон',hp:900,atk:70,def:42,spd:16,exp:700,gold:1200,ring:'black',age:15000},{name:'Императорский Феникс',hp:1300,atk:95,def:55,spd:20,exp:1200,gold:2000,ring:'red',age:100000}]}
 ];
 
 const FORGE_RECIPES = {
@@ -759,26 +628,10 @@ const RING_SKILL_POOL = [
 ];
 
 const TALENT_BRANCHES = [
-  {id:'str',name:'Сила',emoji:'💪',nodes:[
-    {id:'str1',name:'Мощь',desc:'+10% ATK за ур.',max:5},
-    {id:'str2',name:'Ярость',desc:'+5% крит за ур.',max:4},
-    {id:'str3',name:'Пробитие',desc:'+5% игнор. за ур.',max:3}
-  ]},
-  {id:'def',name:'Защита',emoji:'🛡️',nodes:[
-    {id:'def1',name:'Стойкость',desc:'+10% HP за ур.',max:5},
-    {id:'def2',name:'Броня',desc:'+5% снижение урона',max:4},
-    {id:'def3',name:'Регенерация',desc:'+1% HP реген/ход',max:3}
-  ]},
-  {id:'spd',name:'Скорость',emoji:'💨',nodes:[
-    {id:'spd1',name:'Ловкость',desc:'+3% отпора за ур.',max:5},
-    {id:'spd2',name:'Ускорение',desc:'+2% двойного хода',max:4},
-    {id:'spd3',name:'Уклонение',desc:'+3% уклонения',max:3}
-  ]},
-  {id:'spr',name:'Дух',emoji:'✨',nodes:[
-    {id:'spr1',name:'Поток',desc:'+10% духа за ур.',max:5},
-    {id:'spr2',name:'Вампиризм',desc:'+2% вампиризма',max:4},
-    {id:'spr3',name:'Познание',desc:'+5% урона навыков',max:3}
-  ]}
+  {id:'str',name:'Сила',emoji:'💪',nodes:[{id:'str1',name:'Мощь',desc:'+10% ATK за ур.',max:5},{id:'str2',name:'Ярость',desc:'+5% крит за ур.',max:4},{id:'str3',name:'Пробитие',desc:'+5% игнор. за ур.',max:3}]},
+  {id:'def',name:'Защита',emoji:'🛡️',nodes:[{id:'def1',name:'Стойкость',desc:'+10% HP за ур.',max:5},{id:'def2',name:'Броня',desc:'+5% снижение урона',max:4},{id:'def3',name:'Регенерация',desc:'+1% HP реген/ход',max:3}]},
+  {id:'spd',name:'Скорость',emoji:'💨',nodes:[{id:'spd1',name:'Ловкость',desc:'+3% отпора за ур.',max:5},{id:'spd2',name:'Ускорение',desc:'+2% двойного хода',max:4},{id:'spd3',name:'Уклонение',desc:'+3% уклонения',max:3}]},
+  {id:'spr',name:'Дух',emoji:'✨',nodes:[{id:'spr1',name:'Поток',desc:'+10% духа за ур.',max:5},{id:'spr2',name:'Вампиризм',desc:'+2% вампиризма',max:4},{id:'spr3',name:'Познание',desc:'+5% урона навыков',max:3}]}
 ];
 
 const SHOP_ITEMS = [
@@ -788,33 +641,68 @@ const SHOP_ITEMS = [
   {code:'talent_reset',ico:'🌀',name:'Сброс талантов',desc:'Вернуть очки',stars:40,effect:{talentReset:true}}
 ];
 
+/* ПИТОМЦЫ */
+const PETS = [
+  {id:'baby_dragon',name:'Дракончик',emoji:'🐉',cost:2000,rarity:'legendary',bonus:{atk:0.15},desc:'+15% ATK'},
+  {id:'spirit_fox',name:'Дух-Лис',emoji:'🦊',cost:1500,rarity:'epic',bonus:{spd:0.12},desc:'+12% скорости'},
+  {id:'stone_turtle',name:'Каменная Черепаха',emoji:'🐢',cost:1800,rarity:'epic',bonus:{hp:0.20},desc:'+20% HP'},
+  {id:'fire_phoenix',name:'Огненный Феникс',emoji:'🔥',cost:2500,rarity:'legendary',bonus:{atk:0.10,hp:0.10},desc:'+10% ATK и HP'},
+  {id:'healing_slime',name:'Лечебный Слайм',emoji:'💧',cost:1200,rarity:'rare',bonus:{regen:0.03},desc:'+3% HP реген/ход'}
+];
+
+/* АУКЦИОН */
+const AUCTION_ITEMS = [
+  {id:'herbs_5',name:'5 трав',emoji:'🌿',cost:100,give:{herbs:5}},
+  {id:'ore_5',name:'5 руды',emoji:'⛏️',cost:150,give:{ore:5}},
+  {id:'crystal_3',name:'3 кристалла',emoji:'💎',cost:300,give:{crystals:3}},
+  {id:'hp_potion_2',name:'2 зелья HP',emoji:'🧪',cost:150,give:{item:'hp_potion',count:2}},
+  {id:'exp_scroll_1',name:'Свиток опыта',emoji:'📕',cost:500,give:{item:'exp_scroll',count:1}},
+  {id:'talent_1',name:'1 очко таланта',emoji:'🌳',cost:1000,give:{talent:1}}
+];
+
+/* NPC */
+const NPCS = [
+  {id:'shu_lao',name:'Шу-Лао',emoji:'🧙',desc:'Старейшина деревни',gift:'Даст бонус к опыту'},
+  {id:'yu_xiaogang',name:'Ю Сяоган',emoji:'🥋',desc:'Мастер академии',gift:'Даст оружие'},
+  {id:'tang_hao',name:'Тан Хао',emoji:'⚔️',desc:'Легендарный кузнец',gift:'Скидка в кузнице'},
+  {id:'bibby_dun',name:'Бибби Дун',emoji:'😈',desc:'Тёмный культиватор',gift:'Уникальные артефакты'},
+  {id:'ning_fengzhi',name:'Нин Фэнчжи',emoji:'👸',desc:'Императрица',gift:'Имперские награды'}
+];
+
+/* СКИНЫ */
+const SKINS = [
+  {id:'default',name:'Обычный',emoji:'👤',cost:0,desc:'Стандартный вид'},
+  {id:'shadow',name:'Тень',emoji:'🥷',cost:500,desc:'Тёмный наряд',theme:'#5a3a8a'},
+  {id:'golden',name:'Золотой',emoji:'👑',cost:1000,desc:'Императорский',theme:'#f7c948'},
+  {id:'dragon',name:'Драконий',emoji:'🐲',cost:2000,desc:'С драконом',theme:'#ff4d5e'},
+  {id:'celestial',name:'Небесный',emoji:'✨',cost:5000,desc:'Полубог',theme:'#7ac8ff'}
+];
+
 /* ==================== СОСТОЯНИЕ ==================== */
-const SAVE_KEY = 'soul_land_v9';
+const SAVE_KEY = 'soul_land_v10';
 let state = loadState();
 
 function defaultState(){
   return {
     playerName:null, age:6, heroId:null, schoolId:null,
-    moralPath:'neutral', // good | evil | neutral
-    awakened:false,
+    moralPath:'neutral', awakened:false,
     level:1, exp:0, expNext:100, gold:200, energy:50, maxEnergy:50,
     lastEnergyTick:Date.now(), restCooldown:0,
     prologue:{done:false, acts:[], score:0, examPassed:null, unlockedSchools:null},
     currentLocation:'village',
     discoveredLocations:['village'],
     visitedLocations:{village:true},
-    treasureOpened:{}, treasureLastReset:0,
+    treasureOpened:{}, treasureLastReset:Date.now(),
     locationKills:{},
     clans:{},
     sect:{founded:false, name:null, alignment:'neutral', disciples:[], level:1, prestige:0},
     storyChapter:0, storyProgress:[],
     souls:[{level:1,rings:[]}], activeSoulIndex:0,
-    battlesWon:0,
-    rating:0, arenaWins:0, arenaLosses:0,
-    dungeonAttempts:{date:null,left:3},
-    dungeonProgress:{forest:0,cave:0,dragon_lair:0},
+    battlesWon:0, rating:0, arenaWins:0, arenaLosses:0,
+    dungeonAttempts:{date:null,left:3}, dungeonProgress:{forest:0,cave:0,dragon_lair:0},
     towerFloor:1, towerBest:1,
     dailyStreak:0, lastDailyClaim:0,
+    dailyBossDate:null, dailyBossDefeated:false,
     quests:[], questsDate:null,
     questProgress:{kill:0,ring:0,arena_win:0,meditate:0,dungeon:0,tower:0},
     resources:{herbs:10,crystals:5,ore:8},
@@ -824,11 +712,26 @@ function defaultState(){
     talentPoints:0,
     permBonuses:{exp:0,atk:0,hp:0},
     autoBattle:false,
-    lastSeen:Date.now(),
-    soundOn:true
+    lastSeen:Date.now(), soundOn:true,
+    // НОВОЕ
+    pets:{owned:[],active:null},
+    npc:{}, // { npcId: {affinity: 0} }
+    skins:{owned:['default'],active:'default'},
+    auction:{refreshedAt:0,items:[]}
   };
 }
-function saveState(){ try{ state.lastSeen=Date.now(); localStorage.setItem(SAVE_KEY,JSON.stringify(state)); }catch(e){} }
+function saveState(){
+  try{
+    state.lastSeen = Date.now();
+    // Античит-ограничения
+    if(state.age > 30) state.age = 30;
+    if(state.age < 6) state.age = 6;
+    if(state.level < 1) state.level = 1;
+    if(state.gold < 0) state.gold = 0;
+    if(state.energy < 0) state.energy = 0;
+    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+  }catch(e){}
+}
 function loadState(){
   try{ const raw = localStorage.getItem(SAVE_KEY); if(raw) return Object.assign(defaultState(), JSON.parse(raw)); }catch(e){}
   return defaultState();
@@ -841,17 +744,21 @@ function rankOf(lvl){ let r=RANKS[0].name; for(const x of RANKS) if(lvl>=x.min) 
 function arenaRankOf(r){ let n=ARENA_RANKS[0].name; for(const x of ARENA_RANKS) if(r>=x.min) n=x.name; return n; }
 function getHero(){ return HEROES.find(h=>h.id===state.heroId) || HEROES[0]; }
 function getSchool(){ return SCHOOLS.find(s=>s.id===state.schoolId) || SCHOOLS[0]; }
+function getSkin(){ return SKINS.find(s=>s.id===state.skins.active) || SKINS[0]; }
 function tlv(id){ return state.talents[id] || 0; }
 function totalRings(){ return state.souls.reduce((s,so)=>s+(so.rings?s.rings.length:0),0); }
 function currentLoc(){ return LOCATIONS.find(l=>l.id===state.currentLocation) || LOCATIONS[0]; }
 function clanRep(id){ return (state.clans[id] && state.clans[id].rep) || 0; }
 function clanAlly(id){ return state.clans[id] && state.clans[id].isAlly; }
 function clanEnemy(id){ return state.clans[id] && state.clans[id].isEnemy; }
+function activePet(){ return PETS.find(p=>p.id === state.pets.active) || null; }
 
 function applyTheme(){
   const h = getHero();
-  document.documentElement.style.setProperty('--theme', h.theme);
-  document.documentElement.style.setProperty('--border', h.theme + '40');
+  const skin = getSkin();
+  const themeColor = skin.theme || h.theme;
+  document.documentElement.style.setProperty('--theme', themeColor);
+  document.documentElement.style.setProperty('--border', themeColor + '40');
 }
 function show(id){
   $$('.screen').forEach(s=>s.classList.remove('active'));
@@ -867,7 +774,6 @@ function toast(text, type='', ms=2400){
   setTimeout(()=>{ el.style.transition='opacity .3s'; el.style.opacity='0'; }, ms-300);
   setTimeout(()=>el.remove(), ms);
 }
-
 let audioCtx = null;
 function beep(f=440,d=0.1,t='sine',v=0.15){
   if(!state.soundOn) return;
@@ -898,7 +804,6 @@ function vib(ms){
     else if(navigator.vibrate) navigator.vibrate(ms);
   }catch(e){}
 }
-
 function updateHUD(){
   $('#hud-age').textContent = Math.min(state.age, 30);
   $('#hud-level').textContent = state.level;
@@ -913,39 +818,33 @@ function tickEnergy(){
   const elapsed = now - (state.lastEnergyTick||now);
   const regen = Math.floor(elapsed/(5*60*1000));
   if(regen > 0 && state.energy < state.maxEnergy){
-    const add = Math.min(regen, state.maxEnergy - state.energy);
-    state.energy += add;
+    state.energy = Math.min(state.maxEnergy, state.energy + regen);
     state.lastEnergyTick = now;
     saveState(); updateHUD();
   }
   if(state.energy >= state.maxEnergy) state.lastEnergyTick = now;
 }
-
-/* Автосохранение в localStorage + на сервер */
 async function pushToServer(){
   try{
     if(!window.Telegram || !Telegram.WebApp || !Telegram.WebApp.initData) return;
-    await fetch('/api/save', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','X-Telegram-Init-Data': Telegram.WebApp.initData},
-      body: JSON.stringify({ data: state })
-    });
+    await fetch('/api/save', {method:'POST', headers:{'Content-Type':'application/json','X-Telegram-Init-Data': Telegram.WebApp.initData}, body: JSON.stringify({ data: state })});
   }catch(e){}
 }
 async function pullFromServer(){
   try{
     if(!window.Telegram || !Telegram.WebApp || !Telegram.WebApp.initData) return false;
-    const r = await fetch('/api/save', {
-      headers:{'X-Telegram-Init-Data': Telegram.WebApp.initData}
-    });
+    const r = await fetch('/api/save', {headers:{'X-Telegram-Init-Data': Telegram.WebApp.initData}});
     if(!r.ok) return false;
     const j = await r.json();
-    if(j.save && j.save.playerName){
-      state = Object.assign(defaultState(), j.save);
-      return true;
-    }
-  }catch(e){}
-  return false;
+    if(!j.save || !j.save.playerName) return false;
+    const serverSeen = j.save.lastSeen || 0;
+    const localSeen = state.lastSeen || 0;
+    // ФИКС: не перезаписываем свежий локальный сейв
+    if(state.playerName && serverSeen <= localSeen) return false;
+    state = Object.assign(defaultState(), j.save);
+    saveState();
+    return true;
+  }catch(e){ return false; }
 }
 
 /* ==================== СОЗДАНИЕ ==================== */
@@ -953,13 +852,7 @@ function randomName(){ return RANDOM_NAMES[Math.floor(Math.random()*RANDOM_NAMES
 function updateAgeDesc(){
   const a = parseInt($('#inp-age').value);
   $('#age-display').textContent = a;
-  const descs = {
-    6:'🌱 Юн. +5% опыта навсегда',
-    7:'🌿 Лучший возраст. +10% статов',
-    8:'🍀 +5% статов',
-    9:'🌾 Поздно. +200 золота',
-    10:'🌳 Позже всех. +500 золота, +3💎'
-  };
+  const descs = {6:'🌱 Юн. +5% опыта навсегда',7:'🌿 Лучший возраст. +10% статов',8:'🍀 +5% статов',9:'🌾 Поздно. +200 золота',10:'🌳 +500 золота, +3💎'};
   $('#age-desc').textContent = descs[a] || '';
 }
 function doCreate(){
@@ -987,13 +880,13 @@ function renderHeroPicker(){
       <div class="art">${h.emoji}</div>
       <div class="info">
         <b>${h.name}</b>
-        <div class="desc">${h.desc}</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:var(--dim);margin-top:4px">
+        <div style="color:#9aa6c8;line-height:1.4;margin:3px 0">${h.desc}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;color:var(--dim);margin-top:4px">
           <span>СИЛ ${h.stats.str}</span><span>ЗАЩ ${h.stats.def}</span>
           <span>СКОР ${h.stats.spd}</span><span>ДУХ ${h.stats.spr}</span>
         </div>
-        <div style="margin-top:6px;font-size:10px;color:${h.theme}">✨ ${h.uniqueSkill.name}</div>
-        <div style="font-size:10px;color:var(--dim);margin-top:2px">🎯 ${h.passive}</div>
+        <div style="margin-top:6px;color:${h.theme}">✨ ${h.uniqueSkill.name}</div>
+        <div style="color:var(--dim);margin-top:2px">🎯 ${h.passive}</div>
       </div>
     `;
     div.onclick = () => { sfx.click(); selectedHeroId = h.id; renderHeroPicker(); };
@@ -1011,14 +904,13 @@ function confirmHero(){
 
 /* ==================== ПРОЛОГ ==================== */
 const PROLOGUE_ACTS = [
-  {id:'meditate',em:'🧘',name:'Медитация',desc:'+10 опыта, +1 очко таланта',max:3},
-  {id:'train',em:'💪',name:'Физподготовка',desc:'+2% HP навсегда',max:3},
-  {id:'study',em:'📖',name:'Учёба',desc:'+20 золота, +3 духа',max:3},
-  {id:'social',em:'👥',name:'Общение',desc:'+5 репутации всех кланов',max:3},
-  {id:'explore',em:'🌿',name:'Прогулка',desc:'+2 травы, шанс находки',max:3}
+  {id:'meditate',em:'🧘',name:'Медитация',desc:'+10 опыта, +1 очко таланта'},
+  {id:'train',em:'💪',name:'Физподготовка',desc:'+2% HP навсегда'},
+  {id:'study',em:'📖',name:'Учёба',desc:'+20 золота'},
+  {id:'social',em:'👥',name:'Общение',desc:'+5 репутации кланов'},
+  {id:'explore',em:'🌿',name:'Прогулка',desc:'+2 травы, шанс находки'}
 ];
 let prologueDaysUsed = 0;
-
 function showPrologue(){ prologueDaysUsed = state.prologue.acts.length; renderPrologue(); show('screen-prologue'); }
 function renderPrologue(){
   const c = $('#prologue-actions');
@@ -1029,22 +921,19 @@ function renderPrologue(){
     const div = document.createElement('div');
     div.className = 'prologue-act' + (used>=3?' done':'');
     div.innerHTML = `
-      <div class="em">${a.em}</div>
-      <div class="info">
-        <b>${a.name} <span style="color:var(--dim);font-weight:400">(${used}/3)</span></b>
-        <span>${a.desc}</span>
+      <div style="font-size:36px">${a.em}</div>
+      <div style="flex:1;font-size:12px">
+        <b style="color:#fff;display:block;margin-bottom:2px">${a.name} <span style="color:var(--dim);font-weight:400">(${used}/3)</span></b>
+        <span style="color:var(--dim);font-size:11px">${a.desc}</span>
       </div>
-      ${canUse ? '<button class="btn sec" style="width:auto;padding:8px 14px;font-size:12px">+1</button>' : used>=3 ? '<span style="color:var(--green);font-weight:800">✓</span>' : ''}
+      ${canUse ? '<button class="btn sec" style="width:auto;padding:8px 14px;font-size:12px">+1</button>' : used>=3 ? '<span style="color:#3ddc84;font-weight:800">✓</span>' : ''}
     `;
-    if(canUse){
-      div.querySelector('button').onclick = () => { sfx.click(); doPrologueAct(a); };
-    }
+    if(canUse) div.querySelector('button').onclick = () => { sfx.click(); doPrologueAct(a); };
     c.appendChild(div);
   });
   $('#prologue-sub').textContent = `Использовано дней: ${prologueDaysUsed}/3`;
   $('#btn-prologue-exam').disabled = prologueDaysUsed < 3;
-  $('#btn-prologue-exam').textContent = prologueDaysUsed<3
-    ? `🎓 Экзамен (${3-prologueDaysUsed} дн. осталось)` : '🎓 Сдать экзамен';
+  $('#btn-prologue-exam').textContent = prologueDaysUsed<3 ? `🎓 Экзамен (${3-prologueDaysUsed} дн.)` : '🎓 Сдать экзамен';
 }
 function doPrologueAct(a){
   if(prologueDaysUsed >= 3) return;
@@ -1062,7 +951,7 @@ function doPrologueAct(a){
       }); break;
     case 'explore':
       state.resources.herbs += 2;
-      if(Math.random() < 0.3){ state.gold += 30; toast('🌿 Нашёл монету +30💰', 'gold'); }
+      if(Math.random() < 0.3){ state.gold += 30; toast('🌿 +30💰', 'gold'); }
       break;
   }
   saveState(); updateHUD(); renderPrologue();
@@ -1070,28 +959,24 @@ function doPrologueAct(a){
 }
 function doExam(){
   if(prologueDaysUsed < 3){ toast('❌ Используй все дни', 'red'); return; }
-  // Правильный расчёт: базовый счёт зависит от качества прокачки
+  // ФИКС баланса: более строгие пороги
   const med = state.prologue.acts.filter(x=>x==='meditate').length;
   const tr = state.prologue.acts.filter(x=>x==='train').length;
   const st = state.prologue.acts.filter(x=>x==='study').length;
   const so = state.prologue.acts.filter(x=>x==='social').length;
   const ex = state.prologue.acts.filter(x=>x==='explore').length;
-  // Максимум: 5*10 + баланс-бонус
   let score = med * 8 + tr * 7 + st * 6 + so * 5 + ex * 6;
-  // Бонус за разносторонность
   const unique = [med,tr,st,so,ex].filter(x=>x>0).length;
   score += unique * 3;
-  // Максимум 5*8 + 5*3 = 55
   state.prologue.score = score;
   state.prologue.done = true;
 
-  // Пороги сложнее: Шрек 45+, 3 школы 30+, 2 школы 20+
   let result, unlocked;
   if(score >= 45){ result = {emoji:'🌟',title:'ВЕЛИКОЛЕПНО!',text:'Мастер поражён!'}; unlocked = ['shrek','tang','star','blue_lightning']; }
   else if(score >= 30){ result = {emoji:'✨',title:'ОТЛИЧНО!',text:'Тебя ждут три школы.'}; unlocked = ['tang','star','blue_lightning']; }
   else if(score >= 20){ result = {emoji:'👍',title:'НЕПЛОХО',text:'Тебя берут в две школы.'}; unlocked = ['star','blue_lightning']; }
   else if(score >= 10){ result = {emoji:'😐',title:'СЛАБО',text:'Тебя не берут. Но есть Теневая Секта.'}; unlocked = ['shadow_sect']; }
-  else { result = {emoji:'💀',title:'ПРОВАЛ',text:'Путь в Академию закрыт. Остаётся Теневая Секта.'}; unlocked = ['shadow_sect']; }
+  else { result = {emoji:'💀',title:'ПРОВАЛ',text:'Путь в Академию закрыт.'}; unlocked = ['shadow_sect']; }
 
   state.prologue.unlockedSchools = unlocked;
   $('#exam-visual').textContent = result.emoji;
@@ -1113,14 +998,14 @@ function renderSchoolPicker(){
     const div = document.createElement('div');
     div.className = 'school-pick' + (selectedSchoolId===s.id?' selected':'');
     div.style.setProperty('--school-color', s.color);
+    div.style.background = `radial-gradient(circle at 80% 20%,${s.color}22,transparent 60%),linear-gradient(135deg,rgba(28,36,72,.9),rgba(14,19,48,.9))`;
     div.innerHTML = `
-      <div class="bg"></div>
-      <div class="inner">
-        <div class="head"><div class="emblem">${s.emblem}</div>
-          <div><div class="name">${s.name}</div><div class="motto">${s.motto}</div></div></div>
-        <div class="bonus">${s.bonus}</div>
-        <div style="font-size:10px;color:var(--dim);margin-top:6px">🎯 ${s.passiveDesc}</div>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">
+        <div style="font-size:36px">${s.emblem}</div>
+        <div><div class="name">${s.name}</div><div style="font-size:10px;color:var(--dim);font-style:italic">${s.motto}</div></div>
       </div>
+      <div style="font-size:11px;color:#c8d2ff;line-height:1.5;background:rgba(0,0,0,.25);padding:8px 10px;border-radius:8px">${s.bonus}</div>
+      <div style="font-size:10px;color:var(--dim);margin-top:6px">🎯 ${s.passiveDesc}</div>
     `;
     div.onclick = () => { sfx.click(); selectedSchoolId = s.id; renderSchoolPicker(); };
     list.appendChild(div);
@@ -1134,12 +1019,10 @@ function confirmSchool(){
   state.energy = school.startEnergy;
   state.maxEnergy = school.startEnergy;
   const hero = getHero();
-  $('#hero-greeting').innerHTML = `
-    <b style="color:${hero.theme};font-size:14px">${state.playerName}</b><br>
+  $('#hero-greeting').innerHTML = `<b style="color:${hero.theme};font-size:14px">${state.playerName}</b><br>
     Душа: <b style="color:${hero.theme}">${hero.name}</b><br>
     Школа: <b style="color:${school.color}">${school.name}</b><br>
-    <span style="font-size:11px">${school.passiveDesc}</span>
-  `;
+    <span style="font-size:11px">${school.passiveDesc}</span>`;
   saveState(); applyTheme(); updateHUD(); pushToServer();
   show('screen-awaken');
 }
@@ -1154,14 +1037,16 @@ function awaken(){
 
 /* ==================== МЕНЮ ==================== */
 function goMenu(){
-  updateHUD(); refreshQuestsIfNeeded();
+  updateHUD(); refreshQuestsIfNeeded(); resetDailyBossIfNeeded();
   if(!state.awakened){ $('#nav').classList.add('hidden'); show('screen-create'); return; }
   $('#nav').classList.remove('hidden');
 
   const hero = getHero();
   const school = getSchool();
+  const skin = getSkin();
   const stats = computeStats();
-  const auraColor = hero.theme + '80';
+  const auraColor = (skin.theme || hero.theme) + '80';
+  const pet = activePet();
 
   $('#menu-title').textContent = state.playerName;
   $('#menu-sub').textContent = `${hero.name} · ${school.name} · ${rankOf(state.level)}`;
@@ -1173,44 +1058,38 @@ function goMenu(){
     : '<span style="color:#5a6384;font-size:11px">нет колец</span>';
 
   $('#my-char-card').innerHTML = `
-    <div class="card" style="border:2px solid ${hero.theme}60">
+    <div class="card" style="border:2px solid ${(skin.theme || hero.theme)}60">
       <div style="display:flex;gap:12px;align-items:center">
         <div style="position:relative">
           <div class="aura" style="--aura-color:${auraColor}"></div>
-          <div style="font-size:56px;width:72px;height:72px;display:flex;align-items:center;justify-content:center">${hero.emoji}</div>
+          <div style="font-size:56px;width:72px;height:72px;display:flex;align-items:center;justify-content:center">${skin.emoji || hero.emoji}</div>
         </div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:15px;font-weight:800;color:${hero.theme}">${state.playerName}</div>
+          <div style="font-size:15px;font-weight:800;color:${skin.theme||hero.theme}">${state.playerName}</div>
           <div style="font-size:11px;color:var(--dim);margin:2px 0 6px;text-transform:uppercase">${hero.role} · ${school.name}</div>
           <div style="font-size:11px;color:var(--dim)">Возраст: <b style="color:var(--theme)">${Math.min(state.age,30)}</b> · Кольца: ${ringsHtml}</div>
+          ${pet ? `<div style="font-size:11px;color:var(--theme);margin-top:3px">${pet.emoji} ${pet.name} · ${pet.desc}</div>` : ''}
         </div>
       </div>
       <div class="stats" style="margin-top:12px">
-        <div>Сила<b>${stats.str}</b></div>
-        <div>Защита<b>${stats.def}</b></div>
-        <div>Скорость<b>${stats.spd}</b></div>
-        <div>Дух<b>${stats.spr}</b></div>
+        <div>Сила<b>${stats.str}</b></div><div>Защита<b>${stats.def}</b></div>
+        <div>Скорость<b>${stats.spd}</b></div><div>Дух<b>${stats.spr}</b></div>
       </div>
       <div style="margin-top:10px;font-size:11px;color:#9aa6c8">
-        HP: <b style="color:${hero.theme}">${stats.maxHp}</b> · ATK: <b style="color:${hero.theme}">${stats.atk}</b>
+        HP: <b style="color:var(--theme)">${stats.maxHp}</b> · ATK: <b style="color:var(--theme)">${stats.atk}</b>
         · Опыт: <b>${state.exp}/${state.expNext}</b>
       </div>
     </div>
   `;
 
-  // Сюжет с выборами
+  // Сюжет
   const nextChap = STORY_CHAPTERS.find(c=>c.id === state.storyChapter + 1);
   const storyEl = $('#story-menu');
   if(nextChap && state.level >= nextChap.req){
-    storyEl.innerHTML = `
-      <div class="story-card">
-        <div class="chap">Глава ${nextChap.id}</div>
-        <h3>${nextChap.title}</h3>
-        <div class="text">${nextChap.text}</div>
-        <div style="display:flex;flex-direction:column;gap:8px" id="story-choices"></div>
-      </div>
-    `;
-    const choicesBox = $('#story-choices');
+    storyEl.innerHTML = `<div class="story-card"><div class="chap">Глава ${nextChap.id}</div>
+      <h3>${nextChap.title}</h3><div class="text">${nextChap.text}</div>
+      <div style="display:flex;flex-direction:column;gap:8px" id="story-choices"></div></div>`;
+    const cbox = $('#story-choices');
     nextChap.choices.forEach(ch=>{
       const btn = document.createElement('button');
       btn.className = 'btn ' + (ch.effect === 'evil' ? 'danger' : 'sec');
@@ -1232,23 +1111,23 @@ function goMenu(){
         state.storyChapter++;
         state.storyProgress.push(nextChap.id);
         saveState(); updateHUD(); pushToServer();
-        toast(`📜 Глава ${nextChap.id} пройдена! +${ch.gold}💰`, 'purple', 3000);
+        toast(`📜 Глава ${nextChap.id}! +${ch.gold}💰`, 'purple', 3000);
         goMenu();
       };
-      choicesBox.appendChild(btn);
+      cbox.appendChild(btn);
     });
   } else if(nextChap){
-    storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--dim);padding:14px">🔒 Глава ${nextChap.id} откроется на ${nextChap.req} уровне</div>`;
+    storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--dim);padding:14px">🔒 Глава ${nextChap.id} на ${nextChap.req} уровне</div>`;
   } else {
     storyEl.innerHTML = `<div style="text-align:center;font-size:12px;color:var(--gold);padding:14px">✨ Сюжет завершён</div>`;
   }
 
+  renderDailyBoss();
   renderDailyStreak();
   renderQuests();
   updateEnergyHint();
   show('screen-menu'); setNav('menu');
 }
-
 function updateClanFlags(id){
   const c = state.clans[id];
   if(!c) return;
@@ -1256,13 +1135,50 @@ function updateClanFlags(id){
   else if(c.rep <= -50) c.isEnemy = true;
   else { c.isAlly = false; c.isEnemy = false; }
 }
-
 function updateEnergyHint(){
   const h = $('#energy-hint');
   if(!h) return;
   if(state.energy >= state.maxEnergy){ h.innerHTML = '✅ Энергия полная'; return; }
   const next = Math.ceil((5*60*1000 - (Date.now() - (state.lastEnergyTick || Date.now())))/60000);
   h.innerHTML = `⏳ +1 через ${next} мин`;
+}
+
+/* ==================== ДНЕВНОЙ БОСС ==================== */
+function resetDailyBossIfNeeded(){
+  const today = new Date().toDateString();
+  if(state.dailyBossDate !== today){
+    state.dailyBossDate = today;
+    state.dailyBossDefeated = false;
+    saveState();
+  }
+}
+function renderDailyBoss(){
+  const c = $('#daily-boss-card');
+  if(!c) return;
+  resetDailyBossIfNeeded();
+  const pool = [
+    {name:'Тень Дракона',hp:400,atk:40,def:22,spd:12,exp:200,gold:600,em:'👤'},
+    {name:'Хранитель Бездны',hp:500,atk:50,def:28,spd:14,exp:280,gold:800,em:'🗿'},
+    {name:'Призрачный Лис',hp:350,atk:45,def:18,spd:20,exp:220,gold:700,em:'🦊'}
+  ];
+  const boss = pool[new Date().getDate() % pool.length];
+  if(state.dailyBossDefeated){
+    c.innerHTML = `<div style="text-align:center;padding:14px">
+      <div style="font-size:44px">✅</div>
+      <div style="font-size:13px;color:var(--green);font-weight:800;margin-top:6px">Побеждён!</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:4px">Новый завтра</div></div>`;
+    return;
+  }
+  c.innerHTML = `<div class="daily-boss-card">
+    <h3>${boss.em} ${boss.name}</h3>
+    <div class="desc">HP ${boss.hp} · ATK ${boss.atk} · Награда: ${boss.gold}💰 + ${boss.exp}✦ + 5💎</div>
+    <button class="fight-btn" id="btn-daily-boss">⚔️ СРАЗИТЬСЯ (5 ⚡)</button>
+  </div>`;
+  c.querySelector('#btn-daily-boss').onclick = () => {
+    if(state.energy < 5){ toast('⚡ Мало энергии', 'red'); return; }
+    state.energy -= 5; saveState(); updateHUD();
+    startBattle({...boss, ring:'purple', age:2000, art:'boss'}, 'daily_boss');
+  };
 }
 
 /* ==================== СТАТЫ ==================== */
@@ -1284,14 +1200,19 @@ function computeStats(){
   let spd = (hero.stats.spd + eqSpd + ringsBonus) * school.stats.spd * lvlMul;
   let spr = (hero.stats.spr + eqSpr + ringsBonus) * school.stats.spr * lvlMul;
 
-  // Бонусы кланов-союзников
+  // Кланы
   if(clanAlly('blue_electric')) spd *= 1.10;
   if(clanEnemy('blue_electric')) spr *= 0.90;
-  if(clanAlly('clear_sky')){ /* опыт применяется отдельно */ }
-  if(clanAlly('body_sect')) { /* HP применяется ниже */ }
+  if(clanEnemy('body_sect')) def *= 0.85;
 
-  // Бонусы секты
+  // Секта
   const disciplesBonus = state.sect.disciples.length * 0.02;
+  // Питомцы
+  const pet = activePet();
+  if(pet){
+    if(pet.bonus.atk) str *= (1 + pet.bonus.atk);
+    if(pet.bonus.spd) spd *= (1 + pet.bonus.spd);
+  }
 
   str *= 1 + tlv('str1')*0.1;
   spr *= 1 + tlv('spr1')*0.1;
@@ -1301,6 +1222,7 @@ function computeStats(){
   if(clanAlly('body_sect')) hpBonus += 0.15;
   hpBonus += tlv('def1')*0.1;
   hpBonus += disciplesBonus;
+  if(pet && pet.bonus.hp) hpBonus += pet.bonus.hp;
   if(state.schoolId === 'shadow_sect') hpBonus -= 0.3;
 
   return {
@@ -1320,25 +1242,19 @@ function renderWorldMap(){
     const isCurrent = state.currentLocation === loc.id;
     const locked = !discovered && state.level < loc.minLevel;
     const div = document.createElement('div');
-    div.className = 'map-node' + (isCurrent?' current':'') + (discovered?' discovered':'')
-      + (locked?' locked':'') + (loc.secret?' secret':'');
+    div.className = 'map-node' + (isCurrent?' current':'') + (discovered?' discovered':'') + (locked?' locked':'') + (loc.secret?' secret':'');
     div.style.left = `calc(${loc.x}% - 32px)`;
     div.style.top = `calc(${loc.y}% - 32px)`;
-    div.innerHTML = `${loc.emoji}<div class="lbl">${discovered?loc.name:loc.secret?'???':'???'}</div>`;
+    div.innerHTML = `${loc.emoji}<div class="lbl">${discovered?loc.name:'???'}</div>`;
     div.onclick = () => {
       sfx.click();
       if(isCurrent){ openLocation(loc.id); return; }
-      if(!discovered){
-        if(state.level < loc.minLevel){ toast(`🔒 Нужен ${loc.minLevel} уровень`, 'red'); return; }
-        travelTo(loc.id);
-        return;
-      }
+      if(!discovered && state.level < loc.minLevel){ toast(`🔒 Нужен ${loc.minLevel} уровень`, 'red'); return; }
       travelTo(loc.id);
     };
     map.appendChild(div);
   });
 }
-
 function travelTo(locId){
   if(state.energy < 3){ toast('⚡ Мало энергии', 'red'); return; }
   const loc = LOCATIONS.find(l=>l.id===locId);
@@ -1355,7 +1271,7 @@ function travelTo(locId){
   } else if(rand < 0.55){
     const bonus = 30 + Math.floor(Math.random()*50);
     state.gold += bonus;
-    toast(`💎 Нашёл ${bonus}💰`, 'gold', 2000);
+    toast(`💎 +${bonus}💰`, 'gold', 2000);
   } else if(rand < 0.65){
     const h = 2 + Math.floor(Math.random()*4);
     state.resources.herbs += h;
@@ -1366,71 +1282,43 @@ function travelTo(locId){
   state.currentLocation = locId;
   if(!state.visitedLocations[locId]) state.visitedLocations[locId] = true;
   saveState(); updateHUD();
-  toast(`🧭 Ты прибыл: ${loc.name}`, 'gold', 1500);
+  toast(`🧭 ${loc.name}`, 'gold', 1500);
   setTimeout(()=>openLocation(locId), 400);
 }
-
 function openLocation(locId){
   const loc = LOCATIONS.find(l=>l.id===locId);
   if(!loc) return;
   state.currentLocation = locId;
   saveState();
-
-  $('#loc-header').innerHTML = `
-    <div class="loc-header">
-      <div class="em">${loc.emoji}</div>
-      <div class="info">
-        <div class="name">${loc.name}</div>
-        <div class="desc">${loc.desc}</div>
-      </div>
-    </div>
-  `;
+  $('#loc-header').innerHTML = `<div class="loc-header"><div class="em">${loc.emoji}</div>
+    <div class="info"><div class="name">${loc.name}</div><div class="desc">${loc.desc}</div></div></div>`;
   $$('#loc-tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab === 'hunt'));
   renderLocationContent('hunt');
   show('screen-location');
 }
-
-let currentLocTab = 'hunt';
 function renderLocationContent(tab){
-  currentLocTab = tab;
   const loc = currentLoc();
   const c = $('#loc-content');
   c.innerHTML = '';
-
   if(tab === 'hunt'){
-    c.innerHTML = `
-      <div class="card">
-        <h2>⚔️ Охота</h2>
-        <p class="sub" style="margin:0 0 10px">Энергия: ${state.energy}/${state.maxEnergy}</p>
-        <button class="btn" id="btn-hunt-loc" ${state.energy < 5 ? 'disabled' : ''}>🌲 Начать охоту (-5 ⚡)</button>
-      </div>
-      <div class="card">
-        <h2>🐾 Местные звери</h2>
+    c.innerHTML = `<div class="card"><h2>⚔️ Охота</h2>
+      <p class="sub" style="margin:0 0 10px">Энергия: ${state.energy}/${state.maxEnergy}</p>
+      <button class="btn" id="btn-hunt-loc" ${state.energy < 5 ? 'disabled' : ''}>🌲 Начать охоту (-5 ⚡)</button></div>
+      <div class="card"><h2>🐾 Местные звери</h2>
         ${loc.enemies.map(e=>`<div style="padding:8px 10px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:6px;font-size:12px;border-left:3px solid var(--theme)">${e}</div>`).join('')}
-      </div>
-    `;
+      </div>`;
     $('#btn-hunt-loc').onclick = () => { sfx.click(); startLocationBattle(loc, false); };
-  }
-  else if(tab === 'explore'){
+  } else if(tab === 'explore'){
     const kills = state.locationKills[loc.id] || 0;
-    c.innerHTML = `
-      <div class="card">
-        <h2>🔍 Исследование</h2>
-        <p class="sub" style="margin:0 0 10px">Побед: <b style="color:var(--theme)">${kills}</b></p>
-        <button class="btn" id="btn-explore" ${state.energy < 3 ? 'disabled' : ''}>🧭 Исследовать (-3 ⚡)</button>
-      </div>
-    `;
+    c.innerHTML = `<div class="card"><h2>🔍 Исследование</h2>
+      <p class="sub" style="margin:0 0 10px">Побед: <b style="color:var(--theme)">${kills}</b></p>
+      <button class="btn" id="btn-explore" ${state.energy < 3 ? 'disabled' : ''}>🧭 Исследовать (-3 ⚡)</button></div>`;
     $('#btn-explore').onclick = () => doExplore(loc);
-  }
-  else if(tab === 'treasure'){
+  } else if(tab === 'treasure'){
     const opened = state.treasureOpened[loc.id] || {};
-    c.innerHTML = `
-      <div class="card">
-        <h2>💎 Сокровища</h2>
-        <p class="sub" style="margin:0 0 10px">Респавн раз в 24 часа</p>
-        <div class="treasure-grid" id="treasure-grid"></div>
-      </div>
-    `;
+    c.innerHTML = `<div class="card"><h2>💎 Сокровища</h2>
+      <p class="sub" style="margin:0 0 10px">Респавн раз в 24 часа</p>
+      <div class="treasure-grid" id="treasure-grid"></div></div>`;
     const grid = $('#treasure-grid');
     loc.treasures.forEach(tid=>{
       const t = TREASURES[tid];
@@ -1442,28 +1330,19 @@ function renderLocationContent(tab){
       if(!isOpened) slot.onclick = () => openTreasure(loc.id, tid, t);
       grid.appendChild(slot);
     });
-  }
-  else if(tab === 'lore'){
-    c.innerHTML = `<div class="card"><h2>📖 История места</h2>
+  } else if(tab === 'lore'){
+    c.innerHTML = `<div class="card"><h2>📖 История</h2>
       <div style="font-size:13px;color:#c8d2ff;line-height:1.7">${loc.lore}</div></div>`;
   }
 }
-
 function startLocationBattle(loc, isAmbush){
   if(state.energy < 5){ toast('⚡ Мало энергии', 'red'); return; }
-  state.energy -= 5;
-  saveState(); updateHUD();
+  state.energy -= 5; saveState(); updateHUD();
   const enemyName = loc.enemies[Math.floor(Math.random()*loc.enemies.length)];
   const scale = 1 + (state.level-1)*0.12;
-  const enemy = {
-    name: enemyName,
-    hp: Math.round(80*scale), atk: Math.round(12*scale), def: Math.round(6*scale),
-    spd: Math.round(5*scale), exp: Math.round(30*scale), gold: Math.round(40*scale),
-    art: 'boss'
-  };
+  const enemy = {name:enemyName,hp:Math.round(80*scale),atk:Math.round(12*scale),def:Math.round(6*scale),spd:Math.round(5*scale),exp:Math.round(30*scale),gold:Math.round(40*scale),art:'boss'};
   startBattle(enemy, isAmbush ? 'ambush' : 'explore', loc.id);
 }
-
 function doExplore(loc){
   if(state.energy < 3){ toast('⚡ Мало энергии', 'red'); return; }
   state.energy -= 3;
@@ -1472,9 +1351,8 @@ function doExplore(loc){
   if(rand < 0.4){
     const g = 20 + Math.floor(Math.random()*60);
     state.gold += g;
-    toast(`💰 Нашёл ${g} золота`, 'gold');
+    toast(`💰 +${g}`, 'gold');
   } else if(rand < 0.75){
-    // Ресурс по дропу локации
     const roll = Math.random();
     let resource = 'herbs';
     if(roll < drops.herbs) resource = 'herbs';
@@ -1488,13 +1366,10 @@ function doExplore(loc){
     const c = 1 + Math.floor(Math.random()*3);
     state.resources.crystals += c;
     toast(`💎 +${c}`, 'gold');
-  } else {
-    toast('🌫️ Ничего', 'red');
-  }
+  } else toast('🌫️ Ничего', 'red');
   saveState(); updateHUD();
   renderLocationContent('explore');
 }
-
 function openTreasure(locId, tid, t){
   sfx.treasure(); vib([50,30,50,30,100]);
   if(!state.treasureOpened[locId]) state.treasureOpened[locId] = {};
@@ -1504,7 +1379,7 @@ function openTreasure(locId, tid, t){
   switch(t.reward){
     case 'gold': {
       const g = t.min + Math.floor(Math.random()*(t.max-t.min+1));
-      state.gold += g; rewardText = `💰 +${g} золота`; break;
+      state.gold += g; rewardText = `💰 +${g}`; break;
     }
     case 'resource': {
       const amt = t.min + Math.floor(Math.random()*(t.max-t.min+1));
@@ -1513,7 +1388,15 @@ function openTreasure(locId, tid, t){
       rewardText = `${icons[t.resource]} +${amt}`; break;
     }
     case 'ring': {
-      // Ограничение цвета по уровню игрока
+      // ФИКС: защита от пустых souls
+      if(!state.souls || !state.souls.length){
+        state.gold += 500;
+        rewardText = '💫 +500💰 (душа не пробуждена)';
+        break;
+      }
+      const soul = state.souls[state.activeSoulIndex];
+      if(!soul){ state.gold += 500; rewardText = '💫 +500💰'; break; }
+      if(!soul.rings) soul.rings = [];
       const colors = state.level < 5 ? ['yellow']
         : state.level < 10 ? ['yellow','yellow','purple']
         : state.level < 15 ? ['yellow','purple','purple','black']
@@ -1521,25 +1404,21 @@ function openTreasure(locId, tid, t){
         : ['purple','black','black','red','red'];
       const color = colors[Math.floor(Math.random()*colors.length)];
       const skill = RING_SKILL_POOL[Math.floor(Math.random()*RING_SKILL_POOL.length)];
-      if(!state.souls[state.activeSoulIndex].rings) state.souls[state.activeSoulIndex].rings = [];
-      if(state.souls[state.activeSoulIndex].rings.length < 9){
-        state.souls[state.activeSoulIndex].rings.push({
-          ageYears: 100 * (1 + Math.floor(Math.random()*10)),
-          color, skill: {...skill}
-        });
-        rewardText = `💫 ${RING_NAMES[color]} кольцо! Навык: ${skill.name}`;
+      if(soul.rings.length < 9){
+        soul.rings.push({ageYears:100 * (1+Math.floor(Math.random()*10)), color, skill:{...skill}});
+        rewardText = `💫 ${RING_NAMES[color]} кольцо! ${skill.name}`;
       } else {
-        rewardText = '💫 Кольца заполнены, но ты получил +500💰';
         state.gold += 500;
+        rewardText = '💫 Кольца заполнены, +500💰';
       }
       break;
     }
     case 'talent_point': {
       const amt = t.min + Math.floor(Math.random()*(t.max-t.min+1));
       state.talentPoints += amt;
-      rewardText = `🌳 +${amt} очков таланта`; break;
+      rewardText = `🌳 +${amt} талантов`; break;
     }
-    case 'heal_potion': rewardText = `🧪 +${t.min} зелий HP`; state.inventory.hp_potion = (state.inventory.hp_potion||0) + t.min; break;
+    case 'heal_potion': rewardText = `🧪 +${t.min} зелий`; state.inventory.hp_potion = (state.inventory.hp_potion||0) + t.min; break;
     case 'exp_scroll': rewardText = `📕 +1 свиток`; state.inventory.exp_scroll = (state.inventory.exp_scroll||0) + 1; break;
   }
   saveState(); updateHUD(); pushToServer();
@@ -1547,19 +1426,17 @@ function openTreasure(locId, tid, t){
   renderLocationContent('treasure');
 }
 
-/* ==================== МОДАЛКА ==================== */
+/* ==================== МОДАЛКА (уникальные ID) ==================== */
 function showModal(emoji, title, text){
+  const mid = 'modal_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
   const ov = document.createElement('div');
   ov.className = 'modal-overlay';
-  ov.innerHTML = `
-    <div class="modal-content">
-      <div class="big-em">${emoji}</div>
-      <h2>${title}</h2>
-      <div style="font-size:14px;color:var(--theme);font-weight:800;margin:12px 0">${text}</div>
-      <button class="btn" id="close-modal">ОТЛИЧНО</button>
-    </div>`;
+  ov.innerHTML = `<div class="modal-content"><div class="big-em">${emoji}</div>
+    <h2>${title}</h2>
+    <div style="font-size:14px;color:var(--theme);font-weight:800;margin:12px 0">${text}</div>
+    <button class="btn" id="${mid}">ОТЛИЧНО</button></div>`;
   document.body.appendChild(ov);
-  ov.querySelector('#close-modal').onclick = () => { sfx.click(); ov.remove(); };
+  ov.querySelector('#'+mid).onclick = () => { sfx.click(); ov.remove(); };
 }
 
 /* ==================== КЛАНЫ ==================== */
@@ -1574,28 +1451,21 @@ function renderClans(){
     const statusColor = clan.isAlly ? '#3ddc84' : clan.isEnemy ? '#ff4d5e' : '#8b95bb';
     const div = document.createElement('div');
     div.className = 'clan-card';
-    div.innerHTML = `
-      <div class="em">${c.emoji}</div>
-      <div class="info">
-        <b style="color:${c.color}">${c.name}</b>
+    div.innerHTML = `<div class="em">${c.emoji}</div>
+      <div class="info"><b style="color:${c.color}">${c.name}</b>
         <div style="color:var(--dim)">${c.desc}</div>
         <div style="font-size:10px;color:var(--dim);margin-top:4px">Репутация: <b style="color:${rep>0?'#3ddc84':rep<0?'#ff4d5e':'#8b95bb'}">${rep}</b> · <span style="color:${statusColor}">${status}</span></div>
         <div class="rep-bar"><div style="width:${Math.abs(rep)/2}%;background:${rep<0?'linear-gradient(90deg,#ff4d5e,#a01828)':'linear-gradient(90deg,#3ddc84,#22a05a)'}"></div><div class="center"></div></div>
         ${clan.isAlly ? `<div style="font-size:10px;color:#3ddc84;margin-top:4px">✨ ${c.bonusAlly}</div>` : ''}
         ${clan.isEnemy ? `<div style="font-size:10px;color:#ff4d5e;margin-top:4px">⚠️ ${c.bonusEnemy}</div>` : ''}
-      </div>
-    `;
+      </div>`;
     list.appendChild(div);
   });
   const card = document.createElement('div');
   card.className = 'card';
-  card.innerHTML = `
-    <h2>🤝 Дипломатия</h2>
-    <div style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px">
-      50+ репутации → союз. -50 → вражда.
-    </div>
-    <button class="btn sec" id="btn-clan-quest">🎯 Клановый квест (-10 ⚡)</button>
-  `;
+  card.innerHTML = `<h2>🤝 Дипломатия</h2>
+    <div style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px">50+ репутации → союз. -50 → вражда.</div>
+    <button class="btn sec" id="btn-clan-quest">🎯 Клановый квест (-10 ⚡)</button>`;
   list.appendChild(card);
   $('#btn-clan-quest').onclick = () => {
     if(state.energy < 10){ toast('⚡ Мало энергии', 'red'); return; }
@@ -1608,7 +1478,7 @@ function renderClans(){
     const gold = 100 + Math.floor(Math.random()*200);
     state.gold += gold;
     saveState(); updateHUD(); pushToServer();
-    toast(`✅ Квест ${clan.name}! +${rep} реп, +${gold}💰`, 'gold', 2500);
+    toast(`✅ ${clan.name}! +${rep} реп, +${gold}💰`, 'gold', 2500);
     renderClans();
   };
 }
@@ -1624,19 +1494,16 @@ function renderSect(){
         <p class="sub" style="margin:0">Ты — ${state.level}/10</p></div>`;
       return;
     }
-    c.innerHTML = `
-      <div class="card" style="text-align:center">
-        <div style="font-size:64px;margin:14px 0">🏯</div>
-        <h2 style="justify-content:center">Основать секту</h2>
-        <p class="sub">Нужно 5000 золота и 20 кристаллов</p>
-        <div style="font-size:13px;color:${state.gold>=5000?'#3ddc84':'#ff4d5e'};margin-bottom:6px">💰 ${state.gold} / 5000</div>
-        <div style="font-size:13px;color:${state.resources.crystals>=20?'#3ddc84':'#ff4d5e'};margin-bottom:14px">💎 ${state.resources.crystals} / 20</div>
-        <button class="btn" id="btn-found-sect" ${state.gold>=5000 && state.resources.crystals>=20 ? '' : 'disabled'}>🏯 ОСНОВАТЬ</button>
-      </div>`;
+    c.innerHTML = `<div class="card" style="text-align:center">
+      <div style="font-size:64px;margin:14px 0">🏯</div>
+      <h2 style="justify-content:center">Основать секту</h2>
+      <p class="sub">5000 золота и 20 кристаллов</p>
+      <div style="font-size:13px;color:${state.gold>=5000?'#3ddc84':'#ff4d5e'};margin-bottom:6px">💰 ${state.gold} / 5000</div>
+      <div style="font-size:13px;color:${state.resources.crystals>=20?'#3ddc84':'#ff4d5e'};margin-bottom:14px">💎 ${state.resources.crystals} / 20</div>
+      <button class="btn" id="btn-found-sect" ${state.gold>=5000 && state.resources.crystals>=20 ? '' : 'disabled'}>🏯 ОСНОВАТЬ</button></div>`;
     if(state.gold>=5000 && state.resources.crystals>=20){
       $('#btn-found-sect').onclick = () => {
-        state.gold -= 5000;
-        state.resources.crystals -= 20;
+        state.gold -= 5000; state.resources.crystals -= 20;
         state.sect.founded = true;
         state.sect.name = `Секта ${state.playerName}`;
         state.sect.prestige = 10;
@@ -1648,37 +1515,23 @@ function renderSect(){
     }
     return;
   }
-
   const disciplesCount = state.sect.disciples.length;
-  const bonusPerDisciple = 2;
   const canRecruit = state.level >= 12 && state.gold >= 500;
-  c.innerHTML = `
-    <div class="sect-card">
-      <div class="em">🏯</div>
-      <h2 style="justify-content:center">${state.sect.name}</h2>
-      <div style="font-size:12px;color:var(--dim);margin-top:6px">Престиж: <b style="color:var(--theme)">${state.sect.prestige}</b></div>
-      <div style="font-size:12px;color:var(--dim)">Учеников: <b style="color:var(--theme)">${disciplesCount}</b></div>
-      <div style="font-size:12px;color:var(--green);margin-top:6px">✨ Бонус: +${disciplesCount*bonusPerDisciple}% HP</div>
-    </div>
-    <div class="card">
-      <h2>👥 Ученики</h2>
+  c.innerHTML = `<div class="sect-card"><div class="em">🏯</div>
+    <h2 style="justify-content:center">${state.sect.name}</h2>
+    <div style="font-size:12px;color:var(--dim);margin-top:6px">Престиж: <b style="color:var(--theme)">${state.sect.prestige}</b></div>
+    <div style="font-size:12px;color:var(--dim)">Учеников: <b style="color:var(--theme)">${disciplesCount}</b></div>
+    <div style="font-size:12px;color:var(--green);margin-top:6px">✨ Бонус: +${disciplesCount*2}% HP</div></div>
+    <div class="card"><h2>👥 Ученики</h2>
       ${disciplesCount === 0 ? '<p class="sub" style="margin:0">Пока никого</p>' :
-        state.sect.disciples.map(d=>`
-          <div class="disciple-row"><div class="em">${d.emoji}</div>
-            <div style="flex:1"><b>${d.name}</b>
-              <div style="font-size:10px;color:var(--dim)">Ур.${d.level} · ${d.role}</div>
-            </div></div>
-        `).join('')}
-      <button class="btn" id="btn-recruit" ${canRecruit ? '' : 'disabled'} style="margin-top:10px">
-        ${state.level < 12 ? '🔒 Ур. 12+' : state.gold < 500 ? '💰 500 золота' : '👥 Нанять (500 💰)'}
-      </button>
-    </div>
-    <div class="card">
-      <h2>⚔️ Клановые рейды</h2>
+        state.sect.disciples.map(d=>`<div class="disciple-row"><div style="font-size:24px">${d.emoji}</div>
+          <div style="flex:1"><b>${d.name}</b>
+            <div style="font-size:10px;color:var(--dim)">Ур.${d.level} · ${d.role}</div></div></div>`).join('')}
+      <button class="btn" id="btn-recruit" ${canRecruit?'':'disabled'} style="margin-top:10px">
+        ${state.level < 12 ? '🔒 Ур. 12+' : state.gold < 500 ? '💰 500' : '👥 Нанять (500 💰)'}</button></div>
+    <div class="card"><h2>⚔️ Клановые рейды</h2>
       <p class="sub" style="margin:0 0 10px">Атакуй кланы-враги</p>
-      <button class="btn danger" id="btn-clan-raid">⚔️ Рейд (-15 ⚡)</button>
-    </div>
-  `;
+      <button class="btn danger" id="btn-clan-raid">⚔️ Рейд (-15 ⚡)</button></div>`;
   if(canRecruit){
     $('#btn-recruit').onclick = () => {
       state.gold -= 500;
@@ -1692,7 +1545,7 @@ function renderSect(){
         emoji: emojis[Math.floor(Math.random()*emojis.length)]
       });
       state.sect.prestige += 2;
-      saveState(); updateHUD();
+      saveState(); updateHUD(); pushToServer();
       toast('✅ Ученик принят!', 'green');
       renderSect();
     };
@@ -1700,7 +1553,6 @@ function renderSect(){
   $('#btn-clan-raid').onclick = () => {
     if(state.energy < 15){ toast('⚡ Мало энергии', 'red'); return; }
     state.energy -= 15;
-    // Ищем клан-враг
     const enemies = CLANS.filter(c => clanEnemy(c.id));
     const target = enemies.length > 0 ? enemies[Math.floor(Math.random()*enemies.length)] : CLANS[Math.floor(Math.random()*CLANS.length)];
     const reward = 500 + Math.floor(Math.random()*1000);
@@ -1709,10 +1561,172 @@ function renderSect(){
     if(!state.clans[target.id]) state.clans[target.id] = {rep:0,isAlly:false,isEnemy:false};
     state.clans[target.id].rep = Math.max(-100, state.clans[target.id].rep - 5);
     updateClanFlags(target.id);
-    saveState(); updateHUD();
+    saveState(); updateHUD(); pushToServer();
     toast(`⚔️ Рейд на ${target.name}! +${reward}💰 +3💎`, 'red', 3000);
     renderSect();
   };
+}
+
+/* ==================== ПИТОМЦЫ (новая механика) ==================== */
+function renderPets(){
+  updateHUD();
+  const c = $('#pets-list');
+  c.innerHTML = '';
+  PETS.forEach(p=>{
+    const owned = state.pets.owned.includes(p.id);
+    const isActive = state.pets.active === p.id;
+    const canBuy = !owned && state.gold >= p.cost;
+    const div = document.createElement('div');
+    div.className = 'pet-card' + (isActive ? ' active' : '');
+    div.innerHTML = `<div class="em">${p.emoji}</div>
+      <div class="info">
+        <b>${p.name} ${isActive?'✅':''}</b>
+        <span>${p.desc}</span>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">${p.rarity.toUpperCase()}</div>
+      </div>
+      ${owned ? (isActive
+        ? `<button class="act" style="background:linear-gradient(135deg,#ff5566,#b62030);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px" data-action="release">Отпустить</button>`
+        : `<button class="act" style="background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px" data-action="activate">Активировать</button>`)
+        : `<button class="act" ${canBuy?'':'disabled'} style="background:${canBuy?'linear-gradient(135deg,#ffd75e,var(--theme))':'#3a4488'};color:${canBuy?'#1a1400':'#fff'};border:none;padding:8px 12px;border-radius:8px;font-weight:800;font-size:11px" data-action="buy">${p.cost}💰</button>`}
+    `;
+    const btn = div.querySelector('[data-action]');
+    if(btn){
+      btn.onclick = () => {
+        const act = btn.dataset.action;
+        if(act === 'buy'){
+          if(state.gold < p.cost){ toast('💰 Мало золота', 'red'); return; }
+          state.gold -= p.cost;
+          state.pets.owned.push(p.id);
+          state.pets.active = p.id;
+          sfx.level(); vib([50,30,50]);
+          toast(`🐾 ${p.name} принят!`, 'gold');
+        } else if(act === 'activate'){
+          state.pets.active = p.id;
+          toast(`✅ ${p.name} активен`, 'green');
+        } else if(act === 'release'){
+          state.pets.active = null;
+          toast(`👋 ${p.name} отпущен`, 'gold');
+        }
+        saveState(); updateHUD(); pushToServer(); renderPets();
+      };
+    }
+    c.appendChild(div);
+  });
+  show('screen-pets'); setNav('pets');
+}
+
+/* ==================== АУКЦИОН (новая механика) ==================== */
+let auctionTab = 'buy';
+function resetAuctionIfNeeded(){
+  const now = Date.now();
+  if(now - state.auction.refreshedAt > 6*60*60*1000){
+    // Обновляем ассортимент каждые 6 часов
+    const shuffled = [...AUCTION_ITEMS].sort(()=>Math.random()-0.5).slice(0,4);
+    state.auction.items = shuffled.map(it => ({...it, price: Math.round(it.cost * (0.7 + Math.random()*0.6))}));
+    state.auction.refreshedAt = now;
+    saveState();
+  }
+}
+function renderAuction(){
+  updateHUD(); resetAuctionIfNeeded();
+  $$('#auction-tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab === auctionTab));
+  const c = $('#auction-content');
+  c.innerHTML = '';
+  if(auctionTab === 'buy'){
+    c.innerHTML = `<div class="card"><h2>🛒 Товары</h2>
+      <p class="sub" style="margin:0 0 10px">Обновление каждые 6 часов</p>
+      <div id="auction-buy-list"></div></div>`;
+    const list = $('#auction-buy-list');
+    state.auction.items.forEach((it, idx)=>{
+      const div = document.createElement('div');
+      div.className = 'auction-row';
+      div.innerHTML = `<div class="em">${it.emoji}</div>
+        <div class="info"><b>${it.name}</b><span>${it.cost}💰 обычная цена</span></div>
+        <button class="price">${it.price}💰</button>`;
+      div.querySelector('.price').onclick = () => {
+        if(state.gold < it.price){ toast('💰 Мало золота', 'red'); return; }
+        state.gold -= it.price;
+        // Выдача
+        if(it.give.herbs) state.resources.herbs += it.give.herbs;
+        if(it.give.ore) state.resources.ore += it.give.ore;
+        if(it.give.crystals) state.resources.crystals += it.give.crystals;
+        if(it.give.item) state.inventory[it.give.item] = (state.inventory[it.give.item]||0) + it.give.count;
+        if(it.give.talent) state.talentPoints += it.give.talent;
+        state.auction.items.splice(idx, 1);
+        sfx.coin();
+        toast(`✅ Куплено: ${it.name}`, 'green');
+        saveState(); updateHUD(); pushToServer(); renderAuction();
+      };
+      list.appendChild(div);
+    });
+    if(state.auction.items.length === 0){
+      list.innerHTML = '<p class="sub" style="margin:0">Всё раскуплено. Обновление через 6 часов.</p>';
+    }
+  } else {
+    c.innerHTML = `<div class="card"><h2>💰 Продать</h2>
+      <p class="sub" style="margin:0 0 10px">Продаём ресурсы за золото</p>
+      <div id="auction-sell-list"></div></div>`;
+    const list = $('#auction-sell-list');
+    const sellPrices = {herbs:20, ore:30, crystals:80};
+    Object.entries(sellPrices).forEach(([res, price])=>{
+      const amount = state.resources[res] || 0;
+      const icons = {herbs:'🌿', ore:'⛏️', crystals:'💎'};
+      const names = {herbs:'Травы', ore:'Руда', crystals:'Кристаллы'};
+      const div = document.createElement('div');
+      div.className = 'auction-row';
+      div.innerHTML = `<div class="em">${icons[res]}</div>
+        <div class="info"><b>${names[res]}</b><span>В наличии: ${amount}</span></div>
+        <button class="price" ${amount < 5 ? 'disabled' : ''}>+${price*5}💰 (5 шт)</button>`;
+      div.querySelector('.price').onclick = () => {
+        if((state.resources[res]||0) < 5) return;
+        state.resources[res] -= 5;
+        state.gold += price * 5;
+        sfx.coin();
+        toast(`💰 +${price*5} золота`, 'gold');
+        saveState(); updateHUD(); pushToServer(); renderAuction();
+      };
+      list.appendChild(div);
+    });
+  }
+  show('screen-auction'); setNav('auction');
+}
+
+/* ==================== NPC (новая механика) ==================== */
+function renderNpc(){
+  updateHUD();
+  const c = $('#npc-list');
+  c.innerHTML = '';
+  NPCS.forEach(n=>{
+    if(!state.npc[n.id]) state.npc[n.id] = {affinity: 0};
+    const aff = state.npc[n.id].affinity;
+    const hearts = Math.min(5, Math.floor(aff / 20));
+    const heartStr = '❤️'.repeat(hearts) + '🖤'.repeat(5 - hearts);
+    const canGift = aff < 100 && state.gold >= 200;
+    const div = document.createElement('div');
+    div.className = 'npc-row';
+    div.innerHTML = `<div class="em">${n.emoji}</div>
+      <div class="info">
+        <b>${n.name}</b>
+        <span>${n.desc}</span>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">🎁 ${n.gift}</div>
+        <div class="hearts" style="margin-top:4px">${heartStr}</div>
+      </div>
+      <button class="price" ${canGift?'':'disabled'}>Дарить (200💰)</button>`;
+    div.querySelector('.price').onclick = () => {
+      if(state.gold < 200){ toast('💰 Мало', 'red'); return; }
+      state.gold -= 200;
+      state.npc[n.id].affinity = Math.min(100, state.npc[n.id].affinity + 10);
+      sfx.coin();
+      const aff = state.npc[n.id].affinity;
+      // Награды при достижении
+      if(aff === 50) { state.talentPoints += 2; toast(`💞 ${n.name} дарит 2 очка таланта!`, 'purple'); }
+      if(aff === 100){ state.gold += 5000; toast(`💖 ${n.name} дарит 5000 золота!`, 'gold'); }
+      toast(`💕 ${n.name}: +10 близости`, 'green');
+      saveState(); updateHUD(); pushToServer(); renderNpc();
+    };
+    c.appendChild(div);
+  });
+  show('screen-npc'); setNav('profile');
 }
 
 /* ==================== ПОДЗЕМЕЛЬЯ ==================== */
@@ -1736,8 +1750,7 @@ function renderDungeons(){
     const div = document.createElement('div');
     div.className = 'dungeon-card' + (locked?' locked':'');
     div.style.borderColor = locked ? 'rgba(255,255,255,.08)' : d.theme + '60';
-    div.innerHTML = `
-      <div class="art">${d.emoji}</div>
+    div.innerHTML = `<div class="art">${d.emoji}</div>
       <div class="info">
         <b style="color:${locked?'var(--dim)':d.theme}">${d.name}</b>
         <span>${locked ? `🔒 Ур. ${d.minLevel}+` : d.desc}</span>
@@ -1746,8 +1759,7 @@ function renderDungeons(){
       </div>
       <button class="play" ${locked || state.dungeonAttempts.left<=0 ? 'disabled' : ''}>
         ${locked ? '🔒' : state.dungeonAttempts.left<=0 ? '⏳' : (progress >= total ? '🔁' : 'ВОЙТИ')}
-      </button>
-    `;
+      </button>`;
     if(!locked && state.dungeonAttempts.left > 0){
       div.querySelector('.play').onclick = () => enterDungeon(d);
     }
@@ -1762,11 +1774,7 @@ function enterDungeon(d){
   const floor = d.floors[floorIdx];
   state.dungeonAttempts.left--;
   saveState();
-  const enemy = {
-    name: floor.name, hp: floor.hp, atk: floor.atk, def: floor.def, spd: floor.spd,
-    exp: floor.exp, gold: floor.gold, ring: floor.ring, age: floor.age, art: 'boss'
-  };
-  startBattle(enemy, 'dungeon', d.id);
+  startBattle({...floor, art:'boss'}, 'dungeon', d.id);
 }
 
 /* ==================== БАШНЯ ==================== */
@@ -1788,13 +1796,11 @@ function renderTower(){
 }
 function towerFight(){
   const floor = state.towerFloor;
-  const enemy = {
-    name: `Страж Башни ${floor}`,
-    hp: 100 + floor*40, atk: 10 + floor*3, def: 5 + floor*2,
-    spd: 5 + Math.floor(floor*1.2), exp: 40 + floor*15, gold: 60 + floor*20,
-    art: 'guardian'
-  };
-  startBattle(enemy, 'tower');
+  startBattle({
+    name:`Страж Башни ${floor}`,
+    hp:100+floor*40, atk:10+floor*3, def:5+floor*2,
+    spd:5+Math.floor(floor*1.2), exp:40+floor*15, gold:60+floor*20, art:'guardian'
+  }, 'tower');
 }
 
 /* ==================== АРЕНА ==================== */
@@ -1807,7 +1813,6 @@ function renderArena(){
   const seasonNum = Math.floor(Date.now()/(14*24*60*60*1000));
   const daysLeft = 14 - Math.floor((Date.now() - seasonNum*14*24*60*60*1000)/(24*60*60*1000));
   $('#arena-season').textContent = `${daysLeft} дней`;
-
   const lb = $('#arena-leaderboard');
   const names = ['Тан Сан','Сяо Ву','Дай Мубай','Чжу Чжуцин','Оскар','Ма Хунцзюнь','Нин Жунжун'];
   const me = { name: 'Ты', rating: state.rating, me: true };
@@ -1816,12 +1821,11 @@ function renderArena(){
   lb.innerHTML = '';
   all.slice(0,10).forEach((p,i)=>{
     const div = document.createElement('div');
-    div.className = 'rank-row' + (p.me?' me':'');
-    div.innerHTML = `
-      <div class="place">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)}</div>
-      <div class="info"><b>${p.name}${p.me?' (ТЫ)':''}</b><span>${arenaRankOf(p.rating)}</span></div>
-      <div class="rating">${p.rating}</div>
-    `;
+    div.className = 'ach-card' + (p.me?' done':'');
+    div.innerHTML = `<div style="font-weight:900;width:28px;text-align:center;font-size:14px">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)}</div>
+      <div style="flex:1;font-size:12px"><b style="color:#fff;display:block">${p.name}${p.me?' (ТЫ)':''}</b>
+      <span style="color:var(--dim);font-size:10px">${arenaRankOf(p.rating)}</span></div>
+      <div style="color:var(--theme);font-weight:800;font-size:14px">${p.rating}</div>`;
     lb.appendChild(div);
   });
   show('screen-arena'); setNav('arena');
@@ -1831,12 +1835,11 @@ function arenaFind(){
   state.energy -= 8;
   const st = computeStats();
   const diff = 0.85 + Math.random()*0.3;
-  const enemy = {
-    name: 'Тень души', hp: Math.round(st.maxHp*diff), atk: Math.round(st.atk*diff),
-    def: Math.round(st.def*diff), spd: Math.round(st.spd*diff),
-    exp: 50 + state.level*8, gold: 60 + state.level*10, art: 'shadow'
-  };
-  startBattle(enemy, 'arena');
+  startBattle({
+    name:'Тень души', hp:Math.round(st.maxHp*diff), atk:Math.round(st.atk*diff),
+    def:Math.round(st.def*diff), spd:Math.round(st.spd*diff),
+    exp:50 + state.level*8, gold:60 + state.level*10, art:'shadow'
+  }, 'arena');
 }
 
 /* ==================== КУЗНИЦА ==================== */
@@ -1848,8 +1851,7 @@ function renderForge(){
     <div class="res"><span class="ico">🌿</span><span class="val">${state.resources.herbs}</span><span class="lbl">Травы</span></div>
     <div class="res"><span class="ico">💎</span><span class="val">${state.resources.crystals}</span><span class="lbl">Кристаллы</span></div>
     <div class="res"><span class="ico">⛏️</span><span class="val">${state.resources.ore}</span><span class="lbl">Руда</span></div>
-    <div class="res"><span class="ico">💰</span><span class="val">${state.gold}</span><span class="lbl">Золото</span></div>
-  `;
+    <div class="res"><span class="ico">💰</span><span class="val">${state.gold}</span><span class="lbl">Золото</span></div>`;
   $$('#forge-tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab === forgeTab));
   const c = $('#forge-content');
   c.innerHTML = '';
@@ -1861,14 +1863,12 @@ function renderForge(){
       const icons = {herbs:'🌿',crystals:'💎',ore:'⛏️',gold:'💰'};
       return `${icons[k]||k}${v}`;
     }).join(' · ');
-    div.innerHTML = `
-      <div class="ico">${r.ico}</div>
+    div.innerHTML = `<div class="ico">${r.ico}</div>
       <div class="info"><b>${r.name}</b>
         <span style="color:var(--dim);font-size:10px">${r.desc}</span>
         <div class="cost">${costStr}</div>
       </div>
-      <button class="craft" ${canCraft?'':'disabled'}>СОЗДАТЬ</button>
-    `;
+      <button class="craft" ${canCraft?'':'disabled'}>СОЗДАТЬ</button>`;
     if(canCraft) div.querySelector('.craft').onclick = () => craftItem(r);
     c.appendChild(div);
   });
@@ -1896,7 +1896,7 @@ function craftItem(r){
   }
   saveState(); updateHUD(); pushToServer();
   sfx.coin(); vib(30);
-  toast(`🔨 Создано: ${r.name}`, 'green');
+  toast(`🔨 ${r.name}`, 'green');
   renderForge();
 }
 
@@ -1910,7 +1910,6 @@ function renderProfile(){
   $$('#profile-tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab === profileTab));
   const c = $('#profile-content');
   c.innerHTML = '';
-
   if(profileTab === 'equip'){
     ['weapon','armor','ring'].forEach(slot=>{
       const names = {weapon:'Оружие',armor:'Броня',ring:'Кольцо'};
@@ -1918,16 +1917,14 @@ function renderProfile(){
       const eq = state.equipped[slot];
       const div = document.createElement('div');
       div.className = 'equip-row' + (eq?' equipped':'');
-      div.innerHTML = `
-        <div class="slot-name">${names[slot]}</div>
+      div.innerHTML = `<div class="slot-name">${names[slot]}</div>
         <div class="ico">${eq ? eq.ico : emojis[slot]}</div>
         <div class="info"><b>${eq ? eq.name : 'Пусто'}</b>
           <span>${eq ? eq.desc : 'Создай в Кузнице'}</span>
         </div>
-        ${eq ? '<button class="action">СНЯТЬ</button>' : ''}
-      `;
+        ${eq ? '<button class="action">СНЯТЬ</button>' : ''}`;
       if(eq) div.querySelector('.action').onclick = () => {
-        // ФИКС: возврат по eq.id, не по slot
+        // ФИКС: возврат по eq.id
         if(eq.id) state.inventory[eq.id] = (state.inventory[eq.id]||0) + 1;
         delete state.equipped[slot];
         saveState(); updateHUD(); pushToServer(); renderProfile();
@@ -1935,8 +1932,7 @@ function renderProfile(){
       };
       c.appendChild(div);
     });
-  }
-  else if(profileTab === 'bag'){
+  } else if(profileTab === 'bag'){
     const items = Object.entries(state.inventory).filter(([k,v])=>v>0);
     if(!items.length){ c.innerHTML = '<p class="sub">Сумка пуста</p>'; return; }
     const grid = document.createElement('div');
@@ -1946,11 +1942,11 @@ function renderProfile(){
       Object.values(FORGE_RECIPES).forEach(arr => arr.forEach(r => { if(r.id === id) item = r; }));
       if(!item) return;
       const div = document.createElement('div');
-      div.className = 'inv-slot';
-      div.innerHTML = `<div class="emoji">${item.ico}</div><div class="nm">${item.name}</div><span class="count">×${count}</span>`;
+     .innerHTML div.className = 'inv-slot';
+      = div.innerHTML = `<div class="emo `<ji">${item.ico}</divdiv><div class="nm">${item.name}</div><span class="count">×${count}</span>`;
       div.onclick = () => {
         if(item.slot){
-          const old = state.equipped[item.slot];
+          const old = state.equipped[item style.slot];
           if(old && old.id) state.inventory[old.id] = (state.inventory[old.id]||0) + 1;
           state.equipped[item.slot] = {...item};
           state.inventory[id]--;
@@ -1963,16 +1959,13 @@ function renderProfile(){
           gainExp(300);
           saveState(); updateHUD(); pushToServer(); renderProfile();
           toast('📕 +300 опыта', 'gold');
-        } else {
-          toast('ℹ️ Использовать в бою', 'gold');
-        }
+        } else toast('ℹ️ Использовать в бою', 'gold');
       };
       grid.appendChild(div);
     });
     c.appendChild(grid);
-  }
-  else if(profileTab === 'talents'){
-    c.innerHTML = `<div style="text-align:center;margin-bottom:10px;font-size:14px;color:var(--dim)">Очков таланта: <b style="color:var(--theme);font-size:18px">${state.talentPoints}</b></div>`;
+  } else if(profileTab === 'talents'){
+    c="text-align:center;margin-bottom:10px;font-size:14px;color:var(--dim)">Очков: <b style="color:var(--theme);font-size:18px">${state.talentPoints}</b></div>`;
     const tree = document.createElement('div');
     tree.style.cssText = 'display:grid;grid-template-columns:repeat(2,1fr);gap:10px';
     TALENT_BRANCHES.forEach(br=>{
@@ -1983,8 +1976,8 @@ function renderProfile(){
         const lvl = tlv(n.id);
         const canBuy = lvl < n.max && state.talentPoints > 0;
         const node = document.createElement('div');
-        node.style.cssText = `display:flex;align-items:center;gap:6px;padding:8px;background:rgba(255,255,255,.03);border:1px solid ${lvl>0?'var(--theme)':'rgba(255,255,255,.06)'};border-radius:10px;margin-bottom:6px;font-size:11px`;
-        node.innerHTML = `<div style="flex:1;min-width:0"><b style="font-size:11px;color:#fff">${n.name}</b>
+        node.style.cssText = `display:flex;align-items:center;gap:6px;padding:8px;background:rgba(255,255,255,.03);border:1px solid ${lvl>0?'var(--theme)':'rgba(255,255,255,.06)'};border-radius:10px;margin-bottom:6px;font-size:11px;cursor:${canBuy?'pointer':'default'}`;
+        node.innerHTML = `<div style="flex:1"><b style="font-size:11px;color:#fff">${n.name}</b>
           <div style="font-size:9px;color:var(--dim)">${n.desc}</div></div>
           <span style="font-weight:800;color:var(--theme);font-size:10px">${lvl}/${n.max}</span>`;
         if(canBuy) node.onclick = () => {
@@ -1996,31 +1989,38 @@ function renderProfile(){
       tree.appendChild(div);
     });
     c.appendChild(tree);
-  }
-  else if(profileTab === 'ach'){
+  } else if(profileTab === 'ach'){
     const ACH = [
       {id:'first',ico:'🗡️',name:'Первая кровь',desc:'Победи 1 зверя',target:1,key:'battlesWon',reward:100},
-      {id:'hunter10',ico:'⚔️',name:'Охотник',desc:'Победи 10',target:10,key:'battlesWon',reward:500},
+      {id:'hunter10',ico:'⚔️',name:'Охотник',desc:'10 побед',target:10,key:'battlesWon',reward:500},
+      {id:'hunter50',ico:'🏹',name:'Мастер охоты',desc:'50 побед',target:50,key:'battlesWon',reward:2000},
       {id:'explorer',ico:'🧭',name:'Путешественник',desc:'5 локаций',target:5,key:'discCount',reward:800},
+      {id:'explorer10',ico:'🌍',name:'Исследователь',desc:'10 локаций',target:10,key:'discCount',reward:2000},
+      {id:'ring5',ico:'💫',name:'Кольценосец',desc:'5 колец',target:5,key:'ringsCount',reward:700},
       {id:'tower5',ico:'🗼',name:'Восходитель',desc:'5 этаж Башни',target:5,key:'towerBest',reward:600},
-      {id:'rich',ico:'💰',name:'Богач',desc:'10000 золота',target:10000,key:'gold',reward:500}
+      {id:'tower10',ico:'🌟',name:'Покоритель',desc:'10 этаж',target:10,key:'towerBest',reward:1500},
+      {id:'arena5',ico:'🥊',name:'Боец',desc:'5 побед на Арене',target:5,key:'arenaWins',reward:800},
+      {id:'rich',ico:'💰',name:'Богач',desc:'10000 золота',target:10000,key:'gold',reward:500},
+      {id:'pet',ico:'🐾',name:'Питомец',desc:'Заведи питомца',target:1,key:'petsCount',reward:500},
+      {id:'sect',ico:'🏯',name:'Основатель',desc:'Оснуй секту',target:1,key:'sectFounded',reward:3000}
     ];
     ACH.forEach(a=>{
       let val = 0;
       if(a.key === 'discCount') val = state.discoveredLocations.length;
+      else if(a.key === 'ringsCount') val = totalRings();
+      else if(a.key === 'petsCount') val = state.pets.owned.length;
+      else if(a.key === 'sectFounded') val = state.sect.founded ? 1 : 0;
       else val = state[a.key] || 0;
       const done = val >= a.target;
       const claimed = state.achievements[a.id];
       const div = document.createElement('div');
       div.className = 'ach-card' + (done?' done':'');
-      div.innerHTML = `
-        <div class="ico">${a.ico}</div>
+      div.innerHTML = `<div class="ico">${a.ico}</div>
         <div class="info"><b>${a.name}</b>
           <span>${a.desc} · ${Math.min(val,a.target)}/${a.target}</span>
           <div class="bar"><div style="width:${Math.min(100,val/a.target*100)}%"></div></div>
         </div>
-        ${done && !claimed ? `<button class="action" style="background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px">ЗАБРАТЬ</button>` : claimed ? '<span style="color:#3ddc84;font-size:24px">✓</span>' : ''}
-      `;
+        ${done && !claimed ? `<button class="action" style="background:linear-gradient(135deg,#3ddc84,#22a05a);color:#fff;border:none;padding:6px 10px;border-radius:8px;font-weight:800;font-size:11px">ЗАБРАТЬ</button>` : claimed ? '<span style="color:#3ddc84;font-size:24px">✓</span>' : ''}`;
       if(done && !claimed) div.querySelector('.action').onclick = () => {
         state.achievements[a.id] = true;
         state.gold += a.reward;
@@ -2029,28 +2029,53 @@ function renderProfile(){
       };
       c.appendChild(div);
     });
-  }
-  else if(profileTab === 'shop'){
+  } else if(profileTab === 'skins'){
+    SKINS.forEach(sk=>{
+      const owned = state.skins.owned.includes(sk.id);
+      const isActive = state.skins.active === sk.id;
+      const canBuy = !owned && state.gold >= sk.cost;
+      const div = document.createElement('div');
+      div.className = 'skin-card' + (isActive ? ' active' : '');
+      div.innerHTML = `<div class="em">${sk.emoji}</div>
+        <div class="info"><b>${sk.name} ${isActive?'✅':''}</b>
+          <span>${sk.desc}</span>
+        </div>
+        ${owned ? (isActive
+          ? '<span style="color:#3ddc84;font-weight:800;font-size:11px">АКТИВЕН</span>'
+          : '<button class="act">Надеть</button>')
+          : `<button class="act" ${canBuy?'':'disabled'} style="background:${canBuy?'linear-gradient(135deg,#ffd75e,var(--theme))':'#3a4488'};color:${canBuy?'#1a1400':'#fff'}">${sk.cost}💰</button>`}`;
+      const btn = div.querySelector('.act');
+      if(btn) btn.onclick = () => {
+        if(!owned){
+          if(state.gold < sk.cost) return;
+          state.gold -= sk.cost;
+          state.skins.owned.push(sk.id);
+          state.skins.active = sk.id;
+        } else {
+          state.skins.active = sk.id;
+        }
+        saveState(); updateHUD(); applyTheme(); pushToServer(); renderProfile();
+        toast(`🎨 ${sk.name}`, 'purple');
+      };
+      c.appendChild(div);
+    });
+  } else if(profileTab === 'shop'){
     SHOP_ITEMS.forEach(item=>{
       const div = document.createElement('div');
       div.className = 'recipe';
-      div.innerHTML = `
-        <div class="ico">${item.ico}</div>
+      div.innerHTML = `<div class="ico">${item.ico}</div>
         <div class="info"><b>${item.name}</b>
           <span style="color:var(--dim);font-size:10px">${item.desc}</span>
         </div>
-        <button class="craft" style="background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400">${item.stars} ⭐</button>
-      `;
+        <button class="craft" style="background:linear-gradient(135deg,#ffd75e,var(--theme));color:#1a1400">${item.stars} ⭐</button>`;
       div.querySelector('.craft').onclick = () => buyItem(item);
       c.appendChild(div);
     });
     const inviteCard = document.createElement('div');
     inviteCard.className = 'card';
-    inviteCard.innerHTML = `
-      <h2>👥 Пригласи друга</h2>
+    inviteCard.innerHTML = `<h2>👥 Пригласи друга</h2>
       <p class="sub" style="margin:0 0 10px;text-align:left">За друга: 200💰 + 20⚡</p>
-      <button class="btn" id="btn-invite">🔗 Пригласить</button>
-    `;
+      <button class="btn" id="btn-invite">🔗 Пригласить</button>`;
     c.appendChild(inviteCard);
     setTimeout(()=>{
       const b = $('#btn-invite');
@@ -2073,7 +2098,7 @@ function buyItem(item){
       if(d && d.invoiceLink){
         tg.openInvoice(d.invoiceLink, (status)=>{
           if(status === 'paid') applyPurchase(item);
-          else toast('❌ Оплата не завершена', 'red');
+          else toast('❌ Не оплачено', 'red');
         });
       } else demoPurchase(item);
     })
@@ -2100,7 +2125,7 @@ function applyPurchase(item){
     for(const k in state.talents) state.talents[k] = 0;
   }
   saveState(); updateHUD(); pushToServer();
-  toast(`✅ ${item.name} активирован!`, 'green');
+  toast(`✅ ${item.name}!`, 'green');
   renderProfile();
 }
 function inviteFriend(){
@@ -2137,15 +2162,13 @@ function renderQuests(){
     const done = prog >= q.target;
     const div = document.createElement('div');
     div.className = 'quest';
-    div.innerHTML = `
-      <div class="ico">${q.ico}</div>
+    div.innerHTML = `<div class="ico">${q.ico}</div>
       <div class="txt"><b>${q.title}</b>
         <span style="color:var(--dim)">${prog}/${q.target} · +${q.gold}💰 +${q.exp}✦</span>
         <div class="bar"><div style="width:${prog/q.target*100}%"></div></div>
       </div>
       ${q.claimed ? '<span style="color:#3ddc84;font-size:20px">✓</span>' :
-        `<button class="claim" ${done?'':'disabled'}>${done?'Забрать':'···'}</button>`}
-    `;
+        `<button class="claim" ${done?'':'disabled'}>${done?'Забрать':'···'}</button>`}`;
     if(done && !q.claimed){
       div.querySelector('.claim').onclick = () => {
         sfx.coin();
@@ -2178,16 +2201,12 @@ function renderDailyStreak(){
   const canClaim = (now - state.lastDailyClaim) > 20*60*60*1000;
   const btn = $('#btn-daily');
   const cycleComplete = state.dailyStreak >= 7;
-  if(canClaim && cycleComplete){
-    btn.disabled = false;
-    btn.textContent = '🎉 Начать новый цикл!';
-  } else if(canClaim){
-    btn.disabled = false;
-    btn.textContent = 'Получить день ' + (state.dailyStreak+1);
-  } else {
+  if(canClaim && cycleComplete){ btn.disabled = false; btn.textContent = '🎉 Начать новый цикл!'; }
+  else if(canClaim){ btn.disabled = false; btn.textContent = 'Получить день ' + (state.dailyStreak+1); }
+  else {
     btn.disabled = true;
     const hours = Math.ceil((20*60*60*1000 - (now-state.lastDailyClaim))/3600000);
-    btn.textContent = `⏳ Через ${hours} ч`;
+    btn.textContent = `⏳ ${hours} ч`;
   }
 }
 function claimDaily(){
@@ -2217,9 +2236,11 @@ function handleTab(tab){
   if(!state.awakened){ toast('❌ Заверши онбординг', 'red'); return; }
   if(tab === 'menu') goMenu();
   else if(tab === 'map'){ renderWorldMap(); show('screen-map'); setNav('map'); }
+  else if(tab === 'pets') renderPets();
   else if(tab === 'dungeons') renderDungeons();
   else if(tab === 'tower') renderTower();
   else if(tab === 'arena') renderArena();
+  else if(tab === 'auction') renderAuction();
   else if(tab === 'sect'){ renderSect(); show('screen-sect'); setNav('sect'); }
   else if(tab === 'forge') renderForge();
   else if(tab === 'profile') renderProfile();
@@ -2243,11 +2264,12 @@ function startBattle(enemy, mode='pve', locId=null){
   const hero = getHero();
   const st = computeStats();
   const skills = getPlayerSkills();
+  const pet = activePet();
   battle = {
     mode, beast: enemy, locId,
     p: { name: state.playerName, heroId: hero.id, emoji: hero.emoji, hp: st.maxHp, maxHp: st.maxHp,
          atk: st.atk, def: st.def, spd: st.spd, spr: st.spr,
-         skills, buffs:{atk:1,def:1,spd:1,turns:0}, shield:0, freezes:0, stun:0 },
+         skills, buffs:{atk:1,def:1,spd:1,turns:0}, shield:0, freezes:0, stun:0, pet },
     e: { name: enemy.name, hp: enemy.hp, maxHp: enemy.hp,
          atk: enemy.atk, def: enemy.def, spd: enemy.spd, spr:3,
          buffs:{atk:1,def:1,spd:1,turns:0}, shield:0, freezes:0, stun:0 },
@@ -2280,12 +2302,11 @@ function renderBattle(){
   $('#p-name').textContent = p.name;
   $('#p-hpbar').style.width = Math.max(0, p.hp/p.maxHp*100)+'%';
   $('#p-hp').textContent = `${Math.max(0,Math.round(p.hp))}/${p.maxHp}`;
-  const be = e.name.includes('Дракон')?'🐲':e.name.includes('Феникс')?'🔥':e.name.includes('Лис')?'🦊':e.name.includes('Скорпион')?'🦂':e.name.includes('Волк')?'🐺':e.name.includes('Голем')?'🗿':e.name.includes('Тень')?'👤':'👹';
+  const be = e.name.includes('Дракон')?'🐲':e.name.includes('Феникс')?'🔥':e.name.includes('Лис')?'🦊':e.name.includes('Скорпион')?'🦂':e.name.includes('Волк')?'🐺':e.name.includes('Голем')?'🗿':e.name.includes('Тень')?'👤':e.name.includes('Страж')?'🗿':e.name.includes('Демон')?'👹':'👹';
   $('#e-avatar').innerHTML = `<div style="font-size:44px;width:64px;height:64px;display:flex;align-items:center;justify-content:center">${be}</div>`;
   $('#e-name').textContent = e.name;
   $('#e-hpbar').style.width = Math.max(0, e.hp/e.maxHp*100)+'%';
   $('#e-hp').textContent = `${Math.max(0,Math.round(e.hp))}/${e.maxHp}`;
-  // Статусы
   const stHtml = (u)=>{
     const a = [];
     if(u.shield > 0) a.push('<span class="status-ico">🛡</span>');
@@ -2360,6 +2381,12 @@ function nextTurn(){
     renderBattle();
     if(battle.e.hp <= 0){ endBattle('win'); return; }
   }
+  // Реген питомца
+  if(battle.p.pet && battle.p.pet.bonus.regen){
+    const reg = Math.round(battle.p.maxHp * battle.p.pet.bonus.regen);
+    battle.p.hp = Math.min(battle.p.maxHp, battle.p.hp + reg);
+    logMsg(`💧 Питомец: +${reg} HP`, 'heal');
+  }
   if(state.autoBattle){ setTimeout(()=>{ if(!battle.over) playerAction('auto'); }, 350); }
   else showActions();
 }
@@ -2382,6 +2409,7 @@ function addAction(label, fn, isSkill=false, isUlt=false){
   $('#actions').appendChild(btn);
 }
 function openBattleItems(){
+  if(!battle || battle.over){ toast('❌ Бой закончился', 'red'); return; }
   const usable = Object.entries(state.inventory).filter(([id,count])=>{
     if(count <= 0) return false;
     for(const arr of Object.values(FORGE_RECIPES)){
@@ -2390,29 +2418,35 @@ function openBattleItems(){
     return false;
   });
   if(!usable.length){ toast('🎒 Нет предметов', 'red'); return; }
+  const mid = 'items_' + Date.now();
   const ov = document.createElement('div');
   ov.className = 'modal-overlay';
   ov.innerHTML = `<div class="modal-content"><h2>🎒 Использовать</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px" id="items-grid"></div>
-    <button class="btn sec" id="close-items" style="margin-top:12px">Закрыть</button></div>`;
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px" id="${mid}-grid"></div>
+    <button class="btn sec" id="${mid}-close" style="margin-top:12px">Закрыть</button></div>`;
   document.body.appendChild(ov);
-  const grid = ov.querySelector('#items-grid');
+  const grid = ov.querySelector(`#${mid}-grid`);
   usable.forEach(([id, count])=>{
     let recipe = null;
     for(const arr of Object.values(FORGE_RECIPES)) for(const r of arr) if(r.id === id) recipe = r;
     if(!recipe) return;
     const div = document.createElement('div');
     div.style.cssText = 'padding:10px 6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;text-align:center;font-size:11px;position:relative';
-    div.innerHTML = `<div style="font-size:24px">${recipe.ico}</div><div>${recipe.name}</div><span style="position:absolute;top:2px;right:6px;color:var(--theme);font-weight:800">×${count}</span>`;
+    div.innerHTML = `<div style="font-size:24px">${recipe.ico}</div><div>${recipe.name}</div>
+      <span style="position:absolute;top:2px;right:6px;color:var(--theme);font-weight:800">×${count}</span>`;
     div.onclick = () => { useBattleItem(recipe); ov.remove(); };
     grid.appendChild(div);
   });
-  ov.querySelector('#close-items').onclick = () => ov.remove();
+  ov.querySelector(`#${mid}-close`).onclick = () => ov.remove();
   ov.onclick = (e) => { if(e.target === ov) ov.remove(); };
 }
 function useBattleItem(recipe){
-  if(!battle || battle.over) return;
+  if(!battle || battle.over){ toast('❌ Бой закончился', 'red'); return; }
   if((state.inventory[recipe.id]||0) <= 0) return;
+  if(recipe.type === 'resurrect'){
+    toast('📜 Активируется при смерти', 'gold');
+    return;
+  }
   state.inventory[recipe.id]--;
   if(state.inventory[recipe.id] <= 0) delete state.inventory[recipe.id];
   const p = battle.p, e = battle.e;
@@ -2450,18 +2484,15 @@ function playerAction(action){
   const p = battle.p, e = battle.e;
   if(battle.over) return;
   if(p.stun > 0){ p.stun--; logMsg(`${p.name} оглушён`, 'sys'); setTimeout(enemyTurn, 500); return; }
-  // Умный автобой: лечится при HP<30%, использует buff в начале
+  // Умный автобой
   if(action === 'auto'){
     const hpPct = p.hp / p.maxHp;
     if(hpPct < 0.3 && (state.inventory.hp_potion||0) > 0){
-      // Используем зелье
       const recipe = FORGE_RECIPES.potions.find(r=>r.id==='hp_potion');
       if(recipe){ useBattleItem(recipe); return; }
     }
-    if(hpPct < 0.5){
-      // Защита
-      action = 'defend';
-    } else {
+    if(hpPct < 0.5) action = 'defend';
+    else {
       const r = Math.random();
       if(r < 0.3) action = 'skill0';
       else if(r < 0.5) action = 'skill1';
@@ -2606,30 +2637,29 @@ function endBattle(result){
     if(battle.mode === 'tower') progressQuest('tower', 1);
     if(battle.mode === 'arena'){ progressQuest('arena_win', 1); state.rating += 15+Math.floor(Math.random()*15); state.arenaWins++; }
     if(battle.mode === 'pve') progressQuest('kill', 1);
+    if(battle.mode === 'daily_boss'){
+      state.dailyBossDefeated = true;
+      state.gold += 500;
+      state.resources.crystals += 5;
+      toast('🏆 Босс дня! +500💰 +5💎', 'gold', 3000);
+    }
     const leveled = gainExp(Math.round((beast.exp||0) * expMul));
     saveState(); updateHUD(); pushToServer();
     setTimeout(() => {
       if(!leveled){
-        // Дроп кольца
         if(battle.mode === 'pve' && Math.random() < 0.3 && state.souls[state.activeSoulIndex]){
-          if(!state.souls[state.activeSoulIndex].rings) state.souls[state.activeSoulIndex].rings = [];
-          if(state.souls[state.activeSoulIndex].rings.length < 9){
+          const soul = state.souls[state.activeSoulIndex];
+          if(!soul.rings) soul.rings = [];
+          if(soul.rings.length < 9){
             const colors = state.level < 5 ? ['yellow','yellow','yellow'] : state.level < 10 ? ['yellow','yellow','purple'] : ['yellow','purple','purple','black'];
             const color = colors[Math.floor(Math.random()*colors.length)];
             const skill = RING_SKILL_POOL[Math.floor(Math.random()*RING_SKILL_POOL.length)];
-            state.souls[state.activeSoulIndex].rings.push({
-              ageYears: 50 + Math.floor(Math.random()*200), color, skill:{...skill}
-            });
+            soul.rings.push({ageYears:50 + Math.floor(Math.random()*200), color, skill:{...skill}});
             saveState();
-            toast(`💫 ${RING_NAMES[color]} кольцо! ${skill.name}`, 'gold', 3000);
+            toast(`💫 ${RING_NAMES[color]}! ${skill.name}`, 'gold', 3000);
           }
         }
-        // Сундук после боя (15%)
-        if(Math.random() < 0.15 && battle.mode === 'pve'){
-          showChest();
-          return;
-        }
-        // Возврат по режиму
+        if(Math.random() < 0.15 && battle.mode === 'pve'){ showChest(); return; }
         if(battle.mode === 'tower'){
           state.towerFloor++;
           if(state.towerFloor > state.towerBest) state.towerBest = state.towerFloor;
@@ -2646,18 +2676,20 @@ function endBattle(result){
               if(floorIdx + 1 > cur){ state.dungeonProgress[d.id] = floorIdx + 1; saveState(); }
             }
           }
-          toast(`🗝️ Подземелье пройдено!`, 'gold');
+          toast(`🗝️ Пройдено!`, 'gold');
           setTimeout(()=>renderDungeons(), 700);
         } else if(battle.mode === 'arena'){
           toast(`🏆 +${beast.gold||0}💰`, 'gold');
           setTimeout(()=>renderArena(), 700);
+        } else if(battle.mode === 'daily_boss'){
+          setTimeout(()=>goMenu(), 700);
         } else {
           setTimeout(()=>goMenu(), 800);
         }
       }
     }, 700);
   } else if(result === 'lose'){
-    // Свиток воскрешения
+    // Свиток воскрешения — только здесь
     const scrolls = state.inventory.resurrect || 0;
     if(scrolls > 0 && !battle.reviveUsed){
       battle.reviveUsed = true;
@@ -2700,13 +2732,14 @@ function showChest(){
     {ico:'🎯',name:'Очко таланта',val: 1}
   ];
   const r = pool[Math.floor(Math.random()*pool.length)];
+  const mid = 'chest_' + Date.now();
   const ov = document.createElement('div');
   ov.className = 'modal-overlay';
   ov.innerHTML = `<div class="modal-content"><div class="big-em">🎁</div><h2>Сундук!</h2>
     <div style="font-size:16px;color:var(--theme);font-weight:800;margin:12px 0">${r.ico} ${r.name} × ${r.val}</div>
-    <button class="btn" id="btn-chest">ОТКРЫТЬ</button></div>`;
+    <button class="btn" id="${mid}">ОТКРЫТЬ</button></div>`;
   document.body.appendChild(ov);
-  ov.querySelector('#btn-chest').onclick = () => {
+  ov.querySelector('#'+mid).onclick = () => {
     sfx.coin();
     if(r.name === 'Золото') state.gold += r.val;
     else if(r.name === 'Кристаллы') state.resources.crystals += r.val;
@@ -2725,7 +2758,6 @@ function gainExp(amount){
     state.level++;
     state.expNext = Math.round(state.expNext * 1.4);
     state.talentPoints += 2;
-    // Возраст: +1 каждые 2 уровня, максимум 30
     if(state.level % 2 === 0 && state.age < 30) state.age++;
     leveled = true;
   }
@@ -2733,7 +2765,10 @@ function gainExp(amount){
     sfx.level(); vib([50,30,50,30,50]);
     showLevelUp();
     saveState(); updateHUD(); pushToServer();
-    setTimeout(()=>{ if(battle && battle.over && battle.e.hp <= 0) {} else goMenu(); }, 1500);
+    // ФИКС: не выкидываем в меню если бой ещё идёт
+    if(!(battle && !battle.over)){
+      setTimeout(()=>goMenu(), 1500);
+    }
   }
   return leveled;
 }
@@ -2779,7 +2814,6 @@ function rest(){
 /* ==================== ИНИЦИАЛИЗАЦИЯ ==================== */
 async function init(){
   updateHUD();
-  // Частицы
   const c = document.getElementById('particles');
   for(let i=0;i<20;i++){
     const p = document.createElement('div'); p.className='particle';
@@ -2799,7 +2833,6 @@ async function init(){
     try{ Telegram.WebApp.enableClosingConfirmation(); }catch(e){}
   }
 
-  // Altar
   const altar = document.getElementById('altar-vis');
   if(altar){
     altar.innerHTML = `<div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,${getHero().theme}60,transparent 70%);animation:pulse 2.5s ease-in-out infinite"></div>
@@ -2839,6 +2872,7 @@ async function init(){
   });
   $$('#forge-tabs button').forEach(b=>b.onclick = () => { forgeTab = b.dataset.tab; renderForge(); });
   $$('#profile-tabs button').forEach(b=>b.onclick = () => { profileTab = b.dataset.tab; renderProfile(); });
+  $$('#auction-tabs button').forEach(b=>b.onclick = () => { auctionTab = b.dataset.tab; renderAuction(); });
 
   $('#auto-toggle').onclick = () => {
     state.autoBattle = !state.autoBattle;
@@ -2854,7 +2888,7 @@ async function init(){
 
   setInterval(()=>{ tickEnergy(); updateHUD(); }, 30000);
   setInterval(saveState, 30000);
-  setInterval(pushToServer, 60000); // на сервер каждую минуту
+  setInterval(pushToServer, 60000);
   tickEnergy();
 
   // Сброс сундуков раз в 24 часа
@@ -2865,8 +2899,13 @@ async function init(){
     saveState();
   }
 
-  // Попытка загрузить с сервера
-  try{ await pullFromServer(); }catch(e){}
+  // Пробуем подтянуть сервер (не блокируем UI)
+  pullFromServer().then(loaded=>{
+    if(loaded){
+      if(state.awakened) goMenu();
+      updateHUD();
+    }
+  }).catch(()=>{});
 
   // Онбординг
   if(!state.playerName || !state.heroId){
